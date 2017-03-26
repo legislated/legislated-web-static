@@ -8,25 +8,30 @@
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server -d --hot --inline",
     "build": "./node_modules/.bin/webpack -p --optimize-occurrence-order --optimize-dedupe",
-    "flow:restart": "flow stop && flow",
     "lint": "snazzy",
     "lint:fix": "snazzy --fix",
+    "flow:restart": "flow stop && flow",
     "validate": "yarn lint && yarn flow"
   },
   "dependencies": {
     "lodash": "^4.17.2",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-dom": "^15.4.1",
+    "react-relay": "^0.10.0",
+    "react-router": "2.8.0",
+    "react-router-relay": "^0.13.5"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.0.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.8",
+    "babel-plugin-react-relay": "^0.10.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-polyfill": "^6.16.0",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
+    "babel-relay-plugin": "0.10.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.0",
     "flow-bin": "^0.42.0",
@@ -36,8 +41,14 @@
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   },
+  "graphql": {
+    "file": "./schema.json"
+  },
   "standard": {
     "parser": "babel-eslint",
+    "plugins": [
+      "flowtype"
+    ],
     "ignore": [
       "flow-typed"
     ]

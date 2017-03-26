@@ -1,6 +1,6 @@
 [ignore]
-./dist
-./node_modules
+.*/dist
+.*/node_modules/graphql/.*
 
 [include]
 
@@ -8,3 +8,7 @@
 ./flow-typed
 
 [options]
+emoji=true
+suppress_type=$FlowIssue
+suppress_type=$FlowFixMe
+suppress_type=$FixMe

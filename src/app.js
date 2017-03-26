@@ -1,6 +1,8 @@
 // @flow
 import React from 'react'
 import { render } from 'react-dom'
-import RootScene from './scenes/RootScene'
+import { AppRouter } from './scenes'
+import { createRelayEnvironment } from './relay/environment'
 
-render(<RootScene />, document.getElementById('root'))
+createRelayEnvironment()
+render(<AppRouter />, document.getElementById('root'))

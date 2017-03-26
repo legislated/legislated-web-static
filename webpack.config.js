@@ -3,7 +3,10 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   context: path.resolve('./src'),
-  entry: ['babel-polyfill', './app.js'],
+  entry: [
+    'babel-polyfill',
+    './app.js'
+  ],
   output: {
     path: path.resolve('./dist'),
     filename: 'bundle.js'
@@ -19,8 +22,14 @@ module.exports = {
       loader: 'babel',
       exclude: /(node_modules)/,
       query: {
-        presets: ['latest', 'react'],
-        plugins: ['transform-class-properties']
+        presets: [
+          'latest',
+          'react'
+        ],
+        plugins: [
+          'react-relay',
+          'transform-class-properties'
+        ]
       }
     }, {
       test: /\.css$/,
