@@ -1,8 +1,10 @@
 // @flow
 import React from 'react'
 import { render } from 'react-dom'
-import { AppRouter } from './scenes'
+import { Container } from './scenes'
 import { createRelayEnvironment } from './relay/environment'
 
+// bootstrap relay
 createRelayEnvironment()
-render(<AppRouter />, document.getElementById('root'))
+// render application
+render(<Container />, document.getElementById('root'))
