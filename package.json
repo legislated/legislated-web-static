@@ -35,6 +35,8 @@
     "babel-preset-react": "^6.16.0",
     "babel-relay-plugin": "0.10.0",
     "copy-webpack-plugin": "^4.0.1",
+    "eslint": ">=2.0.0",
+    "eslint-plugin-flowtype": "^2.30.4",
     "flow-bin": "^0.42.0",
     "snazzy": "^6.0.0",
     "standard": "^9.0.2",
