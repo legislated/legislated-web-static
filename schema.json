@@ -244,6 +244,26 @@
                     "ofType": null
                   },
                   "defaultValue": null
+                },
+                {
+                  "name": "from",
+                  "description": "Returns bills whose hearing is on or after the date-time",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Time",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "to",
+                  "description": "Returns bills whose hearings is on or before the date-time",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Time",
+                    "ofType": null
+                  },
+                  "defaultValue": null
                 }
               ],
               "type": {

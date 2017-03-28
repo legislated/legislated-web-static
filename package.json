@@ -16,6 +16,7 @@
   "dependencies": {
     "aphrodite": "^1.2.0",
     "lodash": "^4.17.2",
+    "moment": "^2.18.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-relay": "^0.10.0",

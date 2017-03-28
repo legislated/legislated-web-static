@@ -2,7 +2,9 @@
 import React, { Component } from 'react'
 import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
+import moment from 'moment'
 import fonts from '../../fonts'
+import colors from '../../colors'
 import type { Bill } from '../../../types'
 
 class BillCell extends Component {
@@ -12,29 +14,30 @@ class BillCell extends Component {
 
   render () {
     const { bill } = this.props
+    const date = moment(bill.hearing.date)
 
     return <div className={css(styles.container)}>
       <div className={css(styles.header)}>
-        <span className={css(styles.document)}>{bill.documentNumber}</span>
+        <span className={css(styles.documentNumber)}>{bill.documentNumber}</span>
         <span>{bill.title}</span>
       </div>
-      <div className={css(styles.date)}>{bill.hearing.date}</div>
+      <div className={css(styles.date)}>{date.calendar()}</div>
     </div>
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 15
+    padding: 15,
+    marginBottom: 15,
+    backgroundColor: colors.white
   },
   header: {
-    ...fonts.regular
+    marginBottom: 5
   },
-  document: {
-    ...fonts.medium
-  },
-  date: {
-    ...fonts.regular
+  documentNumber: {
+    ...fonts.bold,
+    marginRight: 10
   }
 })
 

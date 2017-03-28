@@ -1,17 +1,18 @@
 // @flow
 type FontFace = {
   fontFamily: string,
-  fontWeight?: string
+  fontWeight?: number | string
 }
 
-const fontFamily = 'sans-serif'
+const fontFamily = 'Nunito, sans-serif'
 const fonts: { [key: string]: FontFace } = {
   regular: {
-    fontFamily
-  },
-  medium: {
     fontFamily,
-    fontWeight: 'bold'
+    fontWeight: 400
+  },
+  bold: {
+    fontFamily,
+    fontWeight: 700
   }
 }
 
