@@ -1,7 +1,11 @@
 // @flow
-const fontFamily = 'sans-serif'
+type FontFace = {
+  fontFamily: string,
+  fontWeight?: string
+}
 
-const fonts = {
+const fontFamily = 'sans-serif'
+const fonts: { [key: string]: FontFace } = {
   regular: {
     fontFamily
   },

@@ -1,2 +1,2 @@
 // @flow
-export { AppRouter } from './router'
+export { default as Container } from './container'

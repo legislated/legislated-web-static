@@ -4,6 +4,7 @@ import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import BillCell from './components/bill_cell'
 import fonts from '../fonts'
+import colors from '../colors'
 import type { Viewer } from '../../types'
 import { nodes } from '../../functions'
 
@@ -14,8 +15,8 @@ class BillsView extends Component {
 
   render () {
     const bills = nodes(this.props.viewer.bills)
-    return <div>
-      <div className={css(styles.header)}>Bills</div>
+    return <div className={css(styles.container)}>
+      <div>Bills</div>
       {bills.map((bill) => {
         return <BillCell key={bill.id} bill={bill} />
       })}
@@ -24,8 +25,9 @@ class BillsView extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    ...fonts.regular
+  container: {
+    ...fonts.regular,
+    backgroundColor: colors.lightestGray
   }
 })
 
