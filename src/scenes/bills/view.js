@@ -1,6 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import Relay from 'react-relay'
+import { StyleSheet, css } from 'aphrodite/no-important'
+import BillCell from './components/bill_cell'
+import fonts from '../fonts'
 import type { Viewer } from '../../types'
 import { nodes } from '../../functions'
 
@@ -12,13 +15,19 @@ class BillsView extends Component {
   render () {
     const bills = nodes(this.props.viewer.bills)
     return <div>
-      <div>Bills</div>
+      <div className={css(styles.header)}>Bills</div>
       {bills.map((bill) => {
-        return <div key={bill.id}>{bill.id}</div>
+        return <BillCell key={bill.id} bill={bill} />
       })}
     </div>
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    ...fonts.regular
+  }
+})
 
 export default Relay.createContainer(BillsView, {
   fragments: {
@@ -28,7 +37,7 @@ export default Relay.createContainer(BillsView, {
           edges {
             node {
               id
-              title
+              ${BillCell.getFragment('bill')}
             }
           }
         }

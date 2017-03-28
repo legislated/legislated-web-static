@@ -28,12 +28,10 @@ module.exports = {
         ],
         plugins: [
           'react-relay',
-          'transform-class-properties'
+          'transform-class-properties',
+          'transform-object-rest-spread'
         ]
       }
-    }, {
-      test: /\.css$/,
-      loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
     }]
   }
 }
