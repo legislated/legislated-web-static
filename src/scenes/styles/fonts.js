@@ -5,7 +5,7 @@ type FontFace = {
 }
 
 const fontFamily = 'Nunito, sans-serif'
-const fonts: { [key: string]: FontFace } = {
+export const fonts: { [key: string]: FontFace } = {
   regular: {
     fontFamily,
     fontWeight: 400
@@ -15,5 +15,3 @@ const fonts: { [key: string]: FontFace } = {
     fontWeight: 700
   }
 }
-
-export default fonts
