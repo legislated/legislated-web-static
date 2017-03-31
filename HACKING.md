@@ -37,7 +37,13 @@ Running individual specs is easiest using Jest's path filter (hit `p`) in watch 
 
 ## Hosting / Deployment
 
-TODO
+The application is hosted for the time being at https://witness-slips.surge.sh/ and deployed using [surge](https://github.com/sintaxi/surge).
+
+You can deploy the staging site with:
+
+```sh
+$ yarn deploy:staging
+```
 
 ## Architecture
 
