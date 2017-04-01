@@ -11,6 +11,7 @@
     "deploy:staging": "yarn build:staging && surge -p dist -- -d witness-slips.surge.sh",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:debug": "node --inspect --debug-brk ./node_modules/.bin/jest --runInBand",
     "lint": "snazzy",
     "lint:fix": "snazzy --fix",
     "flow:restart": "flow stop && flow",
@@ -31,9 +32,11 @@
     "babel-cli": "^6.18.0",
     "babel-core": "^6.0.0",
     "babel-eslint": "^7.1.1",
+    "babel-jest": "^19.0.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-react-relay": "^0.10.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.16.0",
     "babel-preset-latest": "^6.16.0",
@@ -53,6 +56,23 @@
   },
   "graphql": {
     "file": "./schema.json"
+  },
+  "babel": {
+    "presets": [
+      "latest",
+      "react"
+    ],
+    "plugins": [
+      "react-relay",
+      "transform-flow-strip-types",
+      "transform-class-properties",
+      "transform-object-rest-spread"
+    ]
+  },
+  "jest": {
+    "setupFiles": [
+      "./jest/setup.js"
+    ]
   },
   "standard": {
     "parser": "babel-eslint",
