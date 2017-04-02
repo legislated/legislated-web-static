@@ -73,9 +73,9 @@
     ]
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./jest/setup_framework.js",
+    "setupTestFrameworkScriptFile": "./test/setup_framework.js",
     "setupFiles": [
-      "./jest/setup.js"
+      "./test/setup.js"
     ]
   },
   "standard": {

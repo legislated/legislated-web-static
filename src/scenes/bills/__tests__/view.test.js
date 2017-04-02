@@ -15,12 +15,17 @@ function loadSubject () {
   subject = shallow(<BillsView viewer={viewer} relay={relayProp} />)
 }
 
+const element = {
+  bills: () => subject.find('BillCell'),
+  searchField: () => subject.find('SearchField')
+}
+
+// specs
 beforeEach(() => {
   viewer = { bills: { edges: [] } }
   relayConfig = BillsView.relayConfig()
 })
 
-// specs
 describe('#state', () => {
   beforeEach(loadSubject)
 
@@ -40,7 +45,7 @@ describe('#render', () => {
     })
 
     it('matches a bill', () => {
-      const cells = subject.find('BillCell')
+      const cells = element.bills()
       expect(cells.length).toEqual(bills.length)
       expect(cells.map((c) => c.prop('bill'))).toEqual(bills)
     })
@@ -56,8 +61,7 @@ describe('#render', () => {
     })
 
     it('shows a search field with the query', () => {
-      const field = subject.find('SearchField')
-      expect(field).toHaveProp('value', query)
+      expect(element.searchField()).toHaveValue(query)
     })
   })
 })
@@ -67,7 +71,7 @@ describe('on search field change', () => {
 
   beforeEach(() => {
     loadSubject()
-    onChange = subject.find('SearchField').prop('onChange')
+    onChange = element.searchField().prop('onChange')
   })
 
   it('updates the state', () => {
