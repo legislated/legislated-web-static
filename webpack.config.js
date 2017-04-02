@@ -31,18 +31,7 @@ module.exports = function (config) {
       loaders: [{
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /(node_modules)/,
-        query: {
-          presets: [
-            'latest',
-            'react'
-          ],
-          plugins: [
-            'react-relay',
-            'transform-class-properties',
-            'transform-object-rest-spread'
-          ]
-        }
+        exclude: /(node_modules)/
       }]
     }
   }

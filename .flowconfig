@@ -1,6 +1,8 @@
 [ignore]
 .*/dist
 .*/node_modules/graphql/.*
+.*/node_modules/jest-enzyme/.*
+.*/node_modules/enzyme-matchers/.*
 
 [include]
 

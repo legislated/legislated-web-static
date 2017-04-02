@@ -7,7 +7,7 @@ import { fonts, colors, shadows } from '../../styles'
 export default class SearchField extends Component {
   props: {
     value: string,
-    style: Object,
+    style?: Object,
     onChange: (string) => void
   }
 
