@@ -1,8 +1,8 @@
 // @flow
 import React from 'react'
 import { render } from 'react-dom'
+import { createRelayEnvironment } from './relay'
 import { Container } from './scenes'
-import { createRelayEnvironment } from './relay/environment'
 
 // bootstrap relay
 createRelayEnvironment()

@@ -51,12 +51,11 @@ export default {
   QL: Relay.QL,
   Route: Relay.Route,
   PropTypes: Relay.PropTypes,
-  createContainer: (component, config) => {
-    return {
-      ...component,
-      get relayConfig () {
-        return config
-      }
+  createContainer: (Component, config) => {
+    Component.relayConfig = function () {
+      return config
     }
+
+    return Component
   }
 }

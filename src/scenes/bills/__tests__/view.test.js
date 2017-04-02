@@ -1,16 +1,86 @@
-// @flow
 /* eslint-env jest */
+import React from 'react'
+import { shallow } from 'enzyme'
 import moment from 'moment'
 import BillsView from '../view'
 
 // subject
+let subject
+let viewer
+let relayProp
 let relayConfig
 
+function loadSubject () {
+  relayProp = { setVariables: jest.fn() }
+  subject = shallow(<BillsView viewer={viewer} relay={relayProp} />)
+}
+
 beforeEach(() => {
-  relayConfig = BillsView.relayConfig
+  viewer = { bills: { edges: [] } }
+  relayConfig = BillsView.relayConfig()
 })
 
 // specs
+describe('#state', () => {
+  beforeEach(loadSubject)
+
+  it('starts with an empty query', () => {
+    expect(subject).toHaveState('query', '')
+  })
+})
+
+describe('#render', () => {
+  describe('each bill cell', () => {
+    let bills
+
+    beforeEach(() => {
+      bills = [{ id: 1 }, { id: 2 }]
+      viewer.bills.edges = bills.map((b) => ({ node: b }))
+      loadSubject()
+    })
+
+    it('matches a bill', () => {
+      const cells = subject.find('BillCell')
+      expect(cells.length).toEqual(bills.length)
+      expect(cells.map((c) => c.prop('bill'))).toEqual(bills)
+    })
+  })
+
+  describe('the search field', () => {
+    let query
+
+    beforeEach(() => {
+      loadSubject()
+      query = 'foo'
+      subject.setState({ query })
+    })
+
+    it('shows a search field with the query', () => {
+      const field = subject.find('SearchField')
+      expect(field).toHaveProp('value', query)
+    })
+  })
+})
+
+describe('on search field change', () => {
+  let onChange
+
+  beforeEach(() => {
+    loadSubject()
+    onChange = subject.find('SearchField').prop('onChange')
+  })
+
+  it('updates the state', () => {
+    onChange('foo')
+    expect(subject).toHaveState('query', 'foo')
+  })
+
+  it('updates the query variables', () => {
+    onChange('bar')
+    expect(relayProp.setVariables).toHaveBeenLastCalledWith({ query: 'bar' })
+  })
+})
+
 describe('#prepareVariables', () => {
   let previous = { query: 'foo' }
   let variables

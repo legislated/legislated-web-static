@@ -1,4 +1,3 @@
-// @flow
 /* eslint-env jest */
 import { nodes } from '../connection'
 import  type { Connection } from '../connection' // eslint-disable-line
