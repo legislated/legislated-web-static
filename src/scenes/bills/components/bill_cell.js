@@ -8,14 +8,15 @@ import type { Bill } from '../../../types'
 
 class BillCell extends Component {
   props: {
-    bill: Bill
+    bill: Bill,
+    isLast: boolean
   }
 
   render () {
-    const { bill } = this.props
+    const { bill, isLast } = this.props
     const date = moment(bill.hearing.date)
 
-    return <div className={css(styles.container)}>
+    return <div className={css(styles.container, isLast && styles.last)}>
       <div className={css(styles.header)}>
         <span className={css(styles.documentNumber)}>{bill.documentNumber}</span>
         <span>{bill.title}</span>
@@ -32,6 +33,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 2,
     backgroundColor: colors.white
+  },
+  last: {
+    marginBottom: 0
   },
   header: {
     marginBottom: 5
