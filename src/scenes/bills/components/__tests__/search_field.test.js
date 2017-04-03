@@ -19,6 +19,10 @@ const element = {
 }
 
 // specs
+afterEach(() => {
+  subject = null
+})
+
 describe('#state', () => {
   beforeEach(loadSubject)
 
@@ -35,7 +39,7 @@ describe('#render', () => {
   })
 
   it('does not have the focused style', () => {
-    expect(element.field()).not.toMatchClassName(/focused/)
+    expect(element.field()).not.toMatchClassName(/[fF]ocused/)
   })
 
   describe(`when it's focused`, () => {
@@ -44,11 +48,11 @@ describe('#render', () => {
     })
 
     it('adds the style to the field', () => {
-      expect(element.field()).toMatchClassName(/focused/)
+      expect(element.field()).toMatchClassName(/[fF]ocused/)
     })
 
     it('adds the style to the icon', () => {
-      expect(element.icon()).toMatchClassName(/focused/)
+      expect(element.icon()).toMatchClassName(/[fF]ocused/)
     })
   })
 })

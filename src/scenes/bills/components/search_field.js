@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 50,
     padding: '0 15px',
-    backgroundColor: colors.white,
+    backgroundColor: colors.neutral,
     transition: 'box-shadow 0.25s, border 0.25s, transform 0.25s',
     transform: 'perspective(200px) translateZ(0px)'
   },
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     transform: 'perspective(200px) translateZ(1px)'
   },
   icon: {
+    width: 15,
     marginRight: 15,
     transition: 'color 0.25'
   },

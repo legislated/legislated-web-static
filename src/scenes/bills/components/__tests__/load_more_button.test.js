@@ -22,6 +22,10 @@ beforeEach(() => {
   onClick = jest.fn()
 })
 
+afterEach(() => {
+  subject = null
+})
+
 describe('#render', () => {
   describe('when there is more to load', () => {
     beforeEach(loadSubject)

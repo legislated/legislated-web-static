@@ -6,7 +6,7 @@ import BillCell from '../bill_cell'
 // subject
 let subject
 let bill
-let relayConfig
+let relayConfig = BillCell.relayConfig()
 
 function loadSubject () {
   subject = shallow(<BillCell bill={bill} />)
@@ -19,8 +19,8 @@ const element = {
 }
 
 // specs
-beforeEach(() => {
-  relayConfig = BillCell.relayConfig()
+afterEach(() => {
+  subject = null
 })
 
 describe('#render', () => {
