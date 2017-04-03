@@ -23,7 +23,8 @@ function loadSubject () {
 
 const element = {
   list: () => subject.find('BillsList'),
-  searchField: () => subject.find('SearchField')
+  searchField: () => subject.find('SearchField'),
+  indicator: () => subject.find('LoadingIndicator')
 }
 
 // specs
@@ -59,16 +60,30 @@ describe('#render', () => {
     expect(list).toHaveProp('bills', viewer.bills)
   })
 
+  it('hides the loading indicator', () => {
+    loadSubject()
+    expect(element.indicator()).toBeEmpty()
+  })
+
   it('shows the search field with the current query', () => {
     loadSubject()
     subject.setState({ query: 'foo' })
     expect(element.searchField()).toHaveValue('foo')
   })
 
-  it('hides the bills list when loading', () => {
-    viewer = null
-    loadSubject()
-    expect(element.list()).toBeEmpty()
+  describe('when loading', () => {
+    beforeEach(() => {
+      viewer = null
+      loadSubject()
+    })
+
+    it('shows the loading indicator', () => {
+      expect(element.indicator()).toBePresent()
+    })
+
+    it('hides the bills list', () => {
+      expect(element.list()).toBeEmpty()
+    })
   })
 })
 

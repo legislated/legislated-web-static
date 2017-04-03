@@ -4,7 +4,7 @@ import Relay from 'react-relay'
 import { throttle } from 'lodash'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
-import { SearchField, BillsList } from './components'
+import { SearchField, BillsList, LoadingIndicator } from './components'
 import type { Viewer, RelayProp } from '../../types'
 
 const pageSize = 25
@@ -40,13 +40,22 @@ class BillsView extends Component {
   }, 300)
 
   // lifecycle
+  renderContent () {
+    const { viewer } = this.props
+
+    if (viewer) {
+      return <BillsList bills={viewer.bills} onLoadMore={this.didClickLoadMore} />
+    } else {
+      return <LoadingIndicator />
+    }
+  }
+
   render () {
     const { query } = this.state
-    const { viewer } = this.props
 
     return <div className={css(styles.container)}>
       <SearchField style={styles.searchField} value={query} onChange={this.searchFieldDidChange} />
-      {viewer && <BillsList bills={viewer.bills} onLoadMore={this.didClickLoadMore} />}
+      {this.renderContent()}
     </div>
   }
 }

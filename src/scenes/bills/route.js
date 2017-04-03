@@ -8,7 +8,7 @@ export const billsRoute = {
   queries: {
     viewer: () => Relay.QL`query { viewer }`
   },
-  render: ({ props }) => {
+  render: ({ props }: { props: Object }) => {
     if (props) {
       return <BillsView {...props} />
     } else {
