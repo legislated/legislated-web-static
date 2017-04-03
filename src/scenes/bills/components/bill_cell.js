@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
-import { fonts, colors, shadows } from '../../styles'
+import { fonts, colors, shadows, borders } from '../../styles'
 import type { Bill } from '../../../types'
 
 class BillCell extends Component {
@@ -29,10 +29,10 @@ class BillCell extends Component {
 const styles = StyleSheet.create({
   container: {
     ...shadows.low,
+    ...borders.low,
     padding: 15,
     marginBottom: 15,
-    borderRadius: 2,
-    backgroundColor: colors.white
+    backgroundColor: colors.neutral
   },
   last: {
     marginBottom: 0

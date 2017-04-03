@@ -7,7 +7,6 @@ import moment from 'moment'
 import SearchField from './components/search_field'
 import BillCell from './components/bill_cell'
 import LoadMoreButton from './components/load_more_button'
-import { colors } from '../styles'
 import type { Viewer, RelayProp } from '../../types'
 import { unwrap } from '../../types/connection'
 
@@ -58,8 +57,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'stretch',
-    backgroundColor: colors.lightGray
+    alignItems: 'stretch'
   },
   searchField: {
     marginBottom: 30

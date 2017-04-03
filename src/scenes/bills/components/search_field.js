@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import FontAwesome from 'react-fontawesome'
-import { fonts, colors, shadows } from '../../styles'
+import { fonts, colors, shadows, borders } from '../../styles'
 
 export default class SearchField extends Component {
   props: {
@@ -64,21 +64,23 @@ const styles = StyleSheet.create({
   },
   field: {
     ...shadows.low,
+    ...borders.low,
     display: 'flex',
     alignItems: 'center',
     height: 50,
     padding: '0 15px',
-    borderRadius: 2,
     backgroundColor: colors.white,
-    transition: 'box-shadow 0.25s, transform 0.25s',
+    transition: 'box-shadow 0.25s, border 0.25s, transform 0.25s',
     transform: 'perspective(200px) translateZ(0px)'
   },
   focused: {
     ...shadows.high,
+    ...borders.high,
     transform: 'perspective(200px) translateZ(1px)'
   },
   icon: {
-    marginRight: 15
+    marginRight: 15,
+    color: colors.primary
   },
   input: {
     ...fonts.regular,
