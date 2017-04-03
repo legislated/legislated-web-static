@@ -14,7 +14,8 @@ function loadSubject () {
 
 const element = {
   field: () => subject.childAt(1),
-  input: () => subject.find(`input[name='search-field']`)
+  input: () => subject.find(`input[name='search-field']`),
+  icon: () => subject.find('FontAwesome')
 }
 
 // specs
@@ -44,6 +45,10 @@ describe('#render', () => {
 
     it('adds the style to the field', () => {
       expect(element.field()).toMatchClassName(/focused/)
+    })
+
+    it('adds the style to the icon', () => {
+      expect(element.icon()).toMatchClassName(/focused/)
     })
   })
 })

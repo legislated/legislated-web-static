@@ -34,7 +34,7 @@ export default class SearchField extends Component {
       <div className={css(styles.prompt)}>What's important to you?</div>
       <div className={css(styles.field, isFocused && styles.focused)}>
         <FontAwesome
-          className={css(styles.icon)}
+          className={css(styles.icon, isFocused && styles.iconFocused)}
           name='search'
         />
         <input
@@ -80,6 +80,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 15,
+    transition: 'color 0.25'
+  },
+  iconFocused: {
     color: colors.primary
   },
   input: {
