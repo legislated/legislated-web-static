@@ -4,6 +4,8 @@ import { shallow } from 'enzyme'
 import moment from 'moment'
 import BillsView from '../view'
 
+const pageSize = 25
+
 // subject
 let subject
 let viewer
@@ -11,18 +13,32 @@ let relayProp
 let relayConfig
 
 function loadSubject () {
-  relayProp = { setVariables: jest.fn() }
+  relayProp = {
+    variables: relayConfig.initialVariables,
+    setVariables: jest.fn()
+  }
+
   subject = shallow(<BillsView viewer={viewer} relay={relayProp} />)
 }
 
 const element = {
   bills: () => subject.find('BillCell'),
-  searchField: () => subject.find('SearchField')
+  searchField: () => subject.find('SearchField'),
+  loadButton: () => subject.find('LoadMoreButton')
 }
 
 // specs
 beforeEach(() => {
-  viewer = { bills: { edges: [] } }
+  // TODO: build rosie.js factories
+  viewer = {
+    bills: {
+      edges: [],
+      pageInfo: {
+        hasNextPage: true
+      }
+    }
+  }
+
   relayConfig = BillsView.relayConfig()
 })
 
@@ -64,6 +80,15 @@ describe('#render', () => {
       expect(element.searchField()).toHaveValue(query)
     })
   })
+
+  describe('the load more button', () => {
+    beforeEach(loadSubject)
+
+    it('has more if there is another page', () => {
+      const { hasNextPage } = viewer.bills.pageInfo
+      expect(element.loadButton()).toHaveProp('hasMore', hasNextPage)
+    })
+  })
 })
 
 describe('on search field change', () => {
@@ -85,8 +110,25 @@ describe('on search field change', () => {
   })
 })
 
+describe('on clicking load more', () => {
+  beforeEach(() => {
+    loadSubject()
+    element.loadButton().prop('onClick')()
+  })
+
+  it('fetches the next page', () => {
+    expect(relayProp.setVariables).toHaveBeenLastCalledWith({ first: pageSize * 2 })
+  })
+})
+
+describe('#initialVariables', () => {
+  it('fetches the page size', () => {
+    expect(relayConfig.initialVariables.first).toEqual(pageSize)
+  })
+})
+
 describe('#prepareVariables', () => {
-  let previous = { query: 'foo' }
+  let previous = { query: 'foo', first: 5 }
   let variables
 
   beforeEach(() => {
@@ -95,6 +137,10 @@ describe('#prepareVariables', () => {
 
   it('propogates the query', () => {
     expect(variables.query).toEqual(previous.query)
+  })
+
+  it('propogates the first count', () => {
+    expect(variables.first).toEqual(previous.first)
   })
 
   it('sets the date range to this week', () => {

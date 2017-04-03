@@ -1,9 +1,20 @@
 // @flow
-export const shadows = {
-  low: {
-    boxShadow: `0 0 12px 2px #edf3f8`
-  },
-  high: {
-    boxShadow: '0 0 20px 4px #e5eef5'
+import { colors } from './colors'
+
+type ShadowStyle = {|
+  borderRadius: number,
+  boxShadow: string
+|}
+
+function make (color: string, height: number): ShadowStyle {
+  return {
+    borderRadius: height,
+    boxShadow: `${color} 0 ${height}px 0 0`
   }
+}
+
+export const shadows = {
+  make,
+  low: make(colors.neutralOutline, 3),
+  high: make(colors.primaryHighlight, 4)
 }

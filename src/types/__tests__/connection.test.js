@@ -1,11 +1,23 @@
 /* eslint-env jest */
-import { nodes } from '../connection'
-import  type { Connection } from '../connection' // eslint-disable-line
+import { unwrap } from '../connection'
 
-describe('#nodes', () => {
-  let connection: ?Connection<number>
+describe('#unwrap', () => {
+  let connection
 
-  it('returns the nodes when passed a connection', () => {
+  it('propogates the page info', () => {
+    const pageInfo = {
+      hasNextPage: true
+    }
+
+    connection = {
+      pageInfo,
+      edges: []
+    }
+
+    expect(unwrap(connection).pageInfo).toEqual(pageInfo)
+  })
+
+  it('unwraps the nodes', () => {
     connection = {
       edges: [
         { node: 1 },
@@ -13,11 +25,11 @@ describe('#nodes', () => {
       ]
     }
 
-    expect(nodes(connection)).toEqual([1, 2])
+    expect(unwrap(connection).nodes).toEqual([1, 2])
   })
 
   it('returns an empty array when passed null', () => {
     connection = null
-    expect(nodes(connection)).toEqual([])
+    expect(unwrap(connection).nodes).toEqual([])
   })
 })

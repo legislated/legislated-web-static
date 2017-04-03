@@ -3,19 +3,20 @@ import React, { Component } from 'react'
 import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
-import { fonts, colors, shadows } from '../../styles'
+import { fonts, colors, shadows, borders } from '../../styles'
 import type { Bill } from '../../../types'
 
 class BillCell extends Component {
   props: {
-    bill: Bill
+    bill: Bill,
+    isLast: boolean
   }
 
   render () {
-    const { bill } = this.props
+    const { bill, isLast } = this.props
     const date = moment(bill.hearing.date)
 
-    return <div className={css(styles.container)}>
+    return <div className={css(styles.container, isLast && styles.last)}>
       <div className={css(styles.header)}>
         <span className={css(styles.documentNumber)}>{bill.documentNumber}</span>
         <span>{bill.title}</span>
@@ -28,10 +29,13 @@ class BillCell extends Component {
 const styles = StyleSheet.create({
   container: {
     ...shadows.low,
+    ...borders.low,
     padding: 15,
     marginBottom: 15,
-    borderRadius: 2,
-    backgroundColor: colors.white
+    backgroundColor: colors.neutral
+  },
+  last: {
+    marginBottom: 0
   },
   header: {
     marginBottom: 5
