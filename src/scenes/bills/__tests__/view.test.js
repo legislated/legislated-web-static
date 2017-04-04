@@ -62,7 +62,7 @@ describe('#render', () => {
 
   it('hides the loading indicator', () => {
     loadSubject()
-    expect(element.indicator()).toBeEmpty()
+    expect(element.indicator()).toHaveProp('isLoading', false)
   })
 
   it('shows the search field with the current query', () => {
@@ -78,7 +78,7 @@ describe('#render', () => {
     })
 
     it('shows the loading indicator', () => {
-      expect(element.indicator()).toBePresent()
+      expect(element.indicator()).toHaveProp('isLoading', true)
     })
 
     it('hides the bills list', () => {
@@ -102,7 +102,7 @@ describe('on search field change', () => {
 
   it('updates the query variables', () => {
     onChange('bar')
-    expect(relayProp.setVariables).toHaveBeenLastCalledWith({ query: 'bar' })
+    expect(relayProp.setVariables).toHaveBeenLastCalledWith({ query: 'bar' }, expect.anything())
   })
 })
 

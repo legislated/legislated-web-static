@@ -25,8 +25,6 @@ export default class BillAnimation extends Component {
       leaveActive: css(styles.leaveActive)
     }
 
-    // console.log('transition', !disable, !disableAppear)
-
     return <TransitionGroup
       transitionName={name}
       transitionAppear={!disable && !disableAppear}
