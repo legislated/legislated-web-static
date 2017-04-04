@@ -3,14 +3,16 @@ import React, { Component } from 'react'
 import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import BillCell from './bill_cell'
+import BillAnimation, { billStyle } from './bill_animation'
 import LoadMoreButton from './load_more_button'
 import { unwrap } from '../../../types/connection'
-import type { Bill, Connection, RelayProp } from '../../../types' // eslint-disable-line
+import type { Bill, Connection } from '../../../types' // eslint-disable-line
 
 class BillsList extends Component {
   props: {
     bills: Connection<Bill>,
-    onLoadMore: () => void
+    animated: Boolean,
+    onLoadMore: () => void,
   }
 
   // events
@@ -20,17 +22,21 @@ class BillsList extends Component {
 
   // lifecycle
   render () {
-    const { bills: connection, onLoadMore } = this.props
+    const { bills: connection, animated, onLoadMore } = this.props
 
     const bills = unwrap(connection)
     const hasNextPage = bills.pageInfo && bills.pageInfo.hasNextPage
 
     return <div className={css(styles.container)}>
-      {bills.nodes.map((bill, i) => {
-        return <BillCell key={bill.id} bill={bill} isLast={i === bills.nodes.length - 1} />
-      })}
+      <BillAnimation disable={!animated}>{this.renderCells(bills.nodes)}</BillAnimation>
       <LoadMoreButton style={styles.loadMoreButton} hasMore={hasNextPage} onClick={onLoadMore} />
     </div>
+  }
+
+  renderCells (bills: Array<Bill>): Array<React$Element<*>> {
+    return bills.map((bill, i) => {
+      return <BillCell key={bill.id} style={billStyle} bill={bill} isLast={i === bills.length - 1} />
+    })
   }
 }
 

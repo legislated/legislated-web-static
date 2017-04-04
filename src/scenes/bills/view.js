@@ -5,6 +5,7 @@ import { throttle } from 'lodash'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
 import { SearchField, BillsList, LoadingIndicator } from './components'
+import { utils } from '../styles'
 import type { Viewer, RelayProp } from '../../types'
 
 const pageSize = 25
@@ -16,58 +17,81 @@ class BillsView extends Component {
   }
 
   state = {
-    query: ''
+    query: '',
+    isFiltering: false
   }
 
   // events
   didClickLoadMore = () => {
     const { relay } = this.props
-    if (relay) {
-      relay.setVariables({ first: relay.variables.first + pageSize })
-    }
+    relay && relay.setVariables({ first: relay.variables.first + pageSize })
   }
 
   searchFieldDidChange = (query: string) => {
     this.setState({ query })
-    this.fetchBillsForQuery(query)
+    this.filterBillsForQuery(query)
   }
 
-  fetchBillsForQuery = throttle((query: string) => {
+  filterBillsForQuery = throttle((query: string) => {
     const { relay } = this.props
-    if (relay) {
-      relay.setVariables({ query })
+    if (!relay) {
+      return
     }
+
+    this.setState({ isFiltering: true })
+    relay && relay.setVariables({ query }, (readyState) => {
+      if (readyState.done) {
+        requestAnimationFrame(() => {
+          this.setState({ isFiltering: false })
+        })
+      }
+    })
   }, 300)
 
   // lifecycle
-  renderContent () {
-    const { viewer } = this.props
-
-    if (viewer) {
-      return <BillsList bills={viewer.bills} onLoadMore={this.didClickLoadMore} />
-    } else {
-      return <LoadingIndicator />
-    }
-  }
-
   render () {
     const { query } = this.state
+    const { viewer, relay } = this.props
 
     return <div className={css(styles.container)}>
       <SearchField style={styles.searchField} value={query} onChange={this.searchFieldDidChange} />
-      {this.renderContent()}
+      <div className={css(styles.content)}>
+        <div className={css(styles.indicator)}>
+          <LoadingIndicator isLoading={!viewer} />
+        </div>
+        {viewer && relay && this.renderBills(viewer, relay)}
+      </div>
     </div>
+  }
+
+  renderBills (viewer: Viewer, relay: RelayProp): React$Element<*> {
+    const { isFiltering } = this.state
+
+    return <BillsList
+      bills={viewer.bills}
+      animated={!isFiltering}
+      onLoadMore={this.didClickLoadMore}
+    />
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch'
+    ...utils.column
   },
   searchField: {
     marginBottom: 30
+  },
+  content: {
+    ...utils.column,
+    position: 'relative'
+  },
+  indicator: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    ...utils.column
   }
 })
 

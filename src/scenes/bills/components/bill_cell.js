@@ -9,14 +9,15 @@ import type { Bill } from '../../../types'
 class BillCell extends Component {
   props: {
     bill: Bill,
+    style?: Object,
     isLast: boolean
   }
 
   render () {
-    const { bill, isLast } = this.props
+    const { bill, style, isLast } = this.props
     const date = moment(bill.hearing.date)
 
-    return <div className={css(styles.container, isLast && styles.last)}>
+    return <div className={css(styles.container, style, isLast && styles.last)}>
       <div className={css(styles.header)}>
         <span className={css(styles.documentNumber)}>{bill.documentNumber}</span>
         <span>{bill.title}</span>

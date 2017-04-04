@@ -1,11 +1,27 @@
 // @flow
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
+import BillAnimation, { billStyle } from './bill_animation'
 import { colors, shadows, borders } from '../../styles'
 
 export default class LoadingIndicator extends Component {
+  props: {
+    isLoading: boolean
+  }
+
+  // lifecycle
   render () {
-    return <div className={css(styles.container)}>
+    return <BillAnimation disableAppear>
+      {this.renderIndicator()}
+    </BillAnimation>
+  }
+
+  renderIndicator (): ?React$Element<*> {
+    if (!this.props.isLoading) {
+      return null
+    }
+
+    return <div key='indicator' className={css(styles.container, billStyle)}>
       <div className={css(styles.topBar)} />
       <div className={css(styles.bottomBar)} />
     </div>
