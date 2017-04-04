@@ -10,7 +10,7 @@ const pageSize = 25
 let subject
 let viewer
 let relayProp
-let relayConfig
+let relayConfig = BillsView.relayConfig()
 
 function loadSubject () {
   relayProp = {
@@ -22,9 +22,9 @@ function loadSubject () {
 }
 
 const element = {
-  bills: () => subject.find('BillCell'),
+  list: () => subject.find('BillsList'),
   searchField: () => subject.find('SearchField'),
-  loadButton: () => subject.find('LoadMoreButton')
+  indicator: () => subject.find('LoadingIndicator')
 }
 
 // specs
@@ -38,8 +38,10 @@ beforeEach(() => {
       }
     }
   }
+})
 
-  relayConfig = BillsView.relayConfig()
+afterEach(() => {
+  subject = null
 })
 
 describe('#state', () => {
@@ -51,42 +53,36 @@ describe('#state', () => {
 })
 
 describe('#render', () => {
-  describe('each bill cell', () => {
-    let bills
+  it('shows the bills list', () => {
+    loadSubject()
+    const list = element.list()
+    expect(list).toBePresent()
+    expect(list).toHaveProp('bills', viewer.bills)
+  })
 
+  it('hides the loading indicator', () => {
+    loadSubject()
+    expect(element.indicator()).toHaveProp('isLoading', false)
+  })
+
+  it('shows the search field with the current query', () => {
+    loadSubject()
+    subject.setState({ query: 'foo' })
+    expect(element.searchField()).toHaveValue('foo')
+  })
+
+  describe('when loading', () => {
     beforeEach(() => {
-      bills = [{ id: 1 }, { id: 2 }]
-      viewer.bills.edges = bills.map((b) => ({ node: b }))
+      viewer = null
       loadSubject()
     })
 
-    it('matches a bill', () => {
-      const cells = element.bills()
-      expect(cells.length).toEqual(bills.length)
-      expect(cells.map((c) => c.prop('bill'))).toEqual(bills)
-    })
-  })
-
-  describe('the search field', () => {
-    let query
-
-    beforeEach(() => {
-      loadSubject()
-      query = 'foo'
-      subject.setState({ query })
+    it('shows the loading indicator', () => {
+      expect(element.indicator()).toHaveProp('isLoading', true)
     })
 
-    it('shows a search field with the query', () => {
-      expect(element.searchField()).toHaveValue(query)
-    })
-  })
-
-  describe('the load more button', () => {
-    beforeEach(loadSubject)
-
-    it('has more if there is another page', () => {
-      const { hasNextPage } = viewer.bills.pageInfo
-      expect(element.loadButton()).toHaveProp('hasMore', hasNextPage)
+    it('hides the bills list', () => {
+      expect(element.list()).toBeEmpty()
     })
   })
 })
@@ -106,14 +102,14 @@ describe('on search field change', () => {
 
   it('updates the query variables', () => {
     onChange('bar')
-    expect(relayProp.setVariables).toHaveBeenLastCalledWith({ query: 'bar' })
+    expect(relayProp.setVariables).toHaveBeenLastCalledWith({ query: 'bar' }, expect.anything())
   })
 })
 
 describe('on clicking load more', () => {
   beforeEach(() => {
     loadSubject()
-    element.loadButton().prop('onClick')()
+    element.list().prop('onLoadMore')()
   })
 
   it('fetches the next page', () => {
