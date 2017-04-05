@@ -6,5 +6,7 @@ export type Bill = {
   id: string,
   documentNumber: string,
   title: string,
+  summary: string,
+  witnessSlipUrl: string,
   hearing: Hearing
 }
