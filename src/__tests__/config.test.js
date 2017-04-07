@@ -23,7 +23,7 @@ describe('in staging', () => {
   })
 
   it('points to the staging site', () => {
-    expect(subject.graphUrl).toEqual('https://witness-slips.herokuapp.com/graphql')
+    expect(subject.graphUrl).toEqual('https://legislated-staging.herokuapp.com/graphql')
   })
 })
 
@@ -34,7 +34,7 @@ describe('in production', () => {
   })
 
   it('points to the production site', () => {
-    expect(subject.graphUrl).toEqual('https://witness-slips.herokuapp.com/graphql')
+    expect(subject.graphUrl).toEqual('https://legislated.herokuapp.com/graphql')
   })
 })
 
