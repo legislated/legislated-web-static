@@ -1,7 +1,7 @@
 {
-  "name": "engage-il",
+  "name": "legislated",
   "version": "0.0.1",
-  "description": "Web front-end for engage-il",
+  "description": "Web front-end for Legislated",
   "main": "dist/bundle.js",
   "author": "Ty Cobb",
   "license": "MIT",

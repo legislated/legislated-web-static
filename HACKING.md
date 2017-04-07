@@ -14,7 +14,7 @@ $ yarn
 
 ## Development
 
-Make sure your Rails server is [started](https://github.com/engage-il/engage-api/blob/master/HACKING.md).
+Make sure your Rails server is [started](https://github.com/legislated/legislated-api/blob/master/HACKING.md).
 
 ```sh
 $ yarn start
