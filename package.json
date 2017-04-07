@@ -1,14 +1,14 @@
 {
-  "name": "engage-il",
+  "name": "legislated",
   "version": "0.0.1",
-  "description": "Web front-end for engage-il",
+  "description": "Web front-end for Legislated",
   "main": "dist/bundle.js",
   "author": "Ty Cobb",
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server -d --hot --inline --env.env=development",
     "build:staging": "webpack -p --env.env=staging",
-    "deploy:staging": "yarn build:staging && surge -p dist -- -d witness-slips.surge.sh",
+    "deploy:staging": "yarn build:staging && surge -p dist -- -d legislated-staging.surge.sh",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect --debug-brk ./node_modules/.bin/jest --runInBand",

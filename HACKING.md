@@ -14,7 +14,7 @@ $ yarn
 
 ## Development
 
-Make sure your Rails server is [started](https://github.com/engage-il/engage-api/blob/master/HACKING.md).
+Make sure your Rails server is [started](https://github.com/legislated/legislated-api/blob/master/HACKING.md).
 
 ```sh
 $ yarn start
@@ -37,7 +37,7 @@ Running individual specs is easiest using Jest's path filter (hit `p`) in watch 
 
 ## Hosting / Deployment
 
-The application is hosted for the time being at https://witness-slips.surge.sh/ and deployed using [surge](https://github.com/sintaxi/surge).
+The application is hosted for the time being at https://legislated-staging.surge.sh/ and deployed using [surge](https://github.com/sintaxi/surge).
 
 You can deploy the staging site with:
 

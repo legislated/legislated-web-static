@@ -12,10 +12,10 @@ export function loadConfig () {
       graphUrl: 'http://localhost:5000/graphql'
     },
     staging: {
-      graphUrl: 'https://witness-slips.herokuapp.com/graphql'
+      graphUrl: 'https://legislated-staging.herokuapp.com/graphql'
     },
     production: {
-      graphUrl: 'https://witness-slips.herokuapp.com/graphql'
+      graphUrl: 'https://legislated.herokuapp.com/graphql'
     }
   }
 
