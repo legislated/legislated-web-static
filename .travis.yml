@@ -4,3 +4,11 @@ script:
   - yarn lint
   - yarn flow
   - yarn test
+  - yarn build:staging
+deploy:
+  provider: surge
+  project: ./dist/
+  domain: legislated-staging.surge.sh
+  skip_cleanup: true
+  on:
+    branch: master
