@@ -1,5 +1,5 @@
 // @flow
-import type { Connection } from './Connection'
+import type { Connection } from './connection'
 import type { Bill } from './bill'
 
 export type Viewer = {
