@@ -15,7 +15,7 @@
     "lint": "snazzy",
     "lint:fix": "snazzy --fix",
     "flow:restart": "flow stop && flow",
-    "validate": "yarn lint && yarn flow"
+    "validate": "yarn lint && yarn flow && yarn test"
   },
   "dependencies": {
     "aphrodite": "^1.2.0",
