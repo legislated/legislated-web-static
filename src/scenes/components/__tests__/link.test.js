@@ -1,16 +1,16 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import BillLink from '../bill_link'
+import { Link } from '../link'
 
 // subject
 let subject
-let url = ''
-let label = ''
-let iconName = ''
+let url = 'url'
+let label = 'label'
+let iconName = 'icon'
 
 function loadSubject () {
-  subject = shallow(<BillLink url={url} label={label} iconName={iconName} />)
+  subject = shallow(<Link url={url} label={label} iconName={iconName} />)
 }
 
 const element = {
@@ -41,11 +41,19 @@ describe('#render', () => {
     expect(subject.text()).toMatch(label)
   })
 
-  describe(`when there's no url`, () => {
+  describe('with no url', () => {
     it('returns null', () => {
       url = null
       loadSubject()
       expect(subject.get(0)).toBeNull()
+    })
+  })
+
+  describe('with missing data', () => {
+    it('hides the label', () => {
+      label = null
+      loadSubject()
+      expect(subject.text()).toBeEmpty()
     })
   })
 })
