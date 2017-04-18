@@ -17,7 +17,9 @@ const element = {
   doc: () => subject.find('span').at(0),
   title: () => subject.find('span').at(1),
   date: () => subject.find('span').at(2),
-  link: () => subject.find('a'),
+  slipLink: () => subject.find('BillLink').at(0),
+  detailsLink: () => subject.find('BillLink').at(1),
+  textLink: () => subject.find('BillLink').at(2),
   summary: () => subject.children('div').at(2)
 }
 
@@ -33,7 +35,9 @@ describe('#render', () => {
       documentNumber: 'HB1234',
       title: 'Foo',
       summary: 'A bill, fantastic',
-      witnessSlipUrl: 'http://www.test.com',
+      witnessSlipUrl: 'http://www.test.com/slip',
+      billDetailsUrl: 'http://www.test.com/details',
+      fullTextUrl: 'http://www.test.com/text',
       hearing: {
         date: '2010-01-01T00:00:00-06:00'
       }
@@ -57,7 +61,17 @@ describe('#render', () => {
 
   it('shows the slip link', () => {
     loadSubject()
-    expect(element.link()).toHaveProp('href', bill.witnessSlipUrl)
+    expect(element.slipLink()).toHaveProp('url', bill.witnessSlipUrl)
+  })
+
+  it('shows the details page link', () => {
+    loadSubject()
+    expect(element.detailsLink()).toHaveProp('url', bill.detailsUrl)
+  })
+
+  it('shows the full text page link', () => {
+    loadSubject()
+    expect(element.textLink()).toHaveProp('url', bill.fullTextUrl)
   })
 
   it('shows the summary', () => {
@@ -68,19 +82,13 @@ describe('#render', () => {
   describe('when data is missing', () => {
     beforeEach(() => {
       assign(bill, {
-        summary: '',
-        witnessSlipUrl: ''
+        summary: ''
       })
-    })
-
-    it('hides the slip link', () => {
-      loadSubject()
-      expect(element.link()).toBeEmpty()
     })
 
     it('hides the summary', () => {
       loadSubject()
-      expect(element.summary().get(0)).toBeUndefined()
+      expect(element.summary().get(0)).toBeFalsy()
     })
   })
 })

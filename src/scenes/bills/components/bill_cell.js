@@ -3,15 +3,15 @@ import React, { Component } from 'react'
 import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
-import FontAwesome from 'react-fontawesome'
+import BillLink from './bill_link'
 import { fonts, colors, shadows, borders } from '../../styles'
 import type { Bill } from '../../../types'
 
 class BillCell extends Component {
   props: {
     bill: Bill,
-    style?: Object,
-    isLast: boolean
+    isLast: boolean,
+    style?: Object
   }
 
   // lifecycle
@@ -26,17 +26,12 @@ class BillCell extends Component {
         <span className={css(styles.date)}>{date.calendar()}</span>
       </div>
       <div>
-        {bill.witnessSlipUrl && this.renderSlipLink(bill.witnessSlipUrl)}
+        <BillLink style={styles.link} url={bill.witnessSlipUrl} label='Take Action' iconName='pencil-square-o' />
+        <BillLink style={styles.link} url={bill.detailsUrl} label='View Details' iconName='info-circle' />
+        <BillLink style={styles.link} url={bill.fullTextUrl} label='View Bill' iconName='file-text-o' />
       </div>
       {bill.summary && <div className={css(styles.summary)}>{bill.summary}</div>}
     </div>
-  }
-
-  renderSlipLink (url: string): React$Element<*> {
-    return <a className={css(styles.slipLink)} href={url}>
-      <FontAwesome name='pencil-square-o' />
-      <span className={css(styles.slipLinkLabel)}>Take Action</span>
-    </a>
   }
 }
 
@@ -61,14 +56,8 @@ const styles = StyleSheet.create({
   title: {
     marginRight: 10
   },
-  slipLink: {
-    color: colors.primary,
-    ':hover': {
-      color: colors.primaryHighlight
-    }
-  },
-  slipLinkLabel: {
-    marginLeft: 5
+  link: {
+    marginRight: 10
   },
   summary: {
     marginTop: 10,
@@ -86,6 +75,8 @@ export default Relay.createContainer(BillCell, {
         title
         summary
         witnessSlipUrl
+        detailsUrl
+        fullTextUrl
         hearing {
           date
         }
