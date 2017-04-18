@@ -53,7 +53,7 @@ describe('#render', () => {
     it('hides the label', () => {
       label = null
       loadSubject()
-      expect(subject.text()).toBeEmpty()
+      expect(subject.text()).toEqual('')
     })
   })
 })
