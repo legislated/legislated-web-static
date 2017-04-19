@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
-import BillLink from './bill_link'
+import { Link } from '../../components'
 import { fonts, colors, shadows, borders } from '../../styles'
 import type { Bill } from '../../../types'
 
@@ -21,14 +21,19 @@ class BillCell extends Component {
 
     return <div className={css(styles.container, style, isLast && styles.last)}>
       <div className={css(styles.header)}>
-        <span className={css(styles.documentNumber)}>{bill.documentNumber}</span>
-        <span className={css(styles.title)}>{bill.title}</span>
-        <span className={css(styles.date)}>{date.calendar()}</span>
-      </div>
-      <div>
-        <BillLink style={styles.link} url={bill.witnessSlipUrl} label='Take Action' iconName='pencil-square-o' />
-        <BillLink style={styles.link} url={bill.detailsUrl} label='View Details' iconName='info-circle' />
-        <BillLink style={styles.link} url={bill.fullTextUrl} label='View Bill' iconName='file-text-o' />
+        <div className={css(styles.headerLeft)}>
+          <div className={css(styles.info)}>
+            <span className={css(styles.documentNumber)}>{bill.documentNumber}</span>
+            <span className={css(styles.title)}>{bill.title}</span>
+            <span>{date.calendar()}</span>
+          </div>
+          <div>
+            <Link style={styles.link} url={bill.witnessSlipUrl} label='Take Action' iconName='pencil-square-o' />
+            <Link style={styles.link} url={bill.detailsUrl} label='View Details' iconName='info-circle' />
+            <Link url={bill.fullTextUrl} label='View Bill' iconName='file-text-o' />
+          </div>
+        </div>
+        <Link url={`bill/${bill.id}`} iconName='chevron-right' />
       </div>
       {bill.summary && <div className={css(styles.summary)}>{bill.summary}</div>}
     </div>
@@ -47,6 +52,11 @@ const styles = StyleSheet.create({
     marginBottom: 0
   },
   header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  info: {
     marginBottom: 5
   },
   documentNumber: {

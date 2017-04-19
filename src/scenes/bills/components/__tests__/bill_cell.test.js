@@ -17,10 +17,10 @@ const element = {
   doc: () => subject.find('span').at(0),
   title: () => subject.find('span').at(1),
   date: () => subject.find('span').at(2),
-  slipLink: () => subject.find('BillLink').at(0),
-  detailsLink: () => subject.find('BillLink').at(1),
-  textLink: () => subject.find('BillLink').at(2),
-  summary: () => subject.children('div').at(2)
+  slipLink: () => subject.find('Link').at(0),
+  detailsLink: () => subject.find('Link').at(1),
+  textLink: () => subject.find('Link').at(2),
+  summary: () => subject.children('div').at(1)
 }
 
 // specs

@@ -1,5 +1,7 @@
 // @flow
 import type { Hearing } from './hearing'
+import type { Committee } from './committee'
+import type { Chamber } from './chamber'
 
 // type
 export type Bill = {
@@ -10,5 +12,7 @@ export type Bill = {
   detailsUrl: string,
   fullTextUrl: string,
   witnessSlipUrl: string,
-  hearing: Hearing
+  hearing: Hearing,
+  committee: Committee,
+  chamber: Chamber
 }
