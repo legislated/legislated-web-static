@@ -31,7 +31,7 @@ export default class SearchField extends Component {
     const { isFocused } = this.state
 
     return <div className={css(styles.container, style)}>
-      <div className={css(styles.prompt)}>What's important to you?</div>
+      <h1 className={css(styles.prompt)}>What's important to you?</h1>
       <div className={css(styles.field, isFocused && styles.focused)}>
         <FontAwesome
           className={css(styles.icon, isFocused && styles.iconFocused)}
@@ -58,9 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   prompt: {
-    ...fonts.regular,
-    marginBottom: 15,
-    fontSize: 24
+    marginBottom: 15
   },
   field: {
     ...shadows.low,

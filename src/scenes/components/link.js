@@ -29,6 +29,7 @@ export class Link extends Component {
 const styles = StyleSheet.create({
   link: {
     color: colors.primary,
+    fontSize: 16,
     ':hover': {
       color: colors.primaryHighlight
     }

@@ -1,4 +1,5 @@
 // @flow
+import './styles/globals'
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { fonts } from './styles'
