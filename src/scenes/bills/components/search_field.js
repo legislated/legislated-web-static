@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   field: {
     ...shadows.low,
-    ...borders.low,
+    ...borders.low(),
     display: 'flex',
     alignItems: 'center',
     height: 50,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   focused: {
     ...shadows.high,
-    ...borders.high,
+    ...borders.high(),
     transform: 'perspective(200px) translateZ(1px)'
   },
   icon: {

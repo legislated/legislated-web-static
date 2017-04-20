@@ -46,7 +46,7 @@ const bar = {
 const styles = StyleSheet.create({
   container: {
     ...shadows.low,
-    ...borders.low,
+    ...borders.low(),
     height: 49,
     padding: 15,
     marginBottom: 15,

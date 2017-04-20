@@ -43,7 +43,7 @@ class BillCell extends Component {
 const styles = StyleSheet.create({
   container: {
     ...shadows.low,
-    ...borders.low,
+    ...borders.low(),
     padding: 15,
     marginBottom: 15,
     backgroundColor: colors.neutral

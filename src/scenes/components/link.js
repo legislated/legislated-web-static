@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   link: {
     color: colors.primary,
     fontSize: 16,
+    transition: 'color 0.25s',
     ':hover': {
       color: colors.primaryHighlight
     }

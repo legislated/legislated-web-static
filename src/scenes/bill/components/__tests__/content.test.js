@@ -6,16 +6,10 @@ import Content from '../content'
 // subject
 let subject
 let bill
-let relayProp
 let relayConfig = Content.relayConfig()
 
 function loadSubject () {
-  relayProp = {
-    variables: relayConfig.initialVariables,
-    setVariables: jest.fn()
-  }
-
-  subject = shallow(<Content bill={bill} relay={relayProp} />)
+  subject = shallow(<Content bill={bill} />)
 }
 
 const element = {

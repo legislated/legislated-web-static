@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "aphrodite": "^1.2.0",
+    "color": "^1.0.3",
     "lodash": "^4.17.2",
     "moment": "^2.18.1",
     "react": "^15.4.1",
@@ -27,7 +28,8 @@
     "react-fontawesome": "^1.5.0",
     "react-relay": "^0.10.0",
     "react-router": "^2.8.0",
-    "react-router-relay": "^0.13.5"
+    "react-router-relay": "^0.13.5",
+    "react-sticky": "^5.0.8"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

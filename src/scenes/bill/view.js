@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   content: {
     ...shadows.low,
-    ...borders.low,
+    ...borders.low(),
     padding: 15,
     backgroundColor: colors.neutral
   }

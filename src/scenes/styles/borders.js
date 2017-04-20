@@ -1,18 +1,31 @@
 // @flow
+import { capitalize } from 'lodash'
 import { colors } from './colors'
 
-type BorderStyle = {|
-  border: string,
-|}
+type BorderStyle = {
+  borderTop?: string,
+  borderBottom?: string,
+  borderLeft?: string,
+  borderRight?: string,
+}
 
-function make (color: string): BorderStyle {
-  return {
-    border: `1px solid ${color}`
+type BorderEdge = 'top' | 'bottom' | 'left' | 'right'
+type BorderCreator = (edges?: Array<BorderEdge>) => BorderStyle
+
+// creator
+function borderCreator (color: string): BorderCreator {
+  const border = `1px solid ${color}`
+
+  return function (edges = ['top', 'bottom', 'left', 'right']) {
+    return edges.reduce((memo, edge) => ({
+      ...memo,
+      [`border${capitalize(edge)}`]: border
+    }), {})
   }
 }
 
+// exports
 export const borders = {
-  make,
-  low: make(colors.neutralShadow),
-  high: make(colors.primary)
+  low: borderCreator(colors.neutralShadow),
+  high: borderCreator(colors.primary)
 }
