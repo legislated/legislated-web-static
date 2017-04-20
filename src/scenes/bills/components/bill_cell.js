@@ -28,7 +28,7 @@ class BillCell extends Component {
           </div>
           <p>{date.calendar()}</p>
         </div>
-        {bill.summary && <div className={css(styles.summary)}>{bill.summary}</div>}
+        {bill.summary && <p className={css(styles.summary)}>{bill.summary}</p>}
       </div>
       <div className={css(styles.actions)}>
         <Button

@@ -14,13 +14,12 @@ function loadSubject () {
 }
 
 const element = {
-  doc: () => subject.find('span').at(0),
-  title: () => subject.find('span').at(1),
-  date: () => subject.find('span').at(2),
-  slipLink: () => subject.find('Link').at(0),
-  detailsLink: () => subject.find('Link').at(1),
-  textLink: () => subject.find('Link').at(2),
-  summary: () => subject.children('div').at(1)
+  doc: () => subject.find('span'),
+  title: () => subject.find('h3'),
+  date: () => subject.find('p').at(0),
+  summary: () => subject.find('p').at(1),
+  slipLink: () => subject.find('Button').at(0),
+  detailsLink: () => subject.find('Button').at(1)
 }
 
 // specs
@@ -44,39 +43,32 @@ describe('#render', () => {
     }
   })
 
-  it('shows the document number', () => {
-    loadSubject()
-    expect(element.doc()).toHaveText(bill.documentNumber)
-  })
+  describe('normally', () => {
+    beforeEach(loadSubject)
 
-  it('shows the title', () => {
-    loadSubject()
-    expect(element.title()).toHaveText(bill.title)
-  })
+    it('shows the document number', () => {
+      expect(element.doc()).toHaveText(bill.documentNumber)
+    })
 
-  it('shows the hearing date', () => {
-    loadSubject()
-    expect(element.date()).toHaveText('01/01/2010')
-  })
+    it('shows the title', () => {
+      expect(element.title()).toHaveText(bill.title)
+    })
 
-  it('shows the slip link', () => {
-    loadSubject()
-    expect(element.slipLink()).toHaveProp('url', bill.witnessSlipUrl)
-  })
+    it('shows the hearing date', () => {
+      expect(element.date()).toHaveText('01/01/2010')
+    })
 
-  it('shows the details page link', () => {
-    loadSubject()
-    expect(element.detailsLink()).toHaveProp('url', bill.detailsUrl)
-  })
+    it('shows the summary', () => {
+      expect(element.summary()).toHaveText(bill.summary)
+    })
 
-  it('shows the full text page link', () => {
-    loadSubject()
-    expect(element.textLink()).toHaveProp('url', bill.fullTextUrl)
-  })
+    it('shows the slip link', () => {
+      expect(element.slipLink()).toHaveProp('url', bill.witnessSlipUrl)
+    })
 
-  it('shows the summary', () => {
-    loadSubject()
-    expect(element.summary()).toHaveText(bill.summary)
+    it('shows the details page link', () => {
+      expect(element.detailsLink()).toHaveProp('url', bill.detailsUrl)
+    })
   })
 
   describe('when data is missing', () => {
