@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
-import { Link } from '../../components'
+import { Button } from '../../components'
 import { fonts, colors, shadows, borders } from '../../styles'
 import type { Bill } from '../../../types'
 
@@ -20,22 +20,29 @@ class BillCell extends Component {
     const date = moment(bill.hearing.date)
 
     return <div className={css(styles.container, style, isLast && styles.last)}>
-      <div className={css(styles.header)}>
-        <div className={css(styles.headerLeft)}>
-          <div className={css(styles.info)}>
-            <span className={css(styles.documentNumber)}>{bill.documentNumber}</span>
-            <span className={css(styles.title)}>{bill.title}</span>
-            <span>{date.calendar()}</span>
+      <div className={css(styles.info)}>
+        <div className={css(styles.header)}>
+          <div className={css(styles.document)}>
+            <h3 className={css(styles.title)}>{bill.title}</h3>
+            <span className={css(styles.number)}>{bill.documentNumber}</span>
           </div>
-          <div>
-            <Link style={styles.link} url={bill.witnessSlipUrl} label='Take Action' iconName='pencil-square-o' />
-            <Link style={styles.link} url={bill.detailsUrl} label='View Details' iconName='info-circle' />
-            <Link url={bill.fullTextUrl} label='View Bill' iconName='file-text-o' />
-          </div>
+          <p>{date.calendar()}</p>
         </div>
-        <Link url={`bill/${bill.id}`} iconName='chevron-right' />
+        {bill.summary && <div className={css(styles.summary)}>{bill.summary}</div>}
       </div>
-      {bill.summary && <div className={css(styles.summary)}>{bill.summary}</div>}
+      <div className={css(styles.actions)}>
+        <Button
+          type='solid'
+          style={styles.link}
+          url={bill.witnessSlipUrl}
+          label='Take Action'
+          iconName='pencil-square-o' />
+        <Button
+          style={{ ...styles.link, ...styles.last }}
+          url={`bill/${bill.id}`}
+          label='Bill Details'
+          iconName='file-text-o' />
+      </div>
     </div>
   }
 }
@@ -44,30 +51,40 @@ const styles = StyleSheet.create({
   container: {
     ...shadows.low,
     ...borders.low(),
+    display: 'flex',
     padding: 15,
     marginBottom: 15,
     backgroundColor: colors.neutral
   },
   last: {
-    marginBottom: 0
+    margin: 0
+  },
+  info: {
+    flex: 1
   },
   header: {
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    flexDirection: 'column'
   },
-  info: {
+  document: {
     marginBottom: 5
   },
-  documentNumber: {
+  title: {
     ...fonts.bold,
+    display: 'inline-block',
     marginRight: 10
   },
-  title: {
+  number: {
+    display: 'inline-block',
     marginRight: 10
+  },
+  actions: {
+    ...borders.low(['left']),
+    width: 200,
+    paddingLeft: 15
   },
   link: {
-    marginRight: 10
+    marginBottom: 10
   },
   summary: {
     marginTop: 10,
