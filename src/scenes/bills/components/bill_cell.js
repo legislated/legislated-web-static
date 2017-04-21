@@ -34,12 +34,12 @@ class BillCell extends Component {
         <Button
           type='solid'
           style={styles.link}
-          url={bill.witnessSlipUrl}
+          to={bill.witnessSlipUrl}
           label='Take Action'
           iconName='pencil-square-o' />
         <Button
           style={{ ...styles.link, ...styles.last }}
-          url={`bill/${bill.id}`}
+          to={`bill/${bill.id}`}
           label='Bill Details'
           iconName='file-text-o' />
       </div>

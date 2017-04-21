@@ -21,9 +21,9 @@ class Content extends Component {
         <h1>{bill.title}</h1>
         <div className={css(styles.subheader)}>
           <h4 className={css(styles.number)}>{bill.documentNumber}</h4>
-          <Link style={styles.link} url={bill.witnessSlipUrl} label='Take Action' iconName='pencil-square-o' />
-          <Link style={styles.link} url={bill.detailsUrl} label='View Details' iconName='info-circle' />
-          <Link url={bill.fullTextUrl} label='View Bill' iconName='file-text-o' />
+          <Link style={styles.link} to={bill.witnessSlipUrl} label='Take Action' iconName='pencil-square-o' />
+          <Link style={styles.link} to={bill.detailsUrl} label='View Details' iconName='info-circle' />
+          <Link to={bill.fullTextUrl} label='View Bill' iconName='file-text-o' />
         </div>
       </div>
       <div className={css(styles.body)}>

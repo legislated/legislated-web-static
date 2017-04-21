@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { Link } from './link'
 import type { LinkProps } from './link' // eslint-disable-line
-import { borders, colors, alpha } from '../styles'
+import { borders, colors } from '../styles'
 
 type ButtonType = 'solid' | 'outline'
 
@@ -13,31 +13,19 @@ export class Button extends Component {
   } & LinkProps
 
   // lifecycle
-  render (): ?React$Element<*> {
-    const { url } = this.props
+  render () {
+    const { to: url } = this.props
     if (!url) {
       return null
     }
 
     const { type, label, iconName, style } = this.props
     const isSolid = type === 'solid'
-    const buttonClass = css(
-      styles.container,
-      isSolid && styles.solid,
-      style
-    )
 
-    const linkProps = {
-      url,
-      label,
-      iconName,
-      style: [
-        styles.link,
-        isSolid ? styles.solidLink : {}
-      ]
-    }
+    const linkStyle = [ styles.link, isSolid ? styles.solidLink : {} ]
+    const linkProps = { label, iconName, to: url, style: linkStyle }
 
-    return <div className={buttonClass}>
+    return <div className={css(styles.container, isSolid && styles.solid, style)}>
       <Link {...linkProps} />
     </div>
   }
@@ -57,9 +45,6 @@ const styles = StyleSheet.create({
     textDecoration: 'none'
   },
   solidLink: {
-    color: colors.white,
-    ':hover': {
-      color: alpha(colors.white, 0.9)
-    }
+    color: colors.white
   }
 })

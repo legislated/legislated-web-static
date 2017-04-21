@@ -1,13 +1,14 @@
 // @flow
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
+import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { colors } from '../styles'
 import type { StyleProp } from '../../types'
 import { combine } from '../../types/style_prop'
 
 export type LinkProps = {
-  url: ?string,
+  to: ?string,
   iconName: string,
   label?: string,
   style?: StyleProp
@@ -18,15 +19,28 @@ export class Link extends Component {
 
   // lifecycle
   render (): ?React$Element<*> {
-    const { url, iconName, label, style } = this.props
+    const { to: url } = this.props
     if (!url) {
       return null
     }
 
-    return <a className={css(styles.link, combine(style))} href={url}>
+    const { label, iconName, style } = this.props
+    return <Link.Base url={url} style={style} >
       <FontAwesome className={css(styles.icon)} name={iconName} />
       {label && <span className={css(styles.label)}>{label}</span>}
-    </a>
+    </Link.Base>
+  }
+
+  static Base (props: { url: string, style?: StyleProp, children?: any }): React$Element<any> {
+    const { url, style, children } = props
+    const className = css(styles.link, combine(style))
+
+    // use anchor tags for absolute urls, otherwise use a router link
+    if (/https?:\/\//.test(url)) {
+      return <a className={className} href={url}>{children}</a>
+    } else {
+      return <RouteLink className={className} to={url}>{children}</RouteLink>
+    }
   }
 }
 

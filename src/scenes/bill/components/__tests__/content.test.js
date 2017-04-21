@@ -58,15 +58,15 @@ describe('#render', () => {
   })
 
   it('shows the witness slip link', () => {
-    expect(element.slipLink()).toHaveProp('url', bill.witnessSlipUrl)
+    expect(element.slipLink()).toHaveProp('to', bill.witnessSlipUrl)
   })
 
   it('shows the details link', () => {
-    expect(element.detailsLink()).toHaveProp('url', bill.detailsUrl)
+    expect(element.detailsLink()).toHaveProp('to', bill.detailsUrl)
   })
 
   it('shows the full text link', () => {
-    expect(element.textLink()).toHaveProp('url', bill.fullTextUrl)
+    expect(element.textLink()).toHaveProp('to', bill.fullTextUrl)
   })
 
   it('shows the summary', () => {

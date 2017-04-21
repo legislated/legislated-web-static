@@ -10,11 +10,14 @@ let label = 'label'
 let iconName = 'icon'
 
 function loadSubject () {
-  subject = shallow(<Link url={url} label={label} iconName={iconName} />)
+  subject = shallow(<Link to={url} label={label} iconName={iconName} />)
 }
 
 const element = {
-  icon: () => subject.find('FontAwesome')
+  anchor: () => subject.dive().find('a'),
+  link: () => subject.dive().find('Link'),
+  icon: () => subject.find('FontAwesome'),
+  label: () => subject.find('span')
 }
 
 // specs
@@ -23,10 +26,16 @@ afterEach(() => {
 })
 
 describe('#render', () => {
-  it('links to the page', () => {
+  it('shows external links as an anchor', () => {
     url = 'http://www.google.com'
     loadSubject()
-    expect(subject).toHaveProp('href', url)
+    expect(element.anchor()).toHaveProp('href', url)
+  })
+
+  it('shows relative links as a route link', () => {
+    url = 'bills'
+    loadSubject()
+    expect(element.link()).toHaveProp('to', url)
   })
 
   it('shows the icon', () => {
@@ -38,14 +47,14 @@ describe('#render', () => {
   it('shows the label', () => {
     label = 'just, click it already'
     loadSubject()
-    expect(subject.text()).toMatch(label)
+    expect(element.label()).toHaveText(label)
   })
 
   describe('with no url', () => {
-    it('returns null', () => {
+    it('shows nothing', () => {
       url = null
       loadSubject()
-      expect(subject.get(0)).toBeNull()
+      expect(subject.get(0)).toBeFalsy()
     })
   })
 
@@ -53,7 +62,7 @@ describe('#render', () => {
     it('hides the label', () => {
       label = null
       loadSubject()
-      expect(subject.text()).toEqual('')
+      expect(element.label()).toHaveLength(0)
     })
   })
 })

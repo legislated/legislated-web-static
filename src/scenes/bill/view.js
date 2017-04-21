@@ -16,7 +16,7 @@ class BillView extends Component {
     const { viewer } = this.props
 
     return <div className={css(styles.container)}>
-      <Link style={styles.back} url='/' label='All Bills' iconName='chevron-left' />
+      <Link style={styles.back} to='/' label='All Bills' iconName='chevron-left' />
       <div className={css(styles.content)}>
         {viewer ? <Content bill={viewer.bill} /> : <div>Loading...</div>}
       </div>
