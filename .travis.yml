@@ -2,17 +2,31 @@ language: node_js
 cache: yarn
 branches:
   only:
-    - master
-    - production
+  - master
+  - production
 script:
-  - yarn lint
-  - yarn flow
-  - yarn test
-  - yarn build:staging
+- yarn lint
+- yarn flow
+- yarn test
 deploy:
-  provider: surge
-  project: ./dist/
-  domain: legislated-staging.surge.sh
-  skip_cleanup: true
-  on:
-    branch: master
+  matrix:
+  - provider: s3
+    access_key_id: "J/T0y0J/Yc/K/LMeqBfgOwjian1m5GicdPgW86CjJIT/uAGXCf/v0gExSEQ6hyP8a2hfjsIwz/EWGj1W5dXqxv2WQK+y2HxVzxA9BzO0QzrKBYWC3n5R8jorwyFakZluA9B2s3uvoymxyS+mYO/wZeTRpvf4LqLPfj5p+OXZNvGs1eivDoQcv7926hisygLwkcYnMtsBZ/p2Dju+yuqPkCdLmS83X+VN73lb+r89nYBwIpzoCMnTlA+oifeCUUX2K5UZbVvmNffKs8PJv9JlN6/drNO82mZg0l7YvYSV3uRgamRKHecWLgt3e5jQlizvNSuNIn2v9EeBdxg67yCN1dpXACDYecO52z8HFSRzpPRKy3WpHYQ1OvLSjCLcdNwTB9OV6mPvQd3/263BxW18cNV/sf+peP3TACXSZavrn3pojMBr8DBO1ncQFypG9PNqR+iIzHWwv/ijrn4313F0Hv4omSDdWlyPywoZZINLSJhHCYo88EOq/UstkXu4t+w8rNzznlwqtZoxRystXwSG5dGzkBHHVhJdlewpgUMXRKceE1vJ3SWSrYcCtdCtKHfMBdnpqlnIoptlsUVxuRTjWG61rr+wrvr8HXLks9UKwijdTFVRNElgYltGzVeF0hCEQOQq8su5zv2fKwn/SgZeX29b5OMMcXR7NLLE3n2fQQA="
+    secret_access_key: "ZgduFn0DztuxPVXLnYE12RQU03vS0gdq7MW1qnoM2QEcQFwIfILkLpeXdy0zyYdEYeg9GhDUw/x4UT3tu970BbE9nDZF+sPfO8hIoGzH5bkoBrht0yJSzYs7Yvf4rhOjQPzYqMHrginXWQXqcCbRxU3Ngxh3BpLpWMU4Pz1xwViitGKxm7gdiSndb5U/Ikdm926QHS7+noqb03aLG0genGNlShqVOp5N2yUY5lOx9HRfqZx3w7jnilIZHR9a4ufLt5fRl9nx13/dD9SIRTqyLMPfhRFryK9A3d/60VvZUuWSHiBntJFd+3RLuFNrpW1vQY10btzjB4fSIB6imC0tS8eQx6K2E2msGa8t8fKEOETJvMGypIz9F3IYtQOudaCOQwDPmsspXNvPMZPn0DjzggX8PRJBHWx3DdDA1CkkrBYYPc6zhmU/GjzYp4VhvHDcBFMD/+c889EEs6WZaYsFHaGqAHZxu3gRm+JkKXSJdEWXt+aWA/fYJnraJPlOFeOtbTxbR3wd1L1rEejW//vEpr9Q1mlRO/JA7xudYEXUKjaa4DD+udpc5tiMm36Zo0pM7U+bR1gA+sKdZNA3eQ5W06ZWPx/5DTDBJgsjxrlZR41Pkwwcq45HIMgd8MCi1NgfW8wlit6pP4cyT/6QnIrVcLUtQx03kezxGu3lAthvHqU="
+    bucket: staging.legislated.org
+    local_dir: dist
+    skip_cleanup: true
+    before_deploy:
+    - yarn build:stage
+    on:
+      branch: master
+  - provider: s3
+    access_key_id: "v55SZvbLL80Edrbv8FdS39SKiMwGYJvvLOuEmYsST+WLGQQuKuN19eu50eXOyeNwg0tvRl871a+5FvPlSoQmqLlfvHCIeTBrEdo3nS4usYeWhIcuDQzhHtIJzqKsZtwWQNje3r6iG+5nULilynMdAAJrF7EUNXw+0hDzT2JGbRZOeIShS4LapVrpGXO1q1nHsf+XxU3XhL9RZlXZ5fH0bg01KTLk5HIjcsweILJgDBIYhmTThlnGX7lEXToEZboQ8nO/An8mW48+pLj+4jTlPT+7hU7lc0zp6/2XWTDJWRtYShKwVfZe3ycbwCfGRIl/pUopflnGJ4J5iu/fiVsAYVUQq6qks6G2C6YyxpwQ67CN/S73izbG9+pRF9mIAuhV5xMOtEuqWojIKfs+KsaXfFAaubg0BXUbfZKFqwH/WT9hwKb0xkfLns44GruySJP3HFQhCUq82RQOiP+fbktg8gzLwVQgGiZgThxq+yuEABQzkXCctPYFc/gfImb2tM0EzoDqk22A3+sptasaD2DvB/CdUjwy66itrOF1oXoAKK2HRF1zX/o11yu+O0s7FPhXOL+NSAQM5WKrhMfqC0qZdzooh4DJ/vklQbTjaUVnRNXKIEDNmDREXfGO+bmbN5qG6F9r9XMngtcGEz+quZkZccoWl6+YnAw82f4PYpUVOI0="
+    secret_access_key: "Vo10NZ5oCEVxPNJJdbW7I3K9QqDd0J412kK4UE5kLRgX0LHgLl5fJhY7EtqTi9pPQf+jKKr9Td1Auu2z36Uf2yX7xqyRylY5A727aZECtoJkoPL2soyXc3TFpEPpREmGh8rDocGK/smnI66RNb4/h7BcE/ETCqzP73HZRBMkL5/1nXRjdPkAIHXFBq8W6MvynnFBbuMx0gH0D5UaJAHhPRlBQhlE68CGXuzF5fntd6Q78wgmRbqEx2mZhgqvU6UWiP11yna5wvf5HcgSWkp17bm0fABEFhi1gE2qdtpsWF48oqFq5PWmRWX+laSSJf7qf8epXwC6TXr9n6WRmXiEWHe4w3kdpnS+odzPdgR8XAClu9qt7ZOoYdaLQz2hgGRlqdq0Dvks8mftPZQvWPbNKWL9YjZnPPfE24Rzmb5B8lm85ndsFpBVrL5NTumcHeI/ASzqs24wV4cquyoDeZ8hKIQkbVkLo+Dz7KrTRkNiFAV20/X8eAvl/cKMdiOA5J0gGLajD0Ov0qkYZmw/5Japn3OkcrWJzKpxliUqQVrNWi5/1DSkg4jKaAx9IKGDZ67bi8qd/RQVOYXF0Dn7vC3/TgRBN2/8/RrylB7hskNyx+MJje+KDukvuwcwKl2GoF8/2n2pGdE1GrVTXRWKui/WcBLHnvDEaqSaLDbeGmtkz/Y="
+    bucket: legislated.org
+    local_dir: dist
+    skip_cleanup: true
+    before_deploy:
+    - yarn build:prod
+    on:
+      branch: production
