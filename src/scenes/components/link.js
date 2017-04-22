@@ -35,7 +35,7 @@ export class Link extends Component {
 
     // use anchor tags for absolute urls, otherwise use a router link
     if (/https?:\/\//.test(url)) {
-      return <a className={className} href={url}>{children}</a>
+      return <a className={className} href={url} target='_blank'>{children}</a>
     } else {
       return <RouteLink className={className} to={url}>{children}</RouteLink>
     }
@@ -44,6 +44,7 @@ export class Link extends Component {
 
 const styles = StyleSheet.create({
   link: {
+    display: 'inline-block',
     color: colors.primary,
     transition: 'color 0.25s',
     ':hover': {

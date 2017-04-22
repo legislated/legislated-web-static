@@ -25,7 +25,10 @@ export class IconLink extends Component {
     linkStyle.unshift(styles.link)
 
     // hack the font size out, really gotta ditch aphrodite
-    const fontSize = linkStyle.reduce((size, style) => max(style._definition.fontSize), 0)
+    const fontSize = linkStyle.reduce((size, style) => {
+      const { fontSize: otherSize } = style._definition
+      return otherSize ? max(style._definition.fontSize) : size
+    }, 0)
 
     return <Link to={url} style={linkStyle} >
       <FontAwesome style={{ width: fontSize }} className={css(styles.icon)} name={iconName} />

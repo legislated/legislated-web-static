@@ -34,7 +34,6 @@ export class Button extends Component {
 const styles = StyleSheet.create({
   container: {
     ...borders.high(),
-    padding: 10,
     borderRadius: 3
   },
   solid: {
@@ -42,7 +41,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary
   },
   link: {
-    textDecoration: 'none'
+    textDecoration: 'none',
+    padding: 10
   },
   solidLink: {
     color: colors.white
