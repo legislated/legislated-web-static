@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { Link } from './link'
-import type { LinkProps } from './link' // eslint-disable-line
+import { IconLink } from './icon_link'
+import type { IconLinkProps } from './icon_link' // eslint-disable-line
 import { borders, colors } from '../styles'
 
 type ButtonType = 'solid' | 'outline'
@@ -10,7 +10,7 @@ type ButtonType = 'solid' | 'outline'
 export class Button extends Component {
   props: {
     type?: ButtonType
-  } & LinkProps
+  } & IconLinkProps
 
   // lifecycle
   render () {
@@ -26,7 +26,7 @@ export class Button extends Component {
     const linkProps = { label, iconName, to: url, style: linkStyle }
 
     return <div className={css(styles.container, isSolid && styles.solid, style)}>
-      <Link {...linkProps} />
+      <IconLink {...linkProps} />
     </div>
   }
 }

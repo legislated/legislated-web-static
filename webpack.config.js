@@ -15,6 +15,10 @@ module.exports = function (config) {
       filename: 'bundle-[hash].js',
       publicPath: '/'
     },
+    devtool: 'source-map',
+    devServer: {
+      historyApiFallback: true
+    },
     plugins: [
       new CleanWebpackPlugin([
         'dist'

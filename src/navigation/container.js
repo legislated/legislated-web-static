@@ -1,24 +1,25 @@
 // @flow
-import './styles/globals'
+import '../scenes/styles/globals'
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { StickyContainer, Sticky } from 'react-sticky'
-import { fonts } from './styles'
 import { Header } from './header'
-import { AppRouter } from './router'
+import { fonts } from '../scenes/styles'
 
-export default class Container extends Component {
+export class Container extends Component {
   props: {
     children?: any
   }
 
   render () {
+    const { children } = this.props
+
     return <StickyContainer className={css(styles.container)}>
       <Sticky className={css(styles.header)}>
         <Header />
       </Sticky>
       <div className={css(styles.inner)}>
-        <AppRouter />
+        {children}
       </div>
     </StickyContainer>
   }

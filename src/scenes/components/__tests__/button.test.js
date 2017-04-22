@@ -13,7 +13,7 @@ function loadSubject () {
 }
 
 let element = {
-  link: () => subject.find('Link')
+  link: () => subject.find('IconLink')
 }
 
 // spec

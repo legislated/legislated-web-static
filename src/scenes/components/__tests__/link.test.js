@@ -15,9 +15,7 @@ function loadSubject () {
 
 const element = {
   anchor: () => subject.dive().find('a'),
-  link: () => subject.dive().find('Link'),
-  icon: () => subject.find('FontAwesome'),
-  label: () => subject.find('span')
+  link: () => subject.dive().find('Link')
 }
 
 // specs
@@ -38,31 +36,11 @@ describe('#render', () => {
     expect(element.link()).toHaveProp('to', url)
   })
 
-  it('shows the icon', () => {
-    iconName = 'foo'
-    loadSubject()
-    expect(element.icon()).toHaveProp('name', iconName)
-  })
-
-  it('shows the label', () => {
-    label = 'just, click it already'
-    loadSubject()
-    expect(element.label()).toHaveText(label)
-  })
-
   describe('with no url', () => {
     it('shows nothing', () => {
       url = null
       loadSubject()
       expect(subject.get(0)).toBeFalsy()
-    })
-  })
-
-  describe('with missing data', () => {
-    it('hides the label', () => {
-      label = null
-      loadSubject()
-      expect(element.label()).toHaveLength(0)
     })
   })
 })

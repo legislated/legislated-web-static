@@ -6,7 +6,7 @@
   "author": "Ty Cobb",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server -d --hot --inline --history-api-fallback --env.env=development",
+    "start": "webpack-dev-server --debug --hot --inline --env.env=development",
     "build:staging": "webpack -p --env.env=staging",
     "deploy:staging": "yarn build:staging && surge -p dist -- -d legislated-staging.surge.sh",
     "test": "jest",

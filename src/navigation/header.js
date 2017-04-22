@@ -1,16 +1,21 @@
 // @flow
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
+import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { fonts, borders, colors, alpha } from './styles'
+import { IconLink } from '../scenes/components'
+import { fonts, borders, colors, alpha } from '../scenes/styles'
 
 export class Header extends Component {
   render () {
     return <div className={css(styles.container)}>
-      <a className={css(styles.link)} href='/'>
+      <RouteLink className={css(styles.logoLink)} to='/'>
         <FontAwesome name='institution' />
-        <span className={css(styles.title)}>Legislated</span>
-      </a>
+        <span className={css(styles.logoTitle)}>Legislated</span>
+      </RouteLink>
+      <div className={css(styles.sceneLinks)}>
+        <IconLink style={styles.sceneLink} to='/' iconName='paper-plane-o' label='Bills' />
+      </div>
     </div>
   }
 }
@@ -25,7 +30,7 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     backgroundColor: alpha(colors.white, 0.95)
   },
-  link: {
+  logoLink: {
     color: colors.black,
     fontSize: 32,
     textDecoration: 'none',
@@ -34,8 +39,16 @@ const styles = StyleSheet.create({
       color: alpha(colors.black, 0.6)
     }
   },
-  title: {
+  logoTitle: {
     ...fonts.bold,
     marginLeft: 15
+  },
+  sceneLinks: {
+    ...borders.low(['left']),
+    marginLeft: 15,
+    paddingLeft: 15
+  },
+  sceneLink: {
+    fontSize: 20
   }
 })

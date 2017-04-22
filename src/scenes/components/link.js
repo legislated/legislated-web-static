@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react'
-import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { colors } from '../styles'
@@ -9,13 +8,13 @@ import { combine } from '../../types/style_prop'
 
 export type LinkProps = {
   to: ?string,
-  iconName: string,
-  label?: string,
-  style?: StyleProp
+  style?: StyleProp,
 }
 
 export class Link extends Component {
-  props: LinkProps
+  props: {
+    children?: any
+  } & LinkProps
 
   // lifecycle
   render (): ?React$Element<*> {
@@ -24,10 +23,9 @@ export class Link extends Component {
       return null
     }
 
-    const { label, iconName, style } = this.props
+    const { style, children } = this.props
     return <Link.Base url={url} style={style} >
-      <FontAwesome className={css(styles.icon)} name={iconName} />
-      {label && <span className={css(styles.label)}>{label}</span>}
+      {children}
     </Link.Base>
   }
 
@@ -46,18 +44,10 @@ export class Link extends Component {
 
 const styles = StyleSheet.create({
   link: {
-    fontSize: 16,
     color: colors.primary,
     transition: 'color 0.25s',
     ':hover': {
       color: colors.primaryHighlight
     }
-  },
-  icon: {
-    width: 16,
-    textAlign: 'center'
-  },
-  label: {
-    marginLeft: 5
   }
 })

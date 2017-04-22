@@ -2,9 +2,9 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { createRelayEnvironment } from './relay'
-import { Container } from './scenes'
+import { AppRouter } from './navigation'
 
 // bootstrap relay
 createRelayEnvironment()
 // render application
-render(<Container />, document.getElementById('root'))
+render(<AppRouter />, document.getElementById('root'))
