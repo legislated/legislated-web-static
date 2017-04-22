@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { Link } from './link'
 import type { LinkProps } from './link' // eslint-disable-line
-import { combine } from '../../types/style_prop'
+import { combine } from 'shared/types/style_prop'
 
 const { max } = Math
 

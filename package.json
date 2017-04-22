@@ -79,7 +79,10 @@
     "setupTestFrameworkScriptFile": "./test/setup_framework.js",
     "setupFiles": [
       "./test/setup.js"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^shared/(.*)$": "<rootDir>/src/shared/$1"
+    }
   },
   "standard": {
     "parser": "babel-eslint",

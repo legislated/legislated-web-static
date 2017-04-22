@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
-import { Button } from '../../components'
-import { fonts, colors, shadows, borders } from '../../styles'
-import type { Bill } from '../../../types'
+import { Button } from 'shared/components'
+import { fonts, colors, shadows, borders } from 'shared/styles'
+import type { Bill } from 'shared/types'
 
 class BillCell extends Component {
   props: {

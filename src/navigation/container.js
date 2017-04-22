@@ -1,10 +1,10 @@
 // @flow
-import '../scenes/styles/globals'
+import 'shared/styles/globals'
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { Header } from './header'
-import { fonts } from '../scenes/styles'
+import { fonts } from 'shared/styles'
 
 export class Container extends Component {
   props: {

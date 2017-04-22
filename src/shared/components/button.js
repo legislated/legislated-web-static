@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { IconLink } from './icon_link'
 import type { IconLinkProps } from './icon_link' // eslint-disable-line
-import { borders, colors } from '../styles'
+import { borders, colors } from 'shared/styles'
 
 type ButtonType = 'solid' | 'outline'
 

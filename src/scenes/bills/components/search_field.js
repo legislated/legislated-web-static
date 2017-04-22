@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import FontAwesome from 'react-fontawesome'
-import { fonts, colors, shadows, borders } from '../../styles'
+import { fonts, colors, shadows, borders } from 'shared/styles'
 
 export default class SearchField extends Component {
   props: {

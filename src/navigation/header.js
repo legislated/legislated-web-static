@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { IconLink } from '../scenes/components'
-import { fonts, borders, colors, alpha } from '../scenes/styles'
+import { IconLink } from 'shared/components'
+import { fonts, borders, colors, alpha } from 'shared/styles'
 
 export class Header extends Component {
   render () {

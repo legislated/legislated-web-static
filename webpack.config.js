@@ -5,15 +5,19 @@ var CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = function (config) {
   return {
-    context: path.resolve('./src'),
     entry: [
       'babel-polyfill',
-      './app.js'
+      './src/app.js'
     ],
     output: {
       path: path.resolve('./dist'),
       filename: 'bundle-[hash].js',
       publicPath: '/'
+    },
+    resolve: {
+      alias: {
+        shared: path.resolve('./src/shared')
+      }
     },
     devtool: 'source-map',
     devServer: {
@@ -29,7 +33,7 @@ module.exports = function (config) {
         }
       }),
       new HtmlWebpackPlugin({
-        template: 'index.ejs'
+        template: './src/index.ejs'
       })
     ],
     module: {

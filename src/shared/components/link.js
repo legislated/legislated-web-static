@@ -2,9 +2,9 @@
 import React, { Component } from 'react'
 import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { colors } from '../styles'
-import type { StyleProp } from '../../types'
-import { combine } from '../../types/style_prop'
+import { colors } from 'shared/styles'
+import type { StyleProp } from 'shared/types'
+import { combine } from 'shared/types/style_prop'
 
 export type LinkProps = {
   to: ?string,

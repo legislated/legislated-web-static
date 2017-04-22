@@ -5,8 +5,8 @@ import { throttle } from 'lodash'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
 import { SearchField, BillsList, LoadingIndicator } from './components'
-import { utils } from '../styles'
-import type { Viewer, RelayProp } from '../../types'
+import { utils } from 'shared/styles'
+import type { Viewer, RelayProp } from 'shared/types'
 
 const pageSize = 25
 
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Relay.createContainer(BillsView, {
+export const BillsScene = Relay.createContainer(BillsView, {
   initialVariables: {
     first: pageSize,
     query: '',

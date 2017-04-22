@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { Content } from './components'
-import { colors, shadows, borders } from '../styles'
-import type { Viewer } from '../../types'
+import { colors, shadows, borders } from 'shared/styles'
+import type { Viewer } from 'shared/types'
 
 class BillView extends Component {
   props: {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Relay.createContainer(BillView, {
+export const BillScene = Relay.createContainer(BillView, {
   initialVariables: {
     id: ''
   },

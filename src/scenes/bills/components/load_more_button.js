@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { colors, shadows } from '../../styles'
+import { colors, shadows } from 'shared/styles'
 
 export default class LoadMoreButton extends Component {
   props: {

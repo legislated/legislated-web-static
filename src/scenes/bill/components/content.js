@@ -4,9 +4,9 @@ import Relay from 'react-relay'
 import moment from 'moment'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { Element } from '../components'
-import { Button } from '../../components'
-import { colors } from '../../styles'
-import type { Bill } from '../../../types'
+import { Button } from 'shared/components'
+import { colors } from 'shared/styles'
+import type { Bill } from 'shared/types'
 
 const { floor } = Math
 
