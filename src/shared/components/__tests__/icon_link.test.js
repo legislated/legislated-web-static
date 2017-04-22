@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Link } from '../link'
+import { IconLink } from '../icon_link'
 
 // subject
 let subject
@@ -10,11 +10,12 @@ let label = 'label'
 let iconName = 'icon'
 
 function loadSubject () {
-  subject = shallow(<Link url={url} label={label} iconName={iconName} />)
+  subject = shallow(<IconLink to={url} label={label} iconName={iconName} />)
 }
 
 const element = {
-  icon: () => subject.find('FontAwesome')
+  icon: () => subject.find('FontAwesome'),
+  label: () => subject.find('span')
 }
 
 // specs
@@ -23,12 +24,6 @@ afterEach(() => {
 })
 
 describe('#render', () => {
-  it('links to the page', () => {
-    url = 'http://www.google.com'
-    loadSubject()
-    expect(subject).toHaveProp('href', url)
-  })
-
   it('shows the icon', () => {
     iconName = 'foo'
     loadSubject()
@@ -38,22 +33,14 @@ describe('#render', () => {
   it('shows the label', () => {
     label = 'just, click it already'
     loadSubject()
-    expect(subject.text()).toMatch(label)
-  })
-
-  describe('with no url', () => {
-    it('returns null', () => {
-      url = null
-      loadSubject()
-      expect(subject.get(0)).toBeNull()
-    })
+    expect(element.label()).toHaveText(label)
   })
 
   describe('with missing data', () => {
     it('hides the label', () => {
       label = null
       loadSubject()
-      expect(subject.text()).toEqual('')
+      expect(element.label()).toHaveLength(0)
     })
   })
 })

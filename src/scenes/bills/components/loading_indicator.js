@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import BillAnimation, { billStyle } from './bill_animation'
-import { colors, shadows, borders } from '../../styles'
+import { colors, shadows, borders } from 'shared/styles'
 
 export default class LoadingIndicator extends Component {
   props: {
@@ -46,7 +46,7 @@ const bar = {
 const styles = StyleSheet.create({
   container: {
     ...shadows.low,
-    ...borders.low,
+    ...borders.low(),
     height: 49,
     padding: 15,
     marginBottom: 15,

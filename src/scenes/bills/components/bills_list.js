@@ -5,8 +5,8 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import BillCell from './bill_cell'
 import BillAnimation, { billStyle } from './bill_animation'
 import LoadMoreButton from './load_more_button'
-import { unwrap } from '../../../types/connection'
-import type { Bill, Connection } from '../../../types' // eslint-disable-line
+import { unwrap } from 'shared/types/connection'
+import type { Bill, Connection } from 'shared/types' // eslint-disable-line
 
 class BillsList extends Component {
   props: {

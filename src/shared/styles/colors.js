@@ -1,4 +1,6 @@
 // @flow
+import color from 'color'
+
 export const colors = {
   black: '#000000',
   white: '#f9fdff',
@@ -10,4 +12,8 @@ export const colors = {
   primaryShadow: '#457dcb',
   primaryHighlight: '#6ba8ff',
   secondary: '#ff7575'
+}
+
+export function alpha (hex: string, value: number): string {
+  return color(hex).alpha(value).string()
 }

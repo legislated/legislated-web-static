@@ -1,18 +1,18 @@
 // @flow
 import React from 'react'
 import Relay from 'react-relay'
-import BillView from './view'
+import { BillScene } from './scene'
 
 export const billRoute = {
-  component: BillView,
+  component: BillScene,
   queries: {
     viewer: () => Relay.QL`query { viewer }`
   },
   render: ({ props }: { props: Object }) => {
     if (props) {
-      return <BillView {...props} />
+      return <BillScene {...props} />
     } else {
-      return <BillView viewer={null} />
+      return <BillScene viewer={null} />
     }
   }
 }

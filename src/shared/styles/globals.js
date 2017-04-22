@@ -14,6 +14,9 @@ const styles = extension.StyleSheet.create({
     'p, h1, h2, h3, h4, h5, h6, ul': {
       margin: 0
     },
+    h1: {
+      fontSize: 28
+    },
     h3: {
       fontSize: 20
     },
