@@ -5,16 +5,16 @@ import { css } from 'aphrodite/no-important'
 export class Element extends Component {
   props: {
     label: string,
-    value: string,
-    style?: Object
+    style?: Object,
+    children?: any
   }
 
   render () {
-    const { label, value, style } = this.props
+    const { label, children, style } = this.props
 
     return <div className={css(style)}>
       <h3>{label}</h3>
-      <p>{value}</p>
+      {children}
     </div>
   }
 }

@@ -4,7 +4,6 @@ import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { Content } from './components'
 import { colors, shadows, borders } from '../styles'
-import { Link } from '../components'
 import type { Viewer } from '../../types'
 
 class BillView extends Component {
@@ -16,7 +15,6 @@ class BillView extends Component {
     const { viewer } = this.props
 
     return <div className={css(styles.container)}>
-      <Link style={styles.back} to='/' label='All Bills' iconName='chevron-left' />
       <div className={css(styles.content)}>
         {viewer ? <Content bill={viewer.bill} /> : <div>Loading...</div>}
       </div>
