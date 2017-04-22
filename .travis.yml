@@ -2,12 +2,12 @@ language: node_js
 cache: yarn
 branches:
   only:
-  - master
-  - production
+    - master
+    - production
 script:
-- yarn lint
-- yarn flow
-- yarn test
+  - yarn lint
+  - yarn flow
+  - yarn test
 deploy:
   matrix:
   - provider: s3
@@ -17,7 +17,7 @@ deploy:
     local_dir: dist
     skip_cleanup: true
     before_deploy:
-    - yarn build:stage
+      - yarn build:stage
     on:
       branch: master
   - provider: s3
@@ -27,6 +27,6 @@ deploy:
     local_dir: dist
     skip_cleanup: true
     before_deploy:
-    - yarn build:prod
+      - yarn build:prod
     on:
       branch: production
