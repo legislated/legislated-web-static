@@ -8,7 +8,7 @@ script:
   - yarn lint
   - yarn flow
   - yarn test
-  - if [ $TRAVIS_BRANCH == 'production' ]; then yarn build:prod; else yarn build:stage fi;
+  - if [ $TRAVIS_BRANCH == 'production' ]; then yarn build:prod; else yarn build:stage fi
 deploy:
   - provider: s3
     access_key_id: "J/T0y0J/Yc/K/LMeqBfgOwjian1m5GicdPgW86CjJIT/uAGXCf/v0gExSEQ6hyP8a2hfjsIwz/EWGj1W5dXqxv2WQK+y2HxVzxA9BzO0QzrKBYWC3n5R8jorwyFakZluA9B2s3uvoymxyS+mYO/wZeTRpvf4LqLPfj5p+OXZNvGs1eivDoQcv7926hisygLwkcYnMtsBZ/p2Dju+yuqPkCdLmS83X+VN73lb+r89nYBwIpzoCMnTlA+oifeCUUX2K5UZbVvmNffKs8PJv9JlN6/drNO82mZg0l7YvYSV3uRgamRKHecWLgt3e5jQlizvNSuNIn2v9EeBdxg67yCN1dpXACDYecO52z8HFSRzpPRKy3WpHYQ1OvLSjCLcdNwTB9OV6mPvQd3/263BxW18cNV/sf+peP3TACXSZavrn3pojMBr8DBO1ncQFypG9PNqR+iIzHWwv/ijrn4313F0Hv4omSDdWlyPywoZZINLSJhHCYo88EOq/UstkXu4t+w8rNzznlwqtZoxRystXwSG5dGzkBHHVhJdlewpgUMXRKceE1vJ3SWSrYcCtdCtKHfMBdnpqlnIoptlsUVxuRTjWG61rr+wrvr8HXLks9UKwijdTFVRNElgYltGzVeF0hCEQOQq8su5zv2fKwn/SgZeX29b5OMMcXR7NLLE3n2fQQA="
