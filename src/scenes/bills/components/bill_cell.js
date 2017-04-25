@@ -4,7 +4,7 @@ import Relay from 'react-relay'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
 import { Button } from 'shared/components'
-import { fonts, colors, shadows, borders } from 'shared/styles'
+import { fonts, colors, shadows, borders, utils } from 'shared/styles'
 import type { Bill } from 'shared/types'
 
 class BillCell extends Component {
@@ -33,12 +33,12 @@ class BillCell extends Component {
       <div className={css(styles.actions)}>
         <Button
           type='solid'
-          style={styles.link}
+          style={styles.button}
           to={bill.witnessSlipUrl}
           label='Take Action'
           iconName='pencil-square-o' />
         <Button
-          style={{ ...styles.link, ...styles.last }}
+          style={[styles.button, styles.lastButton]}
           to={`bill/${bill.id}`}
           label='Bill Details'
           iconName='file-text-o' />
@@ -54,13 +54,25 @@ const styles = StyleSheet.create({
     display: 'flex',
     padding: 15,
     marginBottom: 15,
-    backgroundColor: colors.neutral
+    backgroundColor: colors.neutral,
+    ...utils.mobile({
+      flexDirection: 'column'
+    })
   },
   last: {
     margin: 0
   },
   info: {
-    flex: 1
+    ...borders.low(['right']),
+    flex: 1,
+    paddingRight: 15,
+    ...utils.mobile({
+      ...borders.low(['bottom']),
+      paddingRight: 0,
+      paddingBottom: 15,
+      marginBottom: 15,
+      borderRight: 'none'
+    })
   },
   header: {
     display: 'flex',
@@ -79,12 +91,27 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   actions: {
-    ...borders.low(['left']),
-    width: 200,
-    paddingLeft: 15
+    display: 'flex',
+    flexDirection: 'column',
+    paddingLeft: 15,
+    ...utils.mobile({
+      flexDirection: 'row',
+      paddingLeft: 0
+    })
   },
-  link: {
-    marginBottom: 10
+  button: {
+    width: 200,
+    marginBottom: 10,
+    ...utils.mobile({
+      marginBottom: 0,
+      marginRight: 10
+    })
+  },
+  lastButton: {
+    marginBottom: 0,
+    ...utils.mobile({
+      marginRight: 0
+    })
   },
   summary: {
     marginTop: 10,

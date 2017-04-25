@@ -11,5 +11,12 @@ export const utils = {
     left: 0,
     right: 0,
     bottom: 0
+  },
+  mobile (styles: Object): Object {
+    return {
+      '@media (max-width: 720px)': {
+        ...styles
+      }
+    }
   }
 }

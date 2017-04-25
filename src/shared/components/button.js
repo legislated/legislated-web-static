@@ -34,6 +34,10 @@ export class Button extends Component {
 const styles = StyleSheet.create({
   container: {
     ...borders.high(),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'stretch',
     borderRadius: 3
   },
   solid: {
