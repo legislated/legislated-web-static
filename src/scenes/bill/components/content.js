@@ -53,16 +53,19 @@ class Content extends Component {
           label='Take Action'
           iconName='pencil-square-o'
           type='solid' />
-        <Button
-          style={styles.button}
-          to={bill.detailsUrl}
-          label='View Details'
-          iconName='info-circle' />
-        <Button
-          style={[styles.button, styles.lastButton]}
-          to={bill.fullTextUrl}
-          label='View Bill'
-          iconName='file-text-o' />
+        <div className={css(styles.secondaryActions)}>
+          <Button
+            style={styles.button}
+            to={bill.detailsUrl}
+            label='View Details'
+            iconName='info-circle' />
+          <div className={css(styles.mobileSpacer)} />
+          <Button
+            style={styles.button}
+            to={bill.fullTextUrl}
+            label='View Bill'
+            iconName='file-text-o' />
+        </div>
       </div>
     </div>
   }
@@ -113,22 +116,26 @@ const styles = StyleSheet.create({
   actions: {
     display: 'flex',
     ...utils.mobile({
-      width: 200,
       flexDirection: 'column',
       alignItems: 'stretch'
+    })
+  },
+  secondaryActions: {
+    display: 'flex',
+    ...utils.mobile({
+      marginTop: 10
     })
   },
   button: {
     marginRight: 10,
     ...utils.mobile({
-      marginRight: 0,
-      marginBottom: 10
+      flex: 1,
+      marginRight: 0
     })
   },
-  lastButton: {
-    marginRight: 0,
+  mobileSpacer: {
     ...utils.mobile({
-      marginBottom: 0
+      width: 15
     })
   }
 })
