@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     ...borders.high(),
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'stretch',
     borderRadius: 3
   },
