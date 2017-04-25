@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { Header } from './header'
-import { fonts } from 'shared/styles'
+import { fonts, utils } from 'shared/styles'
 
 export class Container extends Component {
   props: {
@@ -30,7 +30,10 @@ const styles = StyleSheet.create({
     ...fonts.regular
   },
   inner: {
-    padding: 30
+    padding: 30,
+    ...utils.mobile({
+      padding: 15
+    })
   },
   header: {
     zIndex: 1

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { IconLink } from './icon_link'
 import type { IconLinkProps } from './icon_link' // eslint-disable-line
-import { borders, colors } from 'shared/styles'
+import { borders, colors, utils } from 'shared/styles'
 
 type ButtonType = 'solid' | 'outline'
 
@@ -45,7 +45,10 @@ const styles = StyleSheet.create({
   },
   link: {
     textDecoration: 'none',
-    padding: 10
+    padding: 10,
+    ...utils.mobile({
+      padding: 9
+    })
   },
   solidLink: {
     color: colors.white

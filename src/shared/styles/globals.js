@@ -1,5 +1,6 @@
 import { StyleSheet } from 'aphrodite/no-important'
 import { fonts } from './fonts'
+import { utils } from './utils'
 
 const GLOBALS = '__GLOBAL_STYLES__'
 
@@ -15,14 +16,23 @@ const styles = extension.StyleSheet.create({
       margin: 0
     },
     h1: {
-      fontSize: 28
+      fontSize: 28,
+      ...utils.mobile({
+        fontSize: 24
+      })
     },
     h3: {
-      fontSize: 20
+      fontSize: 20,
+      ...utils.mobile({
+        fontSize: 18
+      })
     },
     h4: {
       ...fonts.regular,
-      fontSize: 20
+      fontSize: 20,
+      ...utils.mobile({
+        fontSize: 18
+      })
     }
   }
 })

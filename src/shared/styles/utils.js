@@ -14,7 +14,7 @@ export const utils = {
   },
   mobile (styles: Object): Object {
     return {
-      '@media (max-width: 720px)': {
+      '@media (max-width: 700px)': {
         ...styles
       }
     }

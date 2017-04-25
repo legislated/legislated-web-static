@@ -103,6 +103,8 @@ const styles = StyleSheet.create({
     width: 200,
     marginBottom: 10,
     ...utils.mobile({
+      flex: 1,
+      width: 'auto',
       marginBottom: 0,
       marginRight: 10
     })
