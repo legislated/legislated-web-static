@@ -1,4 +1,4 @@
-#!/binsh
+#!/bin/sh
 set -e
 
 if [ $TRAVIS_BRANCH == 'production' ]; then
