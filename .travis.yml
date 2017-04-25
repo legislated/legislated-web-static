@@ -5,7 +5,7 @@ branches:
     - master
     - production
 before_script:
-  - chmod u+x ./scripts/ci_build.sh
+  - chmod +x ./scripts/ci_build.sh
 script:
   - yarn lint
   - yarn flow
