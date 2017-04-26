@@ -9,7 +9,7 @@ import { combine } from 'shared/types/style_prop'
 const { max } = Math
 
 export type IconLinkProps = {
-  iconName: string,
+  iconName: ?string,
   label?: string,
 } & LinkProps
 
@@ -31,8 +31,8 @@ export class IconLink extends Component {
     }, 0)
 
     return <Link to={url} style={linkStyle} >
-      <FontAwesome style={{ width: fontSize }} className={css(styles.icon)} name={iconName} />
-      {label && <span className={css(styles.label)}>{label}</span>}
+      {iconName && <FontAwesome style={{ width: fontSize }} className={css(styles.icon)} name={iconName} />}
+      {label && <span>{label}</span>}
     </Link>
   }
 }
@@ -42,9 +42,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   icon: {
-    textAlign: 'center'
-  },
-  label: {
-    marginLeft: 5
+    textAlign: 'center',
+    marginRight: 5
   }
 })

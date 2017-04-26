@@ -24,7 +24,7 @@ export class Link extends Component {
     }
 
     const { style, children } = this.props
-    return <Link.Base url={url} style={style} >
+    return <Link.Base url={url} style={style}>
       {children}
     </Link.Base>
   }

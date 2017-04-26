@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { Link, IconLink } from 'shared/components'
+import { NavItems } from './nav_items'
+import { MobileNavButton } from './mobile_nav_button'
 import { fonts, borders, colors, alpha, utils } from 'shared/styles'
 
 export class Header extends Component {
@@ -13,12 +14,9 @@ export class Header extends Component {
         <FontAwesome name='institution' />
         <span className={css(styles.logoTitle)}>Legislated</span>
       </RouteLink>
+      <MobileNavButton />
       <div className={css(styles.nav)}>
-        <IconLink style={styles.navLink} to='/' iconName='search' label='Search Bills' />
-        <div>
-          <Link style={styles.navLink} to='/faq'>FAQ</Link>
-          <Link style={[styles.navLink, styles.lastNavLink]} to='/about'>About Us</Link>
-        </div>
+        <NavItems />
       </div>
     </div>
   }
@@ -28,6 +26,7 @@ const styles = StyleSheet.create({
   container: {
     ...borders.low(['bottom']),
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'center',
     height: 80,
     paddingLeft: 30,
@@ -57,20 +56,12 @@ const styles = StyleSheet.create({
   },
   nav: {
     ...borders.low(['left']),
-    display: 'flex',
     flex: 1,
-    justifyContent: 'space-between',
+    display: 'flex',
     marginLeft: 15,
-    paddingLeft: 15
-  },
-  navLink: {
-    marginRight: 10,
-    fontSize: 20,
+    paddingLeft: 15,
     ...utils.mobile({
-      fontSize: 18
+      display: 'none'
     })
-  },
-  lastNavLink: {
-    marginRight: 0
   }
 })
