@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { IconLink } from 'shared/components'
+import { Link, IconLink } from 'shared/components'
 import { fonts, borders, colors, alpha, utils } from 'shared/styles'
 
 export class Header extends Component {
@@ -13,10 +13,12 @@ export class Header extends Component {
         <FontAwesome name='institution' />
         <span className={css(styles.logoTitle)}>Legislated</span>
       </RouteLink>
-      <div className={css(styles.sceneLinks)}>
-        <IconLink style={styles.sceneLink} to='/' iconName='paper-plane-o' label='Search Bills' />
-        <IconLink style={styles.sceneLink} to='/faq' iconName='paper-plane-o' label='FAQs' />
-        <IconLink style={styles.sceneLink} to='/about' iconName='paper-plane-o' label='About Us' />
+      <div className={css(styles.nav)}>
+        <IconLink style={styles.navLink} to='/' iconName='search' label='Search Bills' />
+        <div>
+          <Link style={styles.navLink} to='/faq'>FAQ</Link>
+          <Link style={[styles.navLink, styles.lastNavLink]} to='/about'>About Us</Link>
+        </div>
       </div>
     </div>
   }
@@ -53,15 +55,22 @@ const styles = StyleSheet.create({
     ...fonts.bold,
     marginLeft: 15
   },
-  sceneLinks: {
+  nav: {
     ...borders.low(['left']),
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'space-between',
     marginLeft: 15,
     paddingLeft: 15
   },
-  sceneLink: {
+  navLink: {
+    marginRight: 10,
     fontSize: 20,
     ...utils.mobile({
       fontSize: 18
     })
+  },
+  lastNavLink: {
+    marginRight: 0
   }
 })
