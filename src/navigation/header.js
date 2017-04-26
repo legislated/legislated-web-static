@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { IconLink } from 'shared/components'
-import { fonts, borders, colors, alpha } from 'shared/styles'
+import { fonts, borders, colors, alpha, utils } from 'shared/styles'
 
 export class Header extends Component {
   render () {
@@ -30,7 +30,12 @@ const styles = StyleSheet.create({
     height: 80,
     paddingLeft: 30,
     paddingRight: 30,
-    backgroundColor: alpha(colors.white, 0.95)
+    backgroundColor: alpha(colors.white, 0.95),
+    ...utils.mobile({
+      height: 60,
+      paddingLeft: 15,
+      paddingRight: 15
+    })
   },
   logoLink: {
     color: colors.black,
@@ -39,7 +44,10 @@ const styles = StyleSheet.create({
     transition: 'color 0.25s',
     ':hover': {
       color: alpha(colors.black, 0.6)
-    }
+    },
+    ...utils.mobile({
+      fontSize: 28
+    })
   },
   logoTitle: {
     ...fonts.bold,
@@ -51,6 +59,9 @@ const styles = StyleSheet.create({
     paddingLeft: 15
   },
   sceneLink: {
-    fontSize: 20
+    fontSize: 20,
+    ...utils.mobile({
+      fontSize: 18
+    })
   }
 })
