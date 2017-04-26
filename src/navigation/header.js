@@ -14,7 +14,9 @@ export class Header extends Component {
         <span className={css(styles.logoTitle)}>Legislated</span>
       </RouteLink>
       <div className={css(styles.sceneLinks)}>
-        <IconLink style={styles.sceneLink} to='/' iconName='paper-plane-o' label='Bills' />
+        <IconLink style={styles.sceneLink} to='/' iconName='paper-plane-o' label='Search Bills' />
+        <IconLink style={styles.sceneLink} to='/faq' iconName='paper-plane-o' label='FAQs' />
+        <IconLink style={styles.sceneLink} to='/about' iconName='paper-plane-o' label='About Us' />
       </div>
     </div>
   }

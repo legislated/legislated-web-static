@@ -5,12 +5,14 @@ import { Router, Route, browserHistory, applyRouterMiddleware } from 'react-rout
 import useRelay from 'react-router-relay'
 import { NotFoundView } from './not_found_view'
 import { Container } from './container'
-import { billsRoute, billRoute } from '../scenes'
+import { aboutRoute, billsRoute, billRoute, faqRoute } from '../scenes'
 
 export const AppRouter = () => (
   <Router history={browserHistory} render={applyRouterMiddleware(useRelay)} environment={Relay.Store}>
     <Route component={Container}>
       <Route path='/' {...billsRoute} />
+      <Route path='about' {...aboutRoute} />
+      <Route path='faq' {...faqRoute} />
       <Route path='bill/:id' {...billRoute} />
       <Route path='*' component={NotFoundView} />
     </Route>
