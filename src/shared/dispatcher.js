@@ -3,7 +3,7 @@ import Events from 'ampersand-events'
 
 const dispatcher = Events.createEmitter()
 
-type Event = 'menu-changed'
+type Event = 'open-menu' | 'close-menu'
 type EventHandler = (args: any) => void
 
 export function dispatch (event: Event, args: any) {

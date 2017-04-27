@@ -3,20 +3,26 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { NavItems } from './nav_items'
+import { NavLinkList } from './nav_link_list'
 import { MobileNavButton } from './mobile_nav_button'
 import { fonts, borders, colors, alpha, utils } from 'shared/styles'
 
 export class Header extends Component {
+  props: {
+    menuOpen: boolean
+  }
+
   render () {
+    const { menuOpen } = this.props
+
     return <div className={css(styles.container)}>
       <RouteLink className={css(styles.logoLink)} to='/'>
         <FontAwesome name='institution' />
         <span className={css(styles.logoTitle)}>Legislated</span>
       </RouteLink>
-      <MobileNavButton />
+      <MobileNavButton isOpen={menuOpen} />
       <div className={css(styles.nav)}>
-        <NavItems />
+        <NavLinkList />
       </div>
     </div>
   }

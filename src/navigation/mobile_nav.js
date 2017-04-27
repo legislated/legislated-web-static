@@ -1,43 +1,39 @@
 // @flow
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { elastic as Menu } from 'react-burger-menu'
-import { NavItems } from './nav_items'
+import { push as Menu } from 'react-burger-menu'
+import { NavLinkList } from './nav_link_list'
 import { colors, utils } from 'shared/styles'
-import { on, off } from 'shared/dispatcher'
+import { dispatch } from 'shared/dispatcher'
 
 export class MobileNav extends Component {
-  state = {
-    isOpen: false
+  props: {
+    isOpen: boolean
   }
 
-  subscription: { stop: Function }
-
   // events
-  didChangeMenu = (isOpen: boolean) => {
-    this.setState({ isOpen })
+  didChangeMenuState = (state: { isOpen: boolean }) => {
+    // if these are different, the overlay closed the menu
+    if (this.props.isOpen !== state.isOpen) {
+      dispatch('close-menu')
+    }
   }
 
   // lifecycle
-  componentWillMount () {
-    on('menu-changed', this.didChangeMenu)
-  }
-
-  componentWillUnmount () {
-    off('menu-changed', this.didChangeMenu)
-  }
-
   render () {
-    const { isOpen } = this.state
+    const { isOpen } = this.props
 
     return <Menu
       className={css(styles.container)}
       styles={styles.nav}
       outerContainerId='container'
       pageWrapId='content'
+      right
       isOpen={isOpen}
-      right>
-      <NavItems showsIcons />
+      onStateChange={this.didChangeMenuState}>
+      <NavLinkList
+        style={styles.links}
+        showsIcons />
     </Menu>
   }
 }
@@ -48,6 +44,9 @@ const styles = StyleSheet.create({
     ...utils.mobile({
       display: 'block'
     })
+  },
+  links: {
+    padding: 30
   }
 })
 
@@ -58,6 +57,10 @@ styles.nav = {
   },
   bmMenu: {
     background: colors.background
+  },
+  bmItemList: {
+    display: 'flex',
+    marginLeft: -10
   },
   bmMorphShape: {
     fill: colors.background

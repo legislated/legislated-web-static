@@ -7,37 +7,32 @@ import type { StyleProp } from 'shared/types'
 import { combine } from 'shared/types/style_prop'
 
 export type LinkProps = {
-  to: ?string,
+  to?: string,
+  onClick?: () => void,
   style?: StyleProp,
 }
 
+type BaseLinkProps = {
+  children?: any
+} & LinkProps
+
 export class Link extends Component {
-  props: {
-    children?: any
-  } & LinkProps
+  props: BaseLinkProps
 
   // lifecycle
-  render (): ?React$Element<*> {
-    const { to: url } = this.props
-    if (!url) {
+  render () {
+    const { to: url, onClick, style, children } = this.props
+    if (!url && !onClick) {
       return null
     }
 
-    const { style, children } = this.props
-    return <Link.Base url={url} style={style}>
-      {children}
-    </Link.Base>
-  }
-
-  static Base (props: { url: string, style?: StyleProp, children?: any }): React$Element<any> {
-    const { url, style, children } = props
     const className = css(styles.link, combine(style))
 
     // use anchor tags for absolute urls, otherwise use a router link
-    if (/https?:\/\//.test(url)) {
-      return <a className={className} href={url} target='_blank'>{children}</a>
+    if (!url || /https?:\/\//.test(url)) {
+      return <a className={className} href={url} onClick={onClick} target='_blank'>{children}</a>
     } else {
-      return <RouteLink className={className} to={url}>{children}</RouteLink>
+      return <RouteLink className={className} to={url} onClick={onClick}>{children}</RouteLink>
     }
   }
 }

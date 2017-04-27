@@ -6,20 +6,19 @@ import { utils } from 'shared/styles'
 import { dispatch } from 'shared/dispatcher'
 
 export class MobileNavButton extends Component {
-  state = {
-    isOpen: false
+  props: {
+    isOpen: boolean
   }
 
   // events
   didClickMenu = () => {
-    const { isOpen } = this.state
-    this.setState({ isOpen: !isOpen })
-    dispatch('menu-changed', !isOpen)
+    const event = this.props.isOpen ? 'close-menu' : 'open-menu'
+    dispatch(event)
   }
 
   // lifecycle
   render () {
-    const icon = this.state.isOpen ? 'close' : 'bars'
+    const icon = this.props.isOpen ? 'close' : 'bars'
 
     return <button className={css(styles.button)} onClick={this.didClickMenu}>
       <FontAwesome name={icon} />

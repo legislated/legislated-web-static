@@ -1,56 +1,57 @@
 // @flow
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { IconLink } from './icon_link'
-import type { IconLinkProps } from './icon_link' // eslint-disable-line
+import FontAwesome from 'react-fontawesome'
+import { Link } from './link'
+import type { LinkProps } from './link' // eslint-disable-line
 import { borders, colors, utils } from 'shared/styles'
+import { combine } from 'shared/types/style_prop'
 
 type ButtonType = 'solid' | 'outline'
 
 export class Button extends Component {
   props: {
+    label: string,
+    iconName: string,
     type?: ButtonType
-  } & IconLinkProps
+  } & LinkProps
 
   // lifecycle
   render () {
-    const { to: url } = this.props
-    if (!url) {
-      return null
-    }
+    const { to: url, type, label, iconName, style } = this.props
 
-    const { type, label, iconName, style } = this.props
     const isSolid = type === 'solid'
+    const linkStyle = combine(style)
+    linkStyle.unshift(styles.button, isSolid ? styles.solid : {})
 
-    const linkStyle = [ styles.link, isSolid ? styles.solidLink : {} ]
-    const linkProps = { label, iconName, to: url, style: linkStyle }
-
-    return <div className={css(styles.container, isSolid && styles.solid, style)}>
-      <IconLink {...linkProps} />
-    </div>
+    return <Link to={url} style={linkStyle}>
+      <FontAwesome className={css(styles.icon)} name={iconName} />
+      <span>{label}</span>
+    </Link>
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  button: {
     ...borders.high(),
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    borderRadius: 3
-  },
-  solid: {
-    border: 'none',
-    backgroundColor: colors.primary
-  },
-  link: {
-    textDecoration: 'none',
+    alignItems: 'center',
     padding: 10,
+    borderRadius: 3,
+    fontSize: 16,
+    textDecoration: 'none',
     ...utils.mobile({
       padding: 9
     })
   },
-  solidLink: {
+  solid: {
+    border: 'none',
+    backgroundColor: colors.primary,
     color: colors.white
+  },
+  icon: {
+    width: 16,
+    marginRight: 5,
+    textAlign: 'center'
   }
 })

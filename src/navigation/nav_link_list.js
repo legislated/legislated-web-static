@@ -1,31 +1,38 @@
 // @flow
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { IconLink } from 'shared/components'
+import { NavLink } from './nav_link'
 import { utils } from 'shared/styles'
+import type { StyleProp } from 'shared/types'
+import { combine } from 'shared/types/style_prop'
 
-export class NavItems extends Component {
+export class NavLinkList extends Component {
   props: {
-    showsIcons?: boolean
+    showsIcons?: boolean,
+    style?: StyleProp
+  }
+
+  static defaultProps = {
+    showsIcons: false
   }
 
   // lifecycle
   render () {
-    const showsIcons = this.props.showsIcons || false
+    const { showsIcons, style } = this.props
 
-    return <div className={css(styles.links)}>
-      <IconLink
+    return <div className={css(styles.links, combine(style))}>
+      <NavLink
         style={styles.link}
         to='/'
         iconName='search'
         label='Search Bills' />
       <div className={css(styles.secondaryLinks)}>
-        <IconLink
+        <NavLink
           style={styles.link}
           to='/faq'
           iconName={showsIcons ? 'question' : null}
           label='FAQ' />
-        <IconLink
+        <NavLink
           style={[styles.link, styles.lastLink]}
           to='/about'
           iconName={showsIcons ? 'heart' : null}
@@ -41,7 +48,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     ...utils.mobile({
-      flexDirection: 'column'
+      flexDirection: 'column',
+      justifyContent: 'flex-start'
     })
   },
   secondaryLinks: {
@@ -61,9 +69,3 @@ const styles = StyleSheet.create({
     marginRight: 0
   }
 })
-
-// side-step aphrodite for this one
-styles.mobileLink = {
-  fontSize: 28,
-  margin: 8
-}
