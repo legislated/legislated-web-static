@@ -54,12 +54,9 @@ describe('#render', () => {
 })
 
 describe('on clicking load more', () => {
-  beforeEach(() => {
-    loadSubject()
-    element.loadButton().prop('onClick')()
-  })
-
   it('notifies its parent', () => {
+    loadSubject()
+    element.loadButton().simulate('click')
     expect(onLoadMore).toHaveBeenCalledTimes(1)
   })
 })

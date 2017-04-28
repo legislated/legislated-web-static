@@ -14,7 +14,7 @@ export class MobileNav extends Component {
   // events
   didChangeMenuState = (state: { isOpen: boolean }) => {
     // if these are different, the overlay closed the menu
-    if (this.props.isOpen !== state.isOpen) {
+    if (this.props.isOpen && !state.isOpen) {
       dispatch('close-menu')
     }
   }

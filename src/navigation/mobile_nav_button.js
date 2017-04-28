@@ -19,7 +19,6 @@ export class MobileNavButton extends Component {
   // lifecycle
   render () {
     const icon = this.props.isOpen ? 'close' : 'bars'
-
     return <button className={css(styles.button)} onClick={this.didClickMenu}>
       <FontAwesome name={icon} />
     </button>

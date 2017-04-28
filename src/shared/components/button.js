@@ -18,13 +18,13 @@ export class Button extends Component {
 
   // lifecycle
   render () {
-    const { to: url, type, label, iconName, style } = this.props
+    const { type, label, iconName, style, ...linkProps } = this.props
 
     const isSolid = type === 'solid'
     const linkStyle = combine(style)
     linkStyle.unshift(styles.button, isSolid ? styles.solid : {})
 
-    return <Link to={url} style={linkStyle}>
+    return <Link {...linkProps} style={linkStyle}>
       <FontAwesome className={css(styles.icon)} name={iconName} />
       <span>{label}</span>
     </Link>

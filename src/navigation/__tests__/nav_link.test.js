@@ -1,24 +1,29 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { IconLink } from '../icon_link'
+import { NavLink } from '../nav_link'
+import { dispatch } from 'shared/dispatcher'
+
+// mocks
+jest.mock('shared/dispatcher', () => {
+  return { dispatch: jest.fn() }
+})
 
 // subject
 let subject
-let url = 'url'
 let label = 'label'
 let iconName = 'icon'
 
 function loadSubject () {
-  subject = shallow(<IconLink to={url} label={label} iconName={iconName} />)
+  subject = shallow(<NavLink label={label} iconName={iconName} />)
 }
 
-const element = {
+let element = {
   icon: () => subject.find('FontAwesome'),
   label: () => subject.find('span')
 }
 
-// specs
+// spec
 afterEach(() => {
   subject = null
 })
@@ -35,12 +40,12 @@ describe('#render', () => {
     loadSubject()
     expect(element.label()).toHaveText(label)
   })
+})
 
-  describe('with missing data', () => {
-    it('hides the label', () => {
-      label = null
-      loadSubject()
-      expect(element.label()).toHaveLength(0)
-    })
+describe('on click', () => {
+  it('closes the menu', () => {
+    loadSubject()
+    subject.simulate('click')
+    expect(dispatch).toHaveBeenCalledWith('close-menu')
   })
 })
