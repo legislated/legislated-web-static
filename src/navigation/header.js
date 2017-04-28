@@ -5,6 +5,7 @@ import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { NavLinkList } from './nav_link_list'
 import { MobileNavButton } from './mobile_nav_button'
+import { dispatch } from 'shared/dispatcher'
 import { fonts, borders, colors, alpha, utils } from 'shared/styles'
 
 export class Header extends Component {
@@ -12,11 +13,17 @@ export class Header extends Component {
     menuOpen: boolean
   }
 
+  // events
+  didClickLogo = () => {
+    dispatch('close-menu')
+  }
+
+  // lifecycle
   render () {
     const { menuOpen } = this.props
 
     return <div className={css(styles.container)}>
-      <RouteLink className={css(styles.logoLink)} to='/'>
+      <RouteLink className={css(styles.logoLink)} to='/' onClick={this.didClickLogo}>
         <FontAwesome name='institution' />
         <span className={css(styles.logoTitle)}>Legislated</span>
       </RouteLink>
