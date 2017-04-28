@@ -45,7 +45,7 @@ export class FaqView extends Component {
         <Question title='When is the deadline?'>
           <p className={css(styles.paragraph)}>
             The Senate allows you to submit a witness slip until the end of the
-            day of the committee hearing's scheduled date.
+            day of the committee hearing&#39;s scheduled date.
           </p>
           <p className={css(styles.paragraph)}>
             The House allows you to submit a witness slip until the conclusion of
@@ -55,19 +55,21 @@ export class FaqView extends Component {
         <Question title='Where do I fill out witness slips?'>
           <p className={css(styles.paragraph)}>
             For any bill on this site, the 'Take Action' link will open a form that
-            you can use to submit the correct witness slip. If you can't find a bill
+            you can use to submit the correct witness slip. If you cannot find a bill
             here, you can try to find it on the
             {' '}<Link to='http://my.ilga.gov'>Illinois General Assembly&#39;s Dashboard</Link>.
           </p>
         </Question>
         <Question title='How do I complete a witness slip'>
           <div className={css(styles.paragraph)}>
-            <iframe
-              width='560'
-              height='315'
-              src='https://www.youtube.com/embed/6SaODB11-AA'
-              frameBorder='0'
-              allowFullScreen />
+            <div className={css(styles.videoContainer)}>
+              <iframe className={css(styles.iframe)}
+                width='560'
+                height='315'
+                src='https://www.youtube.com/embed/6SaODB11-AA'
+                frameBorder='0'
+                allowFullScreen />
+            </div>
             <ol>
               <li>Fill out your personal identification information</li>
               <li>For firm/business or agency, enter your organization or SELF</li>
@@ -138,7 +140,25 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: colors.neutral
   },
+  iframe: {
+    '@media (max-width: 600px)': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%'
+    }
+  },
   paragraph: {
     marginBottom: 10
+  },
+  videoContainer: {
+    '@media (max-width: 600px)': {
+      position: 'relative',
+      paddingBottom: '50%',
+      paddingTop: 30,
+      height: 0,
+      overflow: 'hidden'
+    }
   }
 })
