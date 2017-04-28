@@ -27,9 +27,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column'
   },
-  back: {
-    marginBottom: 10
-  },
   content: {
     ...shadows.low,
     ...borders.low(),
