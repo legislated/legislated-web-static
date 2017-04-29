@@ -1,5 +1,9 @@
 /* eslint-env jest */
 import 'jest-enzyme/lib'
-import { toMatchClassName } from './matchers/to_match_class_name'
+import * as matchers from './matchers'
 
-expect.extend({ toMatchClassName })
+expect.extend(matchers)
+
+beforeEach(() => {
+  jest.clearAllMocks()
+})

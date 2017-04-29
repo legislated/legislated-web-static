@@ -6,16 +6,17 @@ import { Link } from '../link'
 // subject
 let subject
 let url = 'url'
+let onClick = null
 let label = 'label'
 let iconName = 'icon'
 
 function loadSubject () {
-  subject = shallow(<Link to={url} label={label} iconName={iconName} />)
+  subject = shallow(<Link to={url} onClick={onClick} label={label} iconName={iconName} />)
 }
 
 const element = {
-  anchor: () => subject.dive().find('a'),
-  link: () => subject.dive().find('Link')
+  anchor: () => subject.find('a'),
+  link: () => subject.find('Link')
 }
 
 // specs
@@ -24,21 +25,45 @@ afterEach(() => {
 })
 
 describe('#render', () => {
-  it('shows external links as an anchor', () => {
-    url = 'http://www.google.com'
-    loadSubject()
-    expect(element.anchor()).toHaveProp('href', url)
+  describe('with an absolute link', () => {
+    beforeEach(() => {
+      url = 'http://www.google.com'
+    })
+
+    it('shows as an anchor', () => {
+      loadSubject()
+      expect(element.anchor()).toHaveProp('href', url)
+    })
+
+    it('responds to click events', () => {
+      onClick = () => {}
+      loadSubject()
+      expect(element.anchor()).toHaveProp('onClick', onClick)
+    })
   })
 
-  it('shows relative links as a route link', () => {
-    url = 'bills'
-    loadSubject()
-    expect(element.link()).toHaveProp('to', url)
+  describe('with a relative link', () => {
+    beforeEach(() => {
+      url = 'bills'
+    })
+
+    it('shows as a route link', () => {
+      url = 'bills'
+      loadSubject()
+      expect(element.link()).toHaveProp('to', url)
+    })
+
+    it('responds to click events', () => {
+      onClick = () => {}
+      loadSubject()
+      expect(element.link()).toHaveProp('onClick', onClick)
+    })
   })
 
-  describe('with no url', () => {
+  describe('with no url or click handler', () => {
     it('shows nothing', () => {
       url = null
+      onClick = null
       loadSubject()
       expect(subject.get(0)).toBeFalsy()
     })

@@ -107,12 +107,9 @@ describe('on search field change', () => {
 })
 
 describe('on clicking load more', () => {
-  beforeEach(() => {
-    loadSubject()
-    element.list().prop('onLoadMore')()
-  })
-
   it('fetches the next page', () => {
+    loadSubject()
+    element.list().simulate('loadMore')
     expect(relayProp.setVariables).toHaveBeenLastCalledWith({ first: pageSize * 2 })
   })
 })

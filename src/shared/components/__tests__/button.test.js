@@ -5,15 +5,19 @@ import { Button } from '../button'
 
 // subject
 let subject
-let url
+let url = 'url'
 let type
+let label
+let iconName
 
 function loadSubject () {
-  subject = shallow(<Button to={url} type={type} />)
+  subject = shallow(<Button to={url} type={type} label={label} iconName={iconName} />)
 }
 
 let element = {
-  link: () => subject.find('IconLink')
+  link: () => subject.find('Link'),
+  icon: () => subject.find('FontAwesome'),
+  label: () => subject.find('span')
 }
 
 // spec
@@ -27,45 +31,30 @@ afterEach(() => {
 })
 
 describe('#render', () => {
-  describe('with no url', () => {
-    it('shows nothing', () => {
-      url = null
-      loadSubject()
-      expect(subject.get(0)).toBeFalsy()
-    })
+  it('shows the icon', () => {
+    iconName = 'foo'
+    loadSubject()
+    expect(element.icon()).toHaveProp('name', iconName)
+  })
+
+  it('shows the label', () => {
+    label = 'just, click it already'
+    loadSubject()
+    expect(element.label()).toHaveText(label)
   })
 
   describe('when the type is outline', () => {
-    beforeEach(() => {
+    it('does not style the link as solid', () => {
       type = 'outline'
       loadSubject()
-    })
-
-    it('does not style the button as solid', () => {
-      loadSubject()
-      expect(subject).not.toMatchClassName('solid')
-    })
-
-    it('does not style the link as solid', () => {
-      // TODO: this could be better, glamor?
-      loadSubject()
+      // TODO: this stinks
       expect(element.link().prop('style')[1]).toEqual({})
     })
   })
 
   describe('when the type is solid', () => {
-    beforeEach(() => {
-      type = 'solid'
-      loadSubject()
-    })
-
     it('styles the button as solid', () => {
-      loadSubject()
-      expect(subject).toMatchClassName('solid')
-    })
-
-    it('styles the link as solid', () => {
-      // TODO: this could be better, glamor?
+      type = 'solid'
       loadSubject()
       expect(element.link().prop('style')[1]).not.toEqual({})
     })

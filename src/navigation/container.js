@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { Header } from './header'
+import { MobileNav } from './mobile_nav'
+import { on, off } from 'shared/dispatcher'
 import { fonts, utils } from 'shared/styles'
 
 export class Container extends Component {
@@ -11,14 +13,40 @@ export class Container extends Component {
     children?: any
   }
 
+  state = {
+    menuOpen: false
+  }
+
+  // events
+  didOpenMenu = () => {
+    this.setState({ menuOpen: true })
+  }
+
+  didCloseMenu = () => {
+    this.setState({ menuOpen: false })
+  }
+
+  // lifecycle
+  componentWillMount () {
+    on('open-menu', this.didOpenMenu)
+    on('close-menu', this.didCloseMenu)
+  }
+
+  componentWillUnmount () {
+    off('open-menu', this.didOpenMenu)
+    off('close-menu', this.didCloseMenu)
+  }
+
   render () {
+    const { menuOpen } = this.state
     const { children } = this.props
 
-    return <StickyContainer className={css(styles.container)}>
+    return <StickyContainer id='container' className={css(styles.container)}>
       <Sticky className={css(styles.header)}>
-        <Header />
+        <Header menuOpen={menuOpen} />
       </Sticky>
-      <div className={css(styles.inner)}>
+      <MobileNav isOpen={menuOpen} />
+      <div id='content' className={css(styles.content)}>
         {children}
       </div>
     </StickyContainer>
@@ -29,7 +57,7 @@ const styles = StyleSheet.create({
   container: {
     ...fonts.regular
   },
-  inner: {
+  content: {
     padding: 30,
     ...utils.mobile({
       padding: 15

@@ -3,18 +3,33 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { IconLink } from 'shared/components'
+import { NavLinkList } from './nav_link_list'
+import { MobileNavButton } from './mobile_nav_button'
+import { dispatch } from 'shared/dispatcher'
 import { fonts, borders, colors, alpha, utils } from 'shared/styles'
 
 export class Header extends Component {
+  props: {
+    menuOpen: boolean
+  }
+
+  // events
+  didClickLogo = () => {
+    dispatch('close-menu')
+  }
+
+  // lifecycle
   render () {
+    const { menuOpen } = this.props
+
     return <div className={css(styles.container)}>
-      <RouteLink className={css(styles.logoLink)} to='/'>
+      <RouteLink className={css(styles.logoLink)} to='/' onClick={this.didClickLogo}>
         <FontAwesome name='institution' />
         <span className={css(styles.logoTitle)}>Legislated</span>
       </RouteLink>
-      <div className={css(styles.sceneLinks)}>
-        <IconLink style={styles.sceneLink} to='/' iconName='paper-plane-o' label='Bills' />
+      <MobileNavButton isOpen={menuOpen} />
+      <div className={css(styles.nav)}>
+        <NavLinkList />
       </div>
     </div>
   }
@@ -24,6 +39,7 @@ const styles = StyleSheet.create({
   container: {
     ...borders.low(['bottom']),
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'center',
     height: 80,
     paddingLeft: 30,
@@ -51,15 +67,14 @@ const styles = StyleSheet.create({
     ...fonts.bold,
     marginLeft: 15
   },
-  sceneLinks: {
+  nav: {
     ...borders.low(['left']),
+    flex: 1,
+    display: 'flex',
     marginLeft: 15,
-    paddingLeft: 15
-  },
-  sceneLink: {
-    fontSize: 20,
+    paddingLeft: 15,
     ...utils.mobile({
-      fontSize: 18
+      display: 'none'
     })
   }
 })

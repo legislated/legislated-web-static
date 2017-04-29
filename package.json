@@ -6,7 +6,7 @@
   "author": "Ty Cobb",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --d --hot --inline --env.env=development",
+    "start": "webpack-dev-server --debug --hot --inline --env.env=development",
     "build:stage": "webpack -p --env.env=staging",
     "build:prod": "webpack -p --env.env=production",
     "deploy:stage": "yarn build:stage && yarn deploy:stage:sync",
@@ -22,12 +22,14 @@
     "validate": "yarn lint && yarn flow && yarn test"
   },
   "dependencies": {
+    "ampersand-events": "^2.0.2",
     "aphrodite": "^1.2.0",
     "color": "^1.0.3",
     "lodash": "^4.17.2",
     "moment": "^2.18.1",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.4.2",
+    "react-burger-menu": "^2.0.0",
     "react-dom": "^15.4.1",
     "react-fontawesome": "^1.5.0",
     "react-relay": "^0.10.0",
