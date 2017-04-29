@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { Question } from './question'
 import { Link } from 'shared/components'
-import { colors, shadows, borders } from 'shared/styles'
+import { colors, shadows, borders, utils } from 'shared/styles'
 
 export class FaqView extends Component {
   render () {
@@ -140,25 +140,25 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: colors.neutral
   },
-  iframe: {
-    '@media (max-width: 600px)': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%'
-    }
-  },
   paragraph: {
     marginBottom: 10
   },
   videoContainer: {
-    '@media (max-width: 600px)': {
+    ...utils.mobile({
       position: 'relative',
       paddingBottom: '50%',
       paddingTop: 30,
       height: 0,
       overflow: 'hidden'
-    }
+    })
+  },
+  iframe: {
+    ...utils.mobile({
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%'
+    })
   }
 })
