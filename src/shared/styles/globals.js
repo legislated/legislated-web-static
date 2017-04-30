@@ -28,6 +28,7 @@ globals({
 
 // hack around the fact that glamor doesn't parse media queries out of
 // css.global properly
+// see: https://github.com/threepointone/glamor/issues/202
 const globalQuery = `${query} {
   h1 { font-size: 24px; }
   h3, h4 { font-size: 18px; }
