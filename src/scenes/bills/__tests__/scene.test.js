@@ -22,7 +22,7 @@ function loadSubject () {
 }
 
 const element = {
-  list: () => subject.find('BillsList'),
+  list: () => subject.find('List'),
   searchField: () => subject.find('SearchField'),
   indicator: () => subject.find('LoadingIndicator')
 }

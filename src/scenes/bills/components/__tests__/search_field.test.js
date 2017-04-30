@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import SearchField from '../search_field'
+import { SearchField } from '../search_field'
 
 // subject
 let subject
@@ -39,7 +39,7 @@ describe('#render', () => {
   })
 
   it('does not have the focused style', () => {
-    expect(element.field()).not.toMatchClassName(/[fF]ocused/)
+    expect(element.field()).not.toMatchRule(/174vovc/)
   })
 
   describe(`when it's focused`, () => {
@@ -48,11 +48,11 @@ describe('#render', () => {
     })
 
     it('adds the style to the field', () => {
-      expect(element.field()).toMatchClassName(/[fF]ocused/)
+      expect(element.field()).toMatchRule(/174vovc/)
     })
 
     it('adds the style to the icon', () => {
-      expect(element.icon()).toMatchClassName(/[fF]ocused/)
+      expect(element.icon()).toMatchRule(/hkep22/)
     })
   })
 })

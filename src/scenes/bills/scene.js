@@ -49,7 +49,7 @@ class Scene extends Component {
 
   // lifecycle
   render () {
-    const { query } = this.state
+    const { query, isFiltering } = this.state
     const { viewer, relay } = this.props
 
     return <div {...rules.container}>
@@ -61,18 +61,12 @@ class Scene extends Component {
         <div {...rules.indicator}>
           <LoadingIndicator isLoading={!viewer} />
         </div>
-        {viewer && relay && this.renderBills(viewer, relay)}
+        {viewer && relay && <BillsList
+          bills={viewer.bills}
+          animated={!isFiltering}
+          onLoadMore={this.didClickLoadMore} />}
       </div>
     </div>
-  }
-
-  renderBills (viewer: Viewer, relay: RelayProp): React$Element<*> {
-    const { isFiltering } = this.state
-
-    return <BillsList
-      bills={viewer.bills}
-      animated={!isFiltering}
-      onLoadMore={this.didClickLoadMore} />
   }
 }
 

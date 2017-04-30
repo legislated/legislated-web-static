@@ -35,8 +35,7 @@ export class SearchField extends Component {
       <div {...css(rules.field, isFocused && rules.focused)}>
         <FontAwesome
           {...css(rules.icon, isFocused && rules.iconFocused)}
-          name='search'
-        />
+          name='search' />
         <input
           {...rules.input}
           type='text'
@@ -45,8 +44,7 @@ export class SearchField extends Component {
           placeholder={`health care, HB2364`}
           onChange={this.inputDidChange}
           onFocus={() => this.inputDidChangeFocus(true)}
-          onBlur={() => this.inputDidChangeFocus(false)}
-        />
+          onBlur={() => this.inputDidChangeFocus(false)} />
       </div>
     </div>
   }

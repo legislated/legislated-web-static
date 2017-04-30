@@ -47,8 +47,7 @@ describe('#render', () => {
     it('does not style the link as solid', () => {
       type = 'outline'
       loadSubject()
-      // TODO: this stinks
-      expect(element.link().prop('style')[1]).toEqual({})
+      expect(element.link()).toMatchStyles('1scp0ws')
     })
   })
 
@@ -56,7 +55,7 @@ describe('#render', () => {
     it('styles the button as solid', () => {
       type = 'solid'
       loadSubject()
-      expect(element.link().prop('style')[1]).not.toEqual({})
+      expect(element.link()).toMatchStyles('t09yh6')
     })
   })
 })

@@ -2,7 +2,7 @@
 import React from 'react'
 import moment from 'moment'
 import { shallow } from 'enzyme'
-import Content from '../content'
+import { Content } from '../content'
 
 // subject
 let subject
@@ -19,10 +19,10 @@ const element = {
   slipLink: () => subject.find('Button').at(0),
   detailsLink: () => subject.find('Button').at(1),
   textLink: () => subject.find('Button').at(2),
-  summary: () => subject.find('Element p').at(0),
-  date: () => subject.find('Element p span').at(0),
-  hoursLeft: () => subject.find('Element p span').at(1),
-  committee: () => subject.find('Element p').at(2)
+  summary: () => subject.find('Element').at(0),
+  date: () => subject.find('Element span').at(0),
+  hoursLeft: () => subject.find('Element span').at(1),
+  committee: () => subject.find('Element').at(2)
 }
 
 // specs
@@ -73,7 +73,7 @@ describe('#render', () => {
     })
 
     it('shows the summary', () => {
-      expect(element.summary()).toHaveText(bill.summary)
+      expect(element.summary()).toHaveProp('children', bill.summary)
     })
 
     it('shows the hearing date', () => {
@@ -85,7 +85,7 @@ describe('#render', () => {
     })
 
     it('shows the committee name', () => {
-      expect(element.committee()).toHaveText(bill.committee.name)
+      expect(element.committee()).toHaveProp('children', bill.committee.name)
     })
   })
 

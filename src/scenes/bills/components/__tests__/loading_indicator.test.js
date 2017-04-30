@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import LoadingIndicator from '../loading_indicator'
+import { LoadingIndicator } from '../loading_indicator'
 
 // subject
 let subject
