@@ -1,12 +1,12 @@
 // @flow
 import React, { Component } from 'react'
 import TransitionGroup from 'react-addons-css-transition-group'
-import { StyleSheet, css } from 'aphrodite/no-important'
+import { stylesheet } from 'shared/styles'
 
 const translation = 50
 const duration = 450
 
-export default class BillAnimation extends Component {
+export class BillAnimation extends Component {
   props: {
     disable?: boolean,
     disableAppear?: boolean,
@@ -17,12 +17,12 @@ export default class BillAnimation extends Component {
     const { disable, disableAppear } = this.props
 
     const name = {
-      enter: css(styles.enter),
-      enterActive: css(styles.enterActive),
-      appear: css(styles.enter),
-      appearActive: css(styles.enterActive),
-      leave: css(styles.leave),
-      leaveActive: css(styles.leaveActive)
+      enter: String(rules.enter),
+      enterActive: String(rules.enterActive),
+      appear: String(rules.enter),
+      appearActive: String(rules.enterActive),
+      leave: String(rules.leave),
+      leaveActive: String(rules.leaveActive)
     }
 
     return <TransitionGroup
@@ -39,7 +39,7 @@ export default class BillAnimation extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   bill: {
     transition: `opacity ${duration}ms, transform ${duration}ms`
   },
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export const billStyle = styles.bill
+export const billRule = rules.bill

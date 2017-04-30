@@ -1,12 +1,11 @@
 // @flow
 import 'shared/styles/globals'
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { Header } from './header'
 import { MobileNav } from './mobile_nav'
 import { on, off } from 'shared/dispatcher'
-import { fonts, utils } from 'shared/styles'
+import { stylesheet, fonts, mobile } from 'shared/styles'
 
 export class Container extends Component {
   props: {
@@ -41,26 +40,27 @@ export class Container extends Component {
     const { menuOpen } = this.state
     const { children } = this.props
 
-    return <StickyContainer id='container' className={css(styles.container)}>
-      <Sticky className={css(styles.header)}>
+    return <StickyContainer id='container' {...rules.container}>
+      <Sticky {...rules.header}>
         <Header menuOpen={menuOpen} />
       </Sticky>
       <MobileNav isOpen={menuOpen} />
-      <div id='content' className={css(styles.content)}>
+      <div id='content' {...rules.content}>
         {children}
       </div>
     </StickyContainer>
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     ...fonts.regular
   },
   content: {
     padding: 30,
-    ...utils.mobile({
-      padding: 15
+    ...mobile({
+      padding: 15,
+      paddingBottom: 20
     })
   },
   header: {

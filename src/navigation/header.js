@@ -2,11 +2,10 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import { NavLinkList } from './nav_link_list'
 import { MobileNavButton } from './mobile_nav_button'
 import { dispatch } from 'shared/dispatcher'
-import { fonts, borders, colors, alpha, utils } from 'shared/styles'
+import { stylesheet, fonts, borders, colors, alpha, mobile } from 'shared/styles'
 
 export class Header extends Component {
   props: {
@@ -22,20 +21,20 @@ export class Header extends Component {
   render () {
     const { menuOpen } = this.props
 
-    return <div className={css(styles.container)}>
-      <RouteLink className={css(styles.logoLink)} to='/' onClick={this.didClickLogo}>
+    return <div {...rules.container}>
+      <RouteLink {...rules.logoLink} to='/' onClick={this.didClickLogo}>
         <FontAwesome name='institution' />
-        <span className={css(styles.logoTitle)}>Legislated</span>
+        <span>Legislated</span>
       </RouteLink>
       <MobileNavButton isOpen={menuOpen} />
-      <div className={css(styles.nav)}>
+      <div {...rules.nav}>
         <NavLinkList />
       </div>
     </div>
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     ...borders.low(['bottom']),
     display: 'flex',
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     paddingRight: 30,
     backgroundColor: alpha(colors.white, 0.95),
-    ...utils.mobile({
+    ...mobile({
       height: 60,
       paddingLeft: 15,
       paddingRight: 15
@@ -59,13 +58,13 @@ const styles = StyleSheet.create({
     ':hover': {
       color: alpha(colors.black, 0.6)
     },
-    ...utils.mobile({
+    '> span:last-child': {
+      ...fonts.bold,
+      marginLeft: 15
+    },
+    ...mobile({
       fontSize: 28
     })
-  },
-  logoTitle: {
-    ...fonts.bold,
-    marginLeft: 15
   },
   nav: {
     ...borders.low(['left']),
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     marginLeft: 15,
     paddingLeft: 15,
-    ...utils.mobile({
+    ...mobile({
       display: 'none'
     })
   }

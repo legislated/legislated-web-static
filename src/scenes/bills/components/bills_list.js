@@ -1,14 +1,14 @@
 // @flow
 import React, { Component } from 'react'
 import Relay from 'react-relay'
-import { StyleSheet, css } from 'aphrodite/no-important'
-import BillCell from './bill_cell'
-import BillAnimation, { billStyle } from './bill_animation'
-import LoadMoreButton from './load_more_button'
-import { unwrap } from 'shared/types/connection'
+import { BillCell } from './bill_cell'
+import { BillAnimation, billRule } from './bill_animation'
+import { LoadMoreButton } from './load_more_button'
+import { stylesheet, mobile } from 'shared/styles'
 import type { Bill, Connection } from 'shared/types' // eslint-disable-line
+import { unwrap } from 'shared/types/connection'
 
-class BillsList extends Component {
+class List extends Component {
   props: {
     bills: Connection<Bill>,
     animated: Boolean,
@@ -27,20 +27,25 @@ class BillsList extends Component {
     const bills = unwrap(connection)
     const hasNextPage = bills.pageInfo && bills.pageInfo.hasNextPage
 
-    return <div className={css(styles.container)}>
-      <BillAnimation disable={!animated}>{this.renderCells(bills.nodes)}</BillAnimation>
-      <LoadMoreButton style={styles.loadMoreButton} hasMore={hasNextPage} onClick={onLoadMore} />
+    return <div {...rules.container}>
+      <BillAnimation disable={!animated}>
+        {this.renderCells(bills.nodes)}
+      </BillAnimation>
+      <LoadMoreButton styles={rules.loadMoreButton} hasMore={hasNextPage} onClick={onLoadMore} />
     </div>
   }
 
   renderCells (bills: Array<Bill>): Array<React$Element<*>> {
     return bills.map((bill, i) => {
-      return <BillCell key={bill.id} style={billStyle} bill={bill} isLast={i === bills.length - 1} />
+      return <BillCell
+        key={bill.id}
+        styles={billRule}
+        bill={bill} />
     })
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -48,11 +53,14 @@ const styles = StyleSheet.create({
   },
   loadMoreButton: {
     alignSelf: 'center',
-    marginTop: 30
+    marginTop: 30,
+    ...mobile({
+      marginTop: 20
+    })
   }
 })
 
-export default Relay.createContainer(BillsList, {
+export const BillsList = Relay.createContainer(List, {
   fragments: {
     bills: () => Relay.QL`
       fragment on BillConnection {

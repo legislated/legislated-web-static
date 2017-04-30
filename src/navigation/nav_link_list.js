@@ -1,15 +1,14 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import { NavLink } from './nav_link'
-import { utils } from 'shared/styles'
-import type { StyleProp } from 'shared/types'
-import { combine } from 'shared/types/style_prop'
+import { css } from 'glamor'
+import type { Rule } from 'glamor' // eslint-disable-line
+import { stylesheet, mobile } from 'shared/styles'
 
 export class NavLinkList extends Component {
   props: {
     showsIcons?: boolean,
-    style?: StyleProp
+    styles?: Rule
   }
 
   static defaultProps = {
@@ -18,22 +17,22 @@ export class NavLinkList extends Component {
 
   // lifecycle
   render () {
-    const { showsIcons, style } = this.props
+    const { showsIcons, styles } = this.props
 
-    return <div className={css(styles.links, combine(style))}>
+    return <div {...css(rules.links, styles)}>
       <NavLink
-        style={styles.link}
+        styles={rules.link}
         to='/'
         iconName='search'
         label='Search Bills' />
-      <div className={css(styles.secondaryLinks)}>
+      <div {...rules.secondaryLinks}>
         <NavLink
-          style={styles.link}
+          styles={rules.link}
           to='/faq'
           iconName={showsIcons ? 'question' : null}
           label='FAQ' />
         <NavLink
-          style={[styles.link, styles.lastLink]}
+          styles={rules.link}
           to='/about'
           iconName={showsIcons ? 'heart' : null}
           label='About Us' />
@@ -42,30 +41,27 @@ export class NavLinkList extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   links: {
     flex: 1,
     display: 'flex',
     justifyContent: 'space-between',
-    ...utils.mobile({
+    ...mobile({
       flexDirection: 'column',
       justifyContent: 'flex-start'
     })
   },
   secondaryLinks: {
     display: 'flex',
-    ...utils.mobile({
+    ...mobile({
       flexDirection: 'column'
     })
   },
   link: {
     marginRight: 10,
     fontSize: 20,
-    ...utils.mobile({
+    ...mobile({
       marginRight: 0
     })
-  },
-  lastLink: {
-    marginRight: 0
   }
 })

@@ -44,11 +44,10 @@ describe('#render', () => {
   })
 
   describe('when the type is outline', () => {
-    it('does not style the link as solid', () => {
+    it('style the button as outline', () => {
       type = 'outline'
       loadSubject()
-      // TODO: this stinks
-      expect(element.link().prop('style')[1]).toEqual({})
+      expect(element.link()).toMatchStyles('kqtyvw')
     })
   })
 
@@ -56,7 +55,7 @@ describe('#render', () => {
     it('styles the button as solid', () => {
       type = 'solid'
       loadSubject()
-      expect(element.link().prop('style')[1]).not.toEqual({})
+      expect(element.link()).toMatchStyles('120jn8n')
     })
   })
 })

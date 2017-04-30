@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import BillsList from '../bills_list'
+import { BillsList } from '../bills_list'
 
 // subject
 let subject
@@ -14,7 +14,7 @@ function loadSubject () {
 }
 
 const element = {
-  bills: () => subject.find('BillCell'),
+  bills: () => subject.find('Cell'),
   loadButton: () => subject.find('LoadMoreButton')
 }
 

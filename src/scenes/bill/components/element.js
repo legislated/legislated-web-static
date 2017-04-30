@@ -1,20 +1,18 @@
 // @flow
 import React, { Component } from 'react'
-import { css } from 'aphrodite/no-important'
 
 export class Element extends Component {
   props: {
     label: string,
-    style?: Object,
     children?: any
   }
 
   render () {
-    const { label, children, style } = this.props
+    const { label, children } = this.props
 
-    return <div className={css(style)}>
+    return <div>
       <h3>{label}</h3>
-      {children}
+      <p>{children}</p>
     </div>
   }
 }

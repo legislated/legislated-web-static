@@ -1,17 +1,16 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import { Question } from './question'
 import { Link } from 'shared/components'
-import { colors, shadows, borders, utils } from 'shared/styles'
+import { stylesheet, colors, shadows, borders, mobile } from 'shared/styles'
 
 export class FaqView extends Component {
   render () {
-    return <div className={css(styles.container)}>
-      <div className={css(styles.content)}>
+    return <div {...rules.container}>
+      <div {...rules.content}>
         <h1>FAQ</h1>
         <Question title='What is a witness slip?'>
-          <p className={css(styles.paragraph)}>
+          <p>
             Witness slips are a way to voice your support for or opposition to a
             particular piece of legislation. Before legislation is heard by a
             committee, citizens can submit slips to register their opinions. The
@@ -21,7 +20,7 @@ export class FaqView extends Component {
             {' '}<Link to='http://www.ilga.gov/legislation/billstatus.asp?DocNum=40&GAID=14&GA=100&DocTypeID=HB&LegID=99242&SessionID=91'>HB40</Link>{' '}
             passed in committee, so they do work! Let’s keep it up!
           </p>
-          <p className={css(styles.paragraph)}>
+          <p>
             <strong>If you feel strongly about a bill, it is vitally important
             that you call and/or visit your ILGA Representative and
             Senator.</strong> Ask your friends to do the same! Slips are counted
@@ -29,7 +28,7 @@ export class FaqView extends Component {
             but your reps need to hear from you. It is by far the most effective
             way to influence them.
           </p>
-          <p className={css(styles.paragraph)}>
+          <p>
             If you are not sure who your representatives are, look them up
             {' '}<Link to='https://ova.elections.il.gov/RegistrationLookup.aspx'>here</Link>{' '}
             and find their contact information either in the
@@ -38,22 +37,22 @@ export class FaqView extends Component {
             {' '}<Link to='http://ilga.gov/senate/'>Senate</Link>
             .
           </p>
-          <p className={css(styles.paragraph)}>
+          <p>
             <strong>Thank you for making amazing things happen in Illinois.</strong>
           </p>
         </Question>
         <Question title='When is the deadline?'>
-          <p className={css(styles.paragraph)}>
+          <p>
             The Senate allows you to submit a witness slip until the end of the
             day of the committee hearing&#39;s scheduled date.
           </p>
-          <p className={css(styles.paragraph)}>
+          <p>
             The House allows you to submit a witness slip until the conclusion of
             the committee hearing.
           </p>
         </Question>
         <Question title='Where do I fill out witness slips?'>
-          <p className={css(styles.paragraph)}>
+          <p>
             For any bill on this site, the 'Take Action' link will open a form that
             you can use to submit the correct witness slip. If you cannot find a bill
             here, you can try to find it on the
@@ -61,9 +60,9 @@ export class FaqView extends Component {
           </p>
         </Question>
         <Question title='How do I complete a witness slip'>
-          <div className={css(styles.paragraph)}>
-            <div className={css(styles.videoContainer)}>
-              <iframe className={css(styles.iframe)}
+          <div>
+            <div {...rules.video}>
+              <iframe {...rules.iframe}
                 width='560'
                 height='315'
                 src='https://www.youtube.com/embed/6SaODB11-AA'
@@ -83,7 +82,7 @@ export class FaqView extends Component {
           </div>
         </Question>
         <Question title='How do I create an account'>
-          <div className={css(styles.paragraph)}>
+          <div>
             <strong>Creating an account is HIGHLY recommended!</strong> If you have an account,
             you’ll only have to choose proponent/opponent for any slip that you fill out.
             You’ll also be able to keep track of the slips you’ve created.
@@ -98,19 +97,19 @@ export class FaqView extends Component {
             The next time you select a Witness Slip, all of your information will be
             prepopulated, and you will only need to select Proponent or Opponent.
           </div>
-          <p className={css(styles.paragraph)}>
+          <p>
             More detailed instructions are available in the
             {' '}<Link to='http://my.ilga.gov/Documents/ILGA%20Dashboard%20User%20Guide.pdf'>ILGA Witness Slip User Guide</Link>.
           </p>
         </Question>
         <Question title='Why am I filling out a slip for the same bill each week?'>
-          <p className={css(styles.paragraph)}>
+          <p>
             If a bill isn’t called at a committee meeting, you have to refile one
             for the new hearing date.
           </p>
         </Question>
         <Question title='Where can I go for more help?'>
-          <p className={css(styles.paragraph)}>
+          <p>
             For more information please checkout
             {' '}<Link to='https://www.facebook.com/groups/WitnessSlipProjectIllinois/'>The Witness Slip Project (Illinois)</Link> on Facebook or
             {' '}<Link to='https://twitter.com/WitnessSlipsIL'>@WitnessSlipsIL</Link> on Twitter. Questions? Please ask!
@@ -129,7 +128,7 @@ export class FaqView extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     display: 'flex',
     flexDirection: 'column'
@@ -138,13 +137,13 @@ const styles = StyleSheet.create({
     ...shadows.low,
     ...borders.low(),
     padding: 15,
-    backgroundColor: colors.neutral
+    backgroundColor: colors.neutral,
+    ' p:not(:last-of-type)': {
+      marginBottom: 10
+    }
   },
-  paragraph: {
-    marginBottom: 10
-  },
-  videoContainer: {
-    ...utils.mobile({
+  video: {
+    ...mobile({
       position: 'relative',
       paddingBottom: '50%',
       paddingTop: 30,
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
     })
   },
   iframe: {
-    ...utils.mobile({
+    ...mobile({
       position: 'absolute',
       top: 0,
       left: 0,

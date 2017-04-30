@@ -1,13 +1,13 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import FontAwesome from 'react-fontawesome'
-import { fonts, colors, shadows, borders } from 'shared/styles'
+import { css } from 'glamor'
+import { stylesheet, fonts, colors, shadows, borders } from 'shared/styles'
 
-export default class SearchField extends Component {
+export class SearchField extends Component {
   props: {
     value: string,
-    style?: Object,
+    styles?: Object,
     onChange: (string) => void
   }
 
@@ -27,32 +27,30 @@ export default class SearchField extends Component {
 
   // lifecycle
   render () {
-    const { value, style } = this.props
+    const { value, styles } = this.props
     const { isFocused } = this.state
 
-    return <div className={css(styles.container, style)}>
-      <h1 className={css(styles.prompt)}>What's important to you?</h1>
-      <div className={css(styles.field, isFocused && styles.focused)}>
+    return <div {...css(rules.container, styles)}>
+      <h1 {...rules.prompt}>What's important to you?</h1>
+      <div {...css(rules.field, isFocused && rules.focused)}>
         <FontAwesome
-          className={css(styles.icon, isFocused && styles.iconFocused)}
-          name='search'
-        />
+          {...css(rules.icon, isFocused && rules.iconFocused)}
+          name='search' />
         <input
-          className={css(styles.input)}
+          {...rules.input}
           type='text'
           name='search-field'
           value={value}
           placeholder={`health care, HB2364`}
           onChange={this.inputDidChange}
           onFocus={() => this.inputDidChangeFocus(true)}
-          onBlur={() => this.inputDidChangeFocus(false)}
-        />
+          onBlur={() => this.inputDidChangeFocus(false)} />
       </div>
     </div>
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     display: 'flex',
     flexDirection: 'column'

@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
-import BillAnimation, { billStyle } from './bill_animation'
-import { colors, shadows, borders } from 'shared/styles'
+import { css } from 'glamor'
+import { BillAnimation, billRule } from './bill_animation'
+import { stylesheet, colors, shadows, borders } from 'shared/styles'
 
-export default class LoadingIndicator extends Component {
+export class LoadingIndicator extends Component {
   props: {
     isLoading: boolean
   }
@@ -21,16 +21,16 @@ export default class LoadingIndicator extends Component {
       return null
     }
 
-    return <div key='indicator' className={css(styles.container, billStyle)}>
-      <div className={css(styles.topBar)} />
-      <div className={css(styles.bottomBar)} />
+    return <div key='indicator' {...css(rules.container, billRule)}>
+      <div {...rules.topBar} />
+      <div {...rules.bottomBar} />
     </div>
   }
 }
 
 function animation (start: string, end: string, duration: number): Object {
   return {
-    animationName: [{ from: { width: start }, to: { width: end } }],
+    animationName: css.keyframes({ from: { width: start }, to: { width: end } }),
     animationDuration: `${duration}s`,
     animationDirection: 'alternate',
     animationIterationCount: 'infinite'
@@ -43,7 +43,7 @@ const bar = {
   backgroundColor: colors.neutralShadow
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     ...shadows.low,
     ...borders.low(),

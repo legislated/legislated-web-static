@@ -1,12 +1,11 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import FontAwesome from 'react-fontawesome'
+import { css } from 'glamor'
 import { Link } from 'shared/components'
-import { borders, utils } from 'shared/styles'
-import { dispatch } from 'shared/dispatcher'
-import { combine } from 'shared/types/style_prop'
 import type { LinkProps } from 'shared/components/link'
+import { dispatch } from 'shared/dispatcher'
+import { stylesheet, borders, mobile } from 'shared/styles'
 
 export class NavLink extends Component {
   props: {
@@ -21,23 +20,23 @@ export class NavLink extends Component {
 
   // lifecycle
   render () {
-    const { to: url, label, iconName, style } = this.props
-    const linkStyle = [styles.link].concat(combine(style))
+    const { to: url, label, iconName, styles } = this.props
+    const linkRule = css(rules.link, styles)
 
-    return <Link to={url} onClick={this.didClickLink} style={linkStyle}>
-      {iconName && <FontAwesome className={css(styles.icon)} name={iconName} />}
+    return <Link to={url} onClick={this.didClickLink} styles={linkRule}>
+      {iconName && <FontAwesome {...rules.icon} name={iconName} />}
       <span>{label}</span>
     </Link>
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   link: {
     display: 'flex',
     alignItems: 'center',
     fontSize: 20,
     textDecoration: 'none',
-    ...utils.mobile({
+    ...mobile({
       ...borders.low(['bottom']),
       marginBottom: 15,
       paddingBottom: 15,
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     width: 20,
     marginRight: 6,
     textAlign: 'center',
-    ...utils.mobile({
+    ...mobile({
       width: 22,
       marginRight: 8
     })

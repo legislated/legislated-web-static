@@ -2,7 +2,7 @@
 import { assign } from 'lodash'
 import React from 'react'
 import { shallow } from 'enzyme'
-import BillCell from '../bill_cell'
+import { BillCell } from '../bill_cell'
 
 // subject
 let subject

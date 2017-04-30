@@ -1,1 +1,2 @@
-export { toMatchClassName } from './to_match_class_name'
+export { toMatchRule } from './to_match_rule'
+export { toMatchStyles } from './to_match_styles'

@@ -1,40 +1,37 @@
-import { StyleSheet } from 'aphrodite/no-important'
+// @flow
+import { each } from 'lodash'
+import { css } from 'glamor'
 import { fonts } from './fonts'
-import { utils } from './utils'
+import { query } from './mobile'
 
-const GLOBALS = '__GLOBAL_STYLES__'
+function globals (definitions) {
+  each(definitions, (definition, selector) => {
+    css.global(selector, definition)
+  })
+}
 
-const extension = StyleSheet.extend([{
-  selectorHandler (selector, baseSelector, generateSubtreeStyles) {
-    return baseSelector.includes(GLOBALS) ? generateSubtreeStyles(selector) : null
-  }
-}])
-
-const styles = extension.StyleSheet.create({
-  [GLOBALS]: {
-    'p, h1, h2, h3, h4, h5, h6, ul': {
-      margin: 0
-    },
-    h1: {
-      fontSize: 28,
-      ...utils.mobile({
-        fontSize: 24
-      })
-    },
-    h3: {
-      fontSize: 20,
-      ...utils.mobile({
-        fontSize: 18
-      })
-    },
-    h4: {
-      ...fonts.regular,
-      fontSize: 20,
-      ...utils.mobile({
-        fontSize: 18
-      })
-    }
+globals({
+  'p, h1, h2, h3, h4, h5, h6, ul': {
+    margin: 0
+  },
+  h1: {
+    fontSize: 28
+  },
+  h3: {
+    fontSize: 20
+  },
+  h4: {
+    ...fonts.regular,
+    fontSize: 20
   }
 })
 
-export default extension.css(styles[GLOBALS])
+// hack around the fact that glamor doesn't parse media queries out of
+// css.global properly
+// see: https://github.com/threepointone/glamor/issues/202
+const globalQuery = `${query} {
+  h1 { font-size: 24px; }
+  h3, h4 { font-size: 18px; }
+}`
+
+css.insert(globalQuery)

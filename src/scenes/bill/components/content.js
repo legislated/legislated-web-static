@@ -2,15 +2,15 @@
 import React, { Component } from 'react'
 import Relay from 'react-relay'
 import moment from 'moment'
-import { StyleSheet, css } from 'aphrodite/no-important'
+import { css } from 'glamor'
 import { Element } from '../components'
 import { Button } from 'shared/components'
-import { borders, colors, utils } from 'shared/styles'
+import { stylesheet, borders, colors, mobile } from 'shared/styles'
 import type { Bill } from 'shared/types'
 
 const { floor } = Math
 
-class Content extends Component {
+class ContentView extends Component {
   props: {
     bill: Bill
   }
@@ -21,65 +21,58 @@ class Content extends Component {
 
     const now = moment()
     const date = moment(bill.hearing.date)
-
     const hoursLeft = floor(date.diff(now, 'hours', true))
 
     return <div>
-      <div className={css(styles.header)}>
-        {bill.title && <h1 className={css(styles.title)}>{bill.title}</h1>}
+      <div {...rules.header}>
+        {bill.title && <h1>{bill.title}</h1>}
         <h4>{bill.documentNumber}</h4>
       </div>
-      <div className={css(styles.body)}>
-        <div className={css(styles.column)}>
-          <Element label='State Synopsis'><p>{bill.summary}</p></Element>
+      <div {...rules.body}>
+        <div {...rules.column}>
+          <Element label='State Synopsis'>{bill.summary}</Element>
         </div>
-        <div className={css(styles.spacer)} />
-        <div className={css(styles.column, styles.lastColumn)}>
-          <Element style={styles.date} label='Hearing Date'>
-            <p>
-              <span>{date.calendar()}</span>
-              {hoursLeft < 24 && <span className={css(styles.hoursLeft)}>
-                {`(${hoursLeft} hours left)`}
-              </span>}
-            </p>
+        <div {...rules.column}>
+          <Element label='Hearing Date'>
+            <span>{date.calendar()}</span>
+            {hoursLeft < 24 && <span {...rules.hoursLeft}>
+              {`(${hoursLeft} hours left)`}
+            </span>}
           </Element>
-          <Element label='Committee'><p>{bill.committee.name}</p></Element>
+          <Element label='Committee'>{bill.committee.name}</Element>
         </div>
       </div>
-      <div className={css(styles.actions)}>
+      <div {...rules.actions}>
         <Button
-          style={styles.button}
+          styles={css(rules.button, rules.primaryButton)}
           to={bill.witnessSlipUrl}
           label='Take Action'
           iconName='pencil-square-o'
           type='solid' />
-        <div className={css(styles.secondaryActions)}>
-          <Button
-            style={styles.button}
-            to={bill.detailsUrl}
-            label='View Details'
-            iconName='info-circle' />
-          <div className={css(styles.mobileSpacer)} />
-          <Button
-            style={styles.button}
-            to={bill.fullTextUrl}
-            label='View Bill'
-            iconName='file-text-o' />
-        </div>
+        <Button
+          styles={rules.button}
+          to={bill.detailsUrl}
+          label='View Details'
+          iconName='info-circle' />
+        <Button
+          styles={rules.button}
+          to={bill.fullTextUrl}
+          label='View Bill'
+          iconName='file-text-o' />
       </div>
     </div>
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   header: {
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: 15
-  },
-  title: {
-    ...utils.mobile({
-      marginBottom: 5
+    marginBottom: 15,
+    ...mobile({
+      '> h1': {
+        marginBottom: 5
+      }
     })
   },
   body: {
@@ -88,59 +81,55 @@ const styles = StyleSheet.create({
     flexBasis: 0,
     paddingBottom: 15,
     marginBottom: 15,
-    ...utils.mobile({
+    ...mobile({
       flexDirection: 'column'
     })
   },
   column: {
     flex: 1,
-    ...utils.mobile({
-      marginBottom: 15
+    '> *:not(:last-child)': {
+      marginBottom: 10
+    },
+    ...mobile({
+      marginBottom: 15,
+      ':last-child': {
+        marginBottom: 0
+      }
     })
-  },
-  lastColumn: {
-    ...utils.mobile({
-      marginBottom: 0
-    })
-  },
-  date: {
-    marginBottom: 10
   },
   hoursLeft: {
     marginLeft: 5,
     color: colors.secondary
   },
-  spacer: {
-    width: 30
-  },
   actions: {
     display: 'flex',
-    ...utils.mobile({
-      flexDirection: 'column',
-      alignItems: 'stretch'
-    })
-  },
-  secondaryActions: {
-    display: 'flex',
-    ...utils.mobile({
-      marginTop: 10
-    })
+    flexWrap: 'wrap'
   },
   button: {
     marginRight: 10,
-    ...utils.mobile({
-      flex: 1,
+    ':last-child': {
       marginRight: 0
+    },
+    ...mobile({
+      flex: 1,
+      marginRight: 0,
+      marginBottom: 10,
+      ':last-child': {
+        marginLeft: 10
+      },
+      ':nth-last-child(-n+2)': {
+        marginBottom: 0
+      }
     })
   },
-  mobileSpacer: {
-    ...utils.mobile({
-      width: 15
+  primaryButton: {
+    ...mobile({
+      flexBasis: '100%'
     })
   }
 })
 
-export default Relay.createContainer(Content, {
+export const Content = Relay.createContainer(ContentView, {
   fragments: {
     bill: () => Relay.QL`
       fragment on Bill {

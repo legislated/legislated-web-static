@@ -1,9 +1,8 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import { push as Menu } from 'react-burger-menu'
 import { NavLinkList } from './nav_link_list'
-import { colors, utils } from 'shared/styles'
+import { stylesheet, colors, mobile } from 'shared/styles'
 import { dispatch } from 'shared/dispatcher'
 
 export class MobileNav extends Component {
@@ -24,24 +23,22 @@ export class MobileNav extends Component {
     const { isOpen } = this.props
 
     return <Menu
-      className={css(styles.container)}
-      styles={styles.nav}
-      outerContainerId='container'
-      pageWrapId='content'
+      {...rules.container}
+      styles={navRules}
       right
       isOpen={isOpen}
       onStateChange={this.didChangeMenuState}>
       <NavLinkList
-        style={styles.links}
+        styles={rules.links}
         showsIcons />
     </Menu>
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     display: 'none',
-    ...utils.mobile({
+    ...mobile({
       display: 'block'
     })
   },
@@ -50,8 +47,8 @@ const styles = StyleSheet.create({
   }
 })
 
-// side-step aphrodite for this one
-styles.nav = {
+// side-step glamor for this one
+const navRules = {
   bmBurgerButton: {
     display: 'none'
   },
