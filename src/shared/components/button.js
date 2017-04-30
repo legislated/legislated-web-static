@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
 import { Link } from './link'
 import type { LinkProps } from './link' // eslint-disable-line
-import { borders, colors, utils } from 'shared/styles'
+import { stylesheet, borders, colors, mobile } from 'shared/styles'
 
 type ButtonType = 'solid' | 'outline'
 
@@ -28,8 +28,8 @@ export class Button extends Component {
   }
 }
 
-const rules = {
-  button: css({
+const rules = stylesheet({
+  button: {
     ...borders.high(),
     display: 'flex',
     alignItems: 'center',
@@ -37,18 +37,18 @@ const rules = {
     borderRadius: 3,
     fontSize: 16,
     textDecoration: 'none',
-    ...utils.mobile({
+    ...mobile({
       padding: 9
     })
-  }),
-  solid: css({
+  },
+  solid: {
     border: 'none',
     backgroundColor: colors.primary,
     color: colors.white
-  }),
-  icon: css({
+  },
+  icon: {
     width: 16,
     marginRight: 5,
     textAlign: 'center'
-  })
-}
+  }
+})

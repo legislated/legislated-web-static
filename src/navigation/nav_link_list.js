@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { NavLink } from './nav_link'
 import { css } from 'glamor'
 import type { Rule } from 'glamor' // eslint-disable-line
-import { stylesheet, utils } from 'shared/styles'
+import { stylesheet, mobile } from 'shared/styles'
 
 export class NavLinkList extends Component {
   props: {
@@ -46,21 +46,21 @@ const rules = stylesheet({
     flex: 1,
     display: 'flex',
     justifyContent: 'space-between',
-    ...utils.mobile({
+    ...mobile({
       flexDirection: 'column',
       justifyContent: 'flex-start'
     })
   },
   secondaryLinks: {
     display: 'flex',
-    ...utils.mobile({
+    ...mobile({
       flexDirection: 'column'
     })
   },
   link: {
     marginRight: 10,
     fontSize: 20,
-    ...utils.mobile({
+    ...mobile({
       marginRight: 0
     })
   }

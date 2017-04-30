@@ -5,7 +5,7 @@ import { StickyContainer, Sticky } from 'react-sticky'
 import { Header } from './header'
 import { MobileNav } from './mobile_nav'
 import { on, off } from 'shared/dispatcher'
-import { stylesheet, fonts, utils } from 'shared/styles'
+import { stylesheet, fonts, mobile } from 'shared/styles'
 
 export class Container extends Component {
   props: {
@@ -58,7 +58,7 @@ const rules = stylesheet({
   },
   content: {
     padding: 30,
-    ...utils.mobile({
+    ...mobile({
       padding: 15,
       paddingBottom: 20
     })

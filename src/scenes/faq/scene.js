@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Question } from './question'
 import { Link } from 'shared/components'
-import { stylesheet, colors, shadows, borders, utils } from 'shared/styles'
+import { stylesheet, colors, shadows, borders, mobile } from 'shared/styles'
 
 export class FaqView extends Component {
   render () {
@@ -143,7 +143,7 @@ const rules = stylesheet({
     }
   },
   video: {
-    ...utils.mobile({
+    ...mobile({
       position: 'relative',
       paddingBottom: '50%',
       paddingTop: 30,
@@ -152,7 +152,7 @@ const rules = stylesheet({
     })
   },
   iframe: {
-    ...utils.mobile({
+    ...mobile({
       position: 'absolute',
       top: 0,
       left: 0,

@@ -5,7 +5,7 @@ import { Link as RouteLink } from 'react-router'
 import { NavLinkList } from './nav_link_list'
 import { MobileNavButton } from './mobile_nav_button'
 import { dispatch } from 'shared/dispatcher'
-import { stylesheet, fonts, borders, colors, alpha, utils } from 'shared/styles'
+import { stylesheet, fonts, borders, colors, alpha, mobile } from 'shared/styles'
 
 export class Header extends Component {
   props: {
@@ -44,7 +44,7 @@ const rules = stylesheet({
     paddingLeft: 30,
     paddingRight: 30,
     backgroundColor: alpha(colors.white, 0.95),
-    ...utils.mobile({
+    ...mobile({
       height: 60,
       paddingLeft: 15,
       paddingRight: 15
@@ -62,7 +62,7 @@ const rules = stylesheet({
       ...fonts.bold,
       marginLeft: 15
     },
-    ...utils.mobile({
+    ...mobile({
       fontSize: 28
     })
   },
@@ -72,7 +72,7 @@ const rules = stylesheet({
     display: 'flex',
     marginLeft: 15,
     paddingLeft: 15,
-    ...utils.mobile({
+    ...mobile({
       display: 'none'
     })
   }

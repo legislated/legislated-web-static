@@ -5,7 +5,7 @@ import { css } from 'glamor'
 import { Link } from 'shared/components'
 import type { LinkProps } from 'shared/components/link'
 import { dispatch } from 'shared/dispatcher'
-import { stylesheet, borders, utils } from 'shared/styles'
+import { stylesheet, borders, mobile } from 'shared/styles'
 
 export class NavLink extends Component {
   props: {
@@ -36,7 +36,7 @@ const rules = stylesheet({
     alignItems: 'center',
     fontSize: 20,
     textDecoration: 'none',
-    ...utils.mobile({
+    ...mobile({
       ...borders.low(['bottom']),
       marginBottom: 15,
       paddingBottom: 15,
@@ -47,7 +47,7 @@ const rules = stylesheet({
     width: 20,
     marginRight: 6,
     textAlign: 'center',
-    ...utils.mobile({
+    ...mobile({
       width: 22,
       marginRight: 8
     })

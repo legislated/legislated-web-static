@@ -6,7 +6,7 @@ import { css } from 'glamor'
 import type { Rule } from 'glamor' // eslint-disable-line
 import type { Bill } from 'shared/types'
 import { Button } from 'shared/components'
-import { stylesheet, fonts, colors, shadows, borders, utils } from 'shared/styles'
+import { stylesheet, fonts, colors, shadows, borders, mobile } from 'shared/styles'
 
 class Cell extends Component {
   props: {
@@ -58,7 +58,7 @@ const rules = stylesheet({
     '&:last-child': {
       marginBottom: 0
     },
-    ...utils.mobile({
+    ...mobile({
       flexDirection: 'column'
     })
   },
@@ -66,7 +66,7 @@ const rules = stylesheet({
     ...borders.low(['right']),
     flex: 1,
     paddingRight: 15,
-    ...utils.mobile({
+    ...mobile({
       ...borders.low(['bottom']),
       paddingRight: 0,
       paddingBottom: 15,
@@ -92,7 +92,7 @@ const rules = stylesheet({
     display: 'flex',
     flexDirection: 'column',
     paddingLeft: 15,
-    ...utils.mobile({
+    ...mobile({
       flexDirection: 'row',
       paddingLeft: 0
     })
@@ -103,7 +103,7 @@ const rules = stylesheet({
     ':last-child': {
       marginBottom: 0
     },
-    ...utils.mobile({
+    ...mobile({
       flex: 1,
       width: 'auto',
       marginBottom: 0,

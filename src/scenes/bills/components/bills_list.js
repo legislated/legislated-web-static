@@ -4,7 +4,7 @@ import Relay from 'react-relay'
 import { BillCell } from './bill_cell'
 import { BillAnimation, billRule } from './bill_animation'
 import { LoadMoreButton } from './load_more_button'
-import { stylesheet, utils } from 'shared/styles'
+import { stylesheet, mobile } from 'shared/styles'
 import type { Bill, Connection } from 'shared/types' // eslint-disable-line
 import { unwrap } from 'shared/types/connection'
 
@@ -54,7 +54,7 @@ const rules = stylesheet({
   loadMoreButton: {
     alignSelf: 'center',
     marginTop: 30,
-    ...utils.mobile({
+    ...mobile({
       marginTop: 20
     })
   }

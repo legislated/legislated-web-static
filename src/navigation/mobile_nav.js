@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { push as Menu } from 'react-burger-menu'
 import { NavLinkList } from './nav_link_list'
-import { stylesheet, colors, utils } from 'shared/styles'
+import { stylesheet, colors, mobile } from 'shared/styles'
 import { dispatch } from 'shared/dispatcher'
 
 export class MobileNav extends Component {
@@ -38,7 +38,7 @@ export class MobileNav extends Component {
 const rules = stylesheet({
   container: {
     display: 'none',
-    ...utils.mobile({
+    ...mobile({
       display: 'block'
     })
   },

@@ -5,7 +5,7 @@ import moment from 'moment'
 import { css } from 'glamor'
 import { Element } from '../components'
 import { Button } from 'shared/components'
-import { stylesheet, borders, colors, utils } from 'shared/styles'
+import { stylesheet, borders, colors, mobile } from 'shared/styles'
 import type { Bill } from 'shared/types'
 
 const { floor } = Math
@@ -69,7 +69,7 @@ const rules = stylesheet({
     display: 'flex',
     flexDirection: 'column',
     marginBottom: 15,
-    ...utils.mobile({
+    ...mobile({
       '> h1': {
         marginBottom: 5
       }
@@ -81,7 +81,7 @@ const rules = stylesheet({
     flexBasis: 0,
     paddingBottom: 15,
     marginBottom: 15,
-    ...utils.mobile({
+    ...mobile({
       flexDirection: 'column'
     })
   },
@@ -90,7 +90,7 @@ const rules = stylesheet({
     '> *:not(:last-child)': {
       marginBottom: 10
     },
-    ...utils.mobile({
+    ...mobile({
       marginBottom: 15,
       ':last-child': {
         marginBottom: 0
@@ -110,7 +110,7 @@ const rules = stylesheet({
     ':last-child': {
       marginRight: 0
     },
-    ...utils.mobile({
+    ...mobile({
       flex: 1,
       marginRight: 0,
       marginBottom: 10,
@@ -123,7 +123,7 @@ const rules = stylesheet({
     })
   },
   primaryButton: {
-    ...utils.mobile({
+    ...mobile({
       flexBasis: '100%'
     })
   }

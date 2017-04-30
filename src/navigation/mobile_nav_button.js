@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
-import { utils } from 'shared/styles'
+import { mobile } from 'shared/styles'
 import { dispatch } from 'shared/dispatcher'
 
 export class MobileNavButton extends Component {
@@ -35,7 +35,7 @@ const rule = css({
   ':focus': {
     outline: 'none'
   },
-  ...utils.mobile({
+  ...mobile({
     display: 'block'
   })
 })
