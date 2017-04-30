@@ -1,12 +1,11 @@
 // @flow
 import React, { Component } from 'react'
 import Relay from 'react-relay'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import { Content } from './components'
-import { colors, shadows, borders } from 'shared/styles'
+import { stylesheet, colors, shadows, borders } from 'shared/styles'
 import type { Viewer } from 'shared/types'
 
-class BillView extends Component {
+class Scene extends Component {
   props: {
     viewer: ?Viewer
   }
@@ -14,15 +13,15 @@ class BillView extends Component {
   render () {
     const { viewer } = this.props
 
-    return <div className={css(styles.container)}>
-      <div className={css(styles.content)}>
+    return <div {...rules.container}>
+      <div {...rules.content}>
         {viewer ? <Content bill={viewer.bill} /> : <div>Loading...</div>}
       </div>
     </div>
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     display: 'flex',
     flexDirection: 'column'
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export const BillScene = Relay.createContainer(BillView, {
+export const BillScene = Relay.createContainer(Scene, {
   initialVariables: {
     id: ''
   },

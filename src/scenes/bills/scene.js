@@ -1,16 +1,15 @@
 // @flow
 import React, { Component } from 'react'
 import Relay from 'react-relay'
-import { throttle } from 'lodash'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
+import { throttle } from 'lodash'
 import { SearchField, BillsList, LoadingIndicator } from './components'
-import { utils } from 'shared/styles'
+import { stylesheet, utils } from 'shared/styles'
 import type { Viewer, RelayProp } from 'shared/types'
 
 const pageSize = 25
 
-class BillsView extends Component {
+class Scene extends Component {
   props: {
     viewer: ?Viewer,
     relay: ?RelayProp
@@ -53,10 +52,13 @@ class BillsView extends Component {
     const { query } = this.state
     const { viewer, relay } = this.props
 
-    return <div className={css(styles.container)}>
-      <SearchField style={styles.searchField} value={query} onChange={this.searchFieldDidChange} />
-      <div className={css(styles.content)}>
-        <div className={css(styles.indicator)}>
+    return <div {...rules.container}>
+      <SearchField
+        styles={rules.searchField}
+        value={query}
+        onChange={this.searchFieldDidChange} />
+      <div {...rules.content}>
+        <div {...rules.indicator}>
           <LoadingIndicator isLoading={!viewer} />
         </div>
         {viewer && relay && this.renderBills(viewer, relay)}
@@ -70,12 +72,11 @@ class BillsView extends Component {
     return <BillsList
       bills={viewer.bills}
       animated={!isFiltering}
-      onLoadMore={this.didClickLoadMore}
-    />
+      onLoadMore={this.didClickLoadMore} />
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     ...utils.column
   },
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export const BillsScene = Relay.createContainer(BillsView, {
+export const BillsScene = Relay.createContainer(Scene, {
   initialVariables: {
     first: pageSize,
     query: '',

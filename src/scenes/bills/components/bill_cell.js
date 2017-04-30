@@ -1,44 +1,44 @@
 // @flow
 import React, { Component } from 'react'
 import Relay from 'react-relay'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import moment from 'moment'
-import { Button } from 'shared/components'
-import { fonts, colors, shadows, borders, utils } from 'shared/styles'
+import { css } from 'glamor'
+import type { Rule } from 'glamor' // eslint-disable-line
 import type { Bill } from 'shared/types'
+import { Button } from 'shared/components'
+import { stylesheet, fonts, colors, shadows, borders, utils } from 'shared/styles'
 
-class BillCell extends Component {
+class Cell extends Component {
   props: {
     bill: Bill,
-    isLast: boolean,
-    style?: Object
+    styles?: Rule
   }
 
   // lifecycle
   render () {
-    const { bill, style, isLast } = this.props
+    const { bill, styles } = this.props
     const date = moment(bill.hearing.date)
 
-    return <div className={css(styles.container, style, isLast && styles.last)}>
-      <div className={css(styles.info)}>
-        <div className={css(styles.header)}>
-          <div className={css(styles.document)}>
-            <h3 className={css(styles.title)}>{bill.title}</h3>
-            <span className={css(styles.number)}>{bill.documentNumber}</span>
+    return <div {...css(rules.container, styles)}>
+      <div {...rules.info}>
+        <div {...rules.header}>
+          <div {...rules.document}>
+            <h3>{bill.title}</h3>
+            <span>{bill.documentNumber}</span>
           </div>
           <p>{date.calendar()}</p>
         </div>
-        {bill.summary && <p className={css(styles.summary)}>{bill.summary}</p>}
+        {bill.summary && <p {...rules.summary}>{bill.summary}</p>}
       </div>
-      <div className={css(styles.actions)}>
+      <div {...rules.actions}>
         <Button
           type='solid'
-          style={styles.button}
+          styles={rules.button}
           to={bill.witnessSlipUrl}
           label='Take Action'
           iconName='pencil-square-o' />
         <Button
-          style={[styles.button, styles.lastButton]}
+          styles={rules.button}
           to={`bill/${bill.id}`}
           label='Bill Details'
           iconName='file-text-o' />
@@ -47,7 +47,7 @@ class BillCell extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     ...shadows.low,
     ...borders.low(),
@@ -55,12 +55,12 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 15,
     backgroundColor: colors.neutral,
+    '&:last-child': {
+      marginBottom: 0
+    },
     ...utils.mobile({
       flexDirection: 'column'
     })
-  },
-  last: {
-    margin: 0
   },
   info: {
     ...borders.low(['right']),
@@ -79,16 +79,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   document: {
-    marginBottom: 5
-  },
-  title: {
-    ...fonts.bold,
-    display: 'inline-block',
-    marginRight: 10
-  },
-  number: {
-    display: 'inline-block',
-    marginRight: 10
+    marginBottom: 5,
+    '> *': {
+      display: 'inline-block'
+    },
+    '> h3': {
+      ...fonts.bold,
+      marginRight: 10
+    }
   },
   actions: {
     display: 'flex',
@@ -102,17 +100,17 @@ const styles = StyleSheet.create({
   button: {
     width: 200,
     marginBottom: 10,
+    ':last-child': {
+      marginBottom: 0
+    },
     ...utils.mobile({
       flex: 1,
       width: 'auto',
       marginBottom: 0,
-      marginRight: 10
-    })
-  },
-  lastButton: {
-    marginBottom: 0,
-    ...utils.mobile({
-      marginRight: 0
+      marginRight: 10,
+      ':last-child': {
+        marginRight: 0
+      }
     })
   },
   summary: {
@@ -122,7 +120,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Relay.createContainer(BillCell, {
+export const BillCell = Relay.createContainer(Cell, {
   fragments: {
     bill: () => Relay.QL`
       fragment on Bill {

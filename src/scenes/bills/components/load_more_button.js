@@ -1,13 +1,14 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
+import { css } from 'glamor'
+import type { Rule } from 'glamor' // eslint-disable-line
 import { colors, shadows } from 'shared/styles'
 
-export default class LoadMoreButton extends Component {
+export class LoadMoreButton extends Component {
   props: {
-    style?: Object,
     hasMore: boolean,
-    onClick: Function
+    onClick: Function,
+    styles?: Rule
   }
 
   // events
@@ -17,31 +18,29 @@ export default class LoadMoreButton extends Component {
 
   // lifecycle
   render () {
-    const { style, hasMore } = this.props
+    const { styles, hasMore } = this.props
     if (!hasMore) {
       return null
     }
 
-    return <a className={css(styles.button, style)} onClick={this.didClickLink}>
+    return <a {...css(rule, styles)} onClick={this.didClickLink}>
       Load More
     </a>
   }
 }
 
-const styles = StyleSheet.create({
-  button: {
-    ...shadows.make(colors.primaryShadow, 5),
-    height: 40,
-    minWidth: 100,
-    padding: '0 5%',
-    fontSize: 18,
-    lineHeight: '40px',
-    textAlign: 'center',
-    color: colors.white,
-    backgroundColor: colors.primary,
-    transition: 'background-color 0.25s',
-    ':hover': {
-      backgroundColor: colors.primaryHighlight
-    }
+const rule = css({
+  ...shadows.make(colors.primaryShadow, 5),
+  height: 40,
+  minWidth: 100,
+  padding: '0 5%',
+  fontSize: 18,
+  lineHeight: '40px',
+  textAlign: 'center',
+  color: colors.white,
+  backgroundColor: colors.primary,
+  transition: 'background-color 0.25s',
+  ':hover': {
+    backgroundColor: colors.primaryHighlight
   }
 })

@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
+import { StyleSheet, css as cssa } from 'aphrodite/no-important'
+import { css } from 'glamor'
 import { NavLink } from './nav_link'
 import { utils } from 'shared/styles'
 import type { StyleProp } from 'shared/types'
@@ -20,20 +21,20 @@ export class NavLinkList extends Component {
   render () {
     const { showsIcons, style } = this.props
 
-    return <div className={css(styles.links, combine(style))}>
+    return <div className={cssa(styles.links, combine(style))}>
       <NavLink
-        style={styles.link}
+        styles={rules.link}
         to='/'
         iconName='search'
         label='Search Bills' />
-      <div className={css(styles.secondaryLinks)}>
+      <div className={cssa(styles.secondaryLinks)}>
         <NavLink
-          style={styles.link}
+          styles={rules.link}
           to='/faq'
           iconName={showsIcons ? 'question' : null}
           label='FAQ' />
         <NavLink
-          style={[styles.link, styles.lastLink]}
+          styles={rules.link}
           to='/about'
           iconName={showsIcons ? 'heart' : null}
           label='About Us' />
@@ -69,3 +70,16 @@ const styles = StyleSheet.create({
     marginRight: 0
   }
 })
+
+const rules = {
+  link: css({
+    marginRight: 10,
+    fontSize: 20,
+    '& + &': {
+      marginRight: 0
+    },
+    ...utils.mobile({
+      marginRight: 0
+    })
+  })
+}

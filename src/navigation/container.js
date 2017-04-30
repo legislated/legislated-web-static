@@ -1,8 +1,8 @@
 // @flow
 import 'shared/styles/globals'
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import { StickyContainer, Sticky } from 'react-sticky'
+import { css } from 'glamor'
 import { Header } from './header'
 import { MobileNav } from './mobile_nav'
 import { on, off } from 'shared/dispatcher'
@@ -41,29 +41,29 @@ export class Container extends Component {
     const { menuOpen } = this.state
     const { children } = this.props
 
-    return <StickyContainer id='container' className={css(styles.container)}>
-      <Sticky className={css(styles.header)}>
+    return <StickyContainer id='container' {...rules.container}>
+      <Sticky {...rules.header}>
         <Header menuOpen={menuOpen} />
       </Sticky>
       <MobileNav isOpen={menuOpen} />
-      <div id='content' className={css(styles.content)}>
+      <div id='content' {...rules.content}>
         {children}
       </div>
     </StickyContainer>
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
+const rules = {
+  container: css({
     ...fonts.regular
-  },
-  content: {
+  }),
+  content: css({
     padding: 30,
     ...utils.mobile({
       padding: 15
     })
-  },
-  header: {
+  }),
+  header: css({
     zIndex: 1
-  }
-})
+  })
+}
