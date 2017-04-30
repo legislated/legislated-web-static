@@ -30,7 +30,7 @@ export class LoadingIndicator extends Component {
 
 function animation (start: string, end: string, duration: number): Object {
   return {
-    animationName: [{ from: { width: start }, to: { width: end } }],
+    animationName: css.keyframes({ from: { width: start }, to: { width: end } }),
     animationDuration: `${duration}s`,
     animationDirection: 'alternate',
     animationIterationCount: 'infinite'

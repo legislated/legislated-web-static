@@ -3,10 +3,9 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
 import { Link } from 'shared/components'
-import { borders, utils } from 'shared/styles'
-import { dispatch } from 'shared/dispatcher'
-import { combine } from 'shared/types/style_prop'
 import type { LinkProps } from 'shared/components/link'
+import { dispatch } from 'shared/dispatcher'
+import { stylesheet, borders, utils } from 'shared/styles'
 
 export class NavLink extends Component {
   props: {
@@ -31,8 +30,8 @@ export class NavLink extends Component {
   }
 }
 
-const rules = {
-  link: css({
+const rules = stylesheet({
+  link: {
     display: 'flex',
     alignItems: 'center',
     fontSize: 20,
@@ -43,8 +42,8 @@ const rules = {
       paddingBottom: 15,
       fontSize: 22
     })
-  }),
-  icon: css({
+  },
+  icon: {
     width: 20,
     marginRight: 6,
     textAlign: 'center',
@@ -52,5 +51,5 @@ const rules = {
       width: 22,
       marginRight: 8
     })
-  })
-}
+  }
+})

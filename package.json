@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "ampersand-events": "^2.0.2",
-    "aphrodite": "^1.2.0",
     "color": "^1.0.3",
     "glamor": "^2.20.24",
     "lodash": "^4.17.2",

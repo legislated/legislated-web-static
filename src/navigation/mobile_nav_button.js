@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import FontAwesome from 'react-fontawesome'
+import { css } from 'glamor'
 import { utils } from 'shared/styles'
 import { dispatch } from 'shared/dispatcher'
 
@@ -19,25 +19,23 @@ export class MobileNavButton extends Component {
   // lifecycle
   render () {
     const icon = this.props.isOpen ? 'close' : 'bars'
-    return <button className={css(styles.button)} onClick={this.didClickMenu}>
+    return <button {...rule} onClick={this.didClickMenu}>
       <FontAwesome name={icon} />
     </button>
   }
 }
 
-const styles = StyleSheet.create({
-  button: {
-    display: 'none',
-    padding: 0,
-    border: 'none',
-    background: 'none',
-    fontSize: 28,
-    cursor: 'pointer',
-    ':focus': {
-      outline: 'none'
-    },
-    ...utils.mobile({
-      display: 'block'
-    })
-  }
+const rule = css({
+  display: 'none',
+  padding: 0,
+  border: 'none',
+  background: 'none',
+  fontSize: 28,
+  cursor: 'pointer',
+  ':focus': {
+    outline: 'none'
+  },
+  ...utils.mobile({
+    display: 'block'
+  })
 })

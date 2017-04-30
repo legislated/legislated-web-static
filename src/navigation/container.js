@@ -2,11 +2,10 @@
 import 'shared/styles/globals'
 import React, { Component } from 'react'
 import { StickyContainer, Sticky } from 'react-sticky'
-import { css } from 'glamor'
 import { Header } from './header'
 import { MobileNav } from './mobile_nav'
 import { on, off } from 'shared/dispatcher'
-import { fonts, utils } from 'shared/styles'
+import { stylesheet, fonts, utils } from 'shared/styles'
 
 export class Container extends Component {
   props: {
@@ -53,17 +52,18 @@ export class Container extends Component {
   }
 }
 
-const rules = {
-  container: css({
+const rules = stylesheet({
+  container: {
     ...fonts.regular
-  }),
-  content: css({
+  },
+  content: {
     padding: 30,
     ...utils.mobile({
-      padding: 15
+      padding: 15,
+      paddingBottom: 20
     })
-  }),
-  header: css({
+  },
+  header: {
     zIndex: 1
-  })
-}
+  }
+})

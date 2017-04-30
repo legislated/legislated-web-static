@@ -1,28 +1,27 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import { Link } from 'shared/components'
-import { colors, shadows, borders } from 'shared/styles'
+import { stylesheet, colors, shadows, borders } from 'shared/styles'
 
 export class AboutView extends Component {
   render () {
-    return <div className={css(styles.container)}>
-      <div className={css(styles.content)}>
-        <h1 className={css(styles.header)}>About Us</h1>
-        <p className={css(styles.paragraph)}>
+    return <div {...rules.container}>
+      <div {...rules.content}>
+        <h1>About Us</h1>
+        <p>
           Legislated has been developed by a
           {' '}<Link to='https://chihacknight.org'>Chi Hack Night</Link>{' '}
           breakout group to make it easier for Illinois residents
           to take advantage of the Witness Slip functionality provided by
           the State of Illinois.
         </p>
-        <p className={css(styles.paragraph)}>
+        <p>
           We are a group of volunteers who want to make civic engagement
           at the state level more user-friendly. We try to make it easy for
           Illinois residents to voice their opinions on proposed legislation
           via witness slips.
         </p>
-        <p className={css(styles.paragraph)}>
+        <p>
           For more information please checkout
           {' '}<Link to='https://www.facebook.com/groups/WitnessSlipProjectIllinois/'>The Witness Slip Project (Illinois)</Link>{' '}
           on Facebook or
@@ -40,7 +39,7 @@ export class AboutView extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   container: {
     display: 'flex',
     flexDirection: 'column'
@@ -49,14 +48,14 @@ const styles = StyleSheet.create({
     ...shadows.low,
     ...borders.low(),
     padding: 15,
-    backgroundColor: colors.neutral
-  },
-  header: {
-    ...borders.low(['bottom']),
-    marginBottom: 15,
-    paddingBottom: 15
-  },
-  paragraph: {
-    marginBottom: 10
+    backgroundColor: colors.neutral,
+    '> h1': {
+      ...borders.low(['bottom']),
+      marginBottom: 15,
+      paddingBottom: 15
+    },
+    '> p:not(:last-child)': {
+      marginBottom: 10
+    }
   }
 })

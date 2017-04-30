@@ -1,16 +1,14 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, css as cssa } from 'aphrodite/no-important'
-import { css } from 'glamor'
 import { NavLink } from './nav_link'
-import { utils } from 'shared/styles'
-import type { StyleProp } from 'shared/types'
-import { combine } from 'shared/types/style_prop'
+import { css } from 'glamor'
+import type { Rule } from 'glamor' // eslint-disable-line
+import { stylesheet, utils } from 'shared/styles'
 
 export class NavLinkList extends Component {
   props: {
     showsIcons?: boolean,
-    style?: StyleProp
+    styles?: Rule
   }
 
   static defaultProps = {
@@ -19,15 +17,15 @@ export class NavLinkList extends Component {
 
   // lifecycle
   render () {
-    const { showsIcons, style } = this.props
+    const { showsIcons, styles } = this.props
 
-    return <div className={cssa(styles.links, combine(style))}>
+    return <div {...css(rules.links, styles)}>
       <NavLink
         styles={rules.link}
         to='/'
         iconName='search'
         label='Search Bills' />
-      <div className={cssa(styles.secondaryLinks)}>
+      <div {...rules.secondaryLinks}>
         <NavLink
           styles={rules.link}
           to='/faq'
@@ -43,7 +41,7 @@ export class NavLinkList extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const rules = stylesheet({
   links: {
     flex: 1,
     display: 'flex',
@@ -65,21 +63,5 @@ const styles = StyleSheet.create({
     ...utils.mobile({
       marginRight: 0
     })
-  },
-  lastLink: {
-    marginRight: 0
   }
 })
-
-const rules = {
-  link: css({
-    marginRight: 10,
-    fontSize: 20,
-    '& + &': {
-      marginRight: 0
-    },
-    ...utils.mobile({
-      marginRight: 0
-    })
-  })
-}
