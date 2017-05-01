@@ -67,7 +67,8 @@ const rules = stylesheet({
     padding: '0 15px',
     backgroundColor: colors.neutral,
     transition: 'box-shadow 0.25s, border 0.25s, transform 0.25s',
-    transform: 'perspective(200px) translateZ(0px)'
+    transform: 'perspective(200px) translateZ(0px)',
+    cursor: 'text'
   },
   focused: {
     ...shadows.high,

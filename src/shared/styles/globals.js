@@ -23,6 +23,16 @@ globals({
   h4: {
     ...fonts.regular,
     fontSize: 20
+  },
+  a: {
+    cursor: 'pointer'
+  },
+  button: {
+    margin: 0,
+    border: 0,
+    textTransform: 'none',
+    backgroundColor: 'transparent',
+    cursor: 'pointer'
   }
 })
 
