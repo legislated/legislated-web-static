@@ -2,12 +2,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { NavLink } from '../nav_link'
-import { dispatch } from 'shared/dispatcher'
-
-// mocks
-jest.mock('shared/dispatcher', () => {
-  return { dispatch: jest.fn() }
-})
 
 // subject
 let subject
@@ -39,13 +33,5 @@ describe('#render', () => {
     label = 'just, click it already'
     loadSubject()
     expect(element.label()).toHaveText(label)
-  })
-})
-
-describe('on click', () => {
-  it('closes the menu', () => {
-    loadSubject()
-    subject.simulate('click')
-    expect(dispatch).toHaveBeenCalledWith('close-menu')
   })
 })

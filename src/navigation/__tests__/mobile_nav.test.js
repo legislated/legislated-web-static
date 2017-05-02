@@ -2,23 +2,18 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { MobileNav } from '../mobile_nav'
-import { dispatch } from 'shared/dispatcher'
-
-// mocks
-jest.mock('shared/dispatcher', () => {
-  return { dispatch: jest.fn() }
-})
 
 // subject
 let subject
-let isOpen = false
 
 function loadSubject () {
-  subject = shallow(<MobileNav isOpen={isOpen} />)
+  subject = shallow(<MobileNav />)
 }
 
 let element = {
-  list: () => subject.find('NavLinkList')
+  button: () => subject.find('MobileNavButton'),
+  overlay: () => subject.children('div'),
+  links: () => subject.find('NavLinkList')
 }
 
 // spec
@@ -26,27 +21,48 @@ afterEach(() => {
   subject = null
 })
 
+describe('#state', () => {
+  it('default the menu to closed', () => {
+    loadSubject()
+    expect(subject).toHaveState('isOpen', false)
+  })
+
+  it('shows the menu when open', () => {
+    loadSubject()
+    subject.setState({ isOpen: true })
+    expect(element.overlay()).toMatchRule('nzpuq9')
+  })
+})
+
 describe('#render', () => {
   it('shows the nav link icons', () => {
     loadSubject()
-    expect(element.list()).toHaveProp('showsIcons', true)
+    expect(element.links()).toHaveProp('showsIcons', true)
   })
 })
 
-describe('when the overlay is tapped', () => {
+describe('when the user taps the button', () => {
+  it('opens the menu', () => {
+    loadSubject()
+    element.button().simulate('click')
+    expect(subject).toHaveState('isOpen', true)
+  })
+})
+
+describe('when the user taps the overlay', () => {
   it('closes the menu', () => {
-    isOpen = true
     loadSubject()
-    subject.simulate('stateChange', { isOpen: false })
-    expect(dispatch).toHaveBeenCalledWith('close-menu')
+    subject.setState({ isOpen: true })
+    element.overlay().simulate('click')
+    expect(subject).toHaveState('isOpen', false)
   })
 })
 
-describe('when closed', () => {
-  it('ignores state changes', () => {
-    isOpen = false
+describe('when the user taps a nav link', () => {
+  it('closes the menu', () => {
     loadSubject()
-    subject.simulate('stateChange', { isOpen: false })
-    expect(dispatch).not.toHaveBeenCalled()
+    subject.setState({ isOpen: true })
+    element.links().simulate('click')
+    expect(subject).toHaveState('isOpen', false)
   })
 })

@@ -4,26 +4,20 @@ import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
 import { Link } from 'shared/components'
 import type { LinkProps } from 'shared/components/link'
-import { dispatch } from 'shared/dispatcher'
 import { stylesheet, borders, mobile } from 'shared/styles'
 
 export class NavLink extends Component {
   props: {
     label: string,
-    iconName: ?string,
+    iconName: ?string
   } & LinkProps
-
-  // events
-  didClickLink = () => {
-    dispatch('close-menu')
-  }
 
   // lifecycle
   render () {
-    const { to: url, label, iconName, styles } = this.props
+    const { label, iconName, styles, ...linkProps } = this.props
     const linkRule = css(rules.link, styles)
 
-    return <Link to={url} onClick={this.didClickLink} styles={linkRule}>
+    return <Link styles={linkRule} {...linkProps}>
       {iconName && <FontAwesome {...rules.icon} name={iconName} />}
       <span>{label}</span>
     </Link>
