@@ -2,31 +2,19 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
+import { MobileNav } from './mobile_nav'
 import { NavLinkList } from './nav_link_list'
-import { MobileNavButton } from './mobile_nav_button'
-import { dispatch } from 'shared/dispatcher'
 import { stylesheet, fonts, borders, colors, alpha, mobile } from 'shared/styles'
 
 export class Header extends Component {
-  props: {
-    menuOpen: boolean
-  }
-
-  // events
-  didClickLogo = () => {
-    dispatch('close-menu')
-  }
-
   // lifecycle
   render () {
-    const { menuOpen } = this.props
-
     return <div {...rules.container}>
-      <RouteLink {...rules.logoLink} to='/' onClick={this.didClickLogo}>
+      <RouteLink {...rules.logoLink} to='/'>
         <FontAwesome name='institution' />
         <span>Legislated</span>
       </RouteLink>
-      <MobileNavButton isOpen={menuOpen} />
+      <MobileNav />
       <div {...rules.nav}>
         <NavLinkList />
       </div>

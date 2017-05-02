@@ -29,6 +29,7 @@ globals({
   },
   button: {
     margin: 0,
+    padding: 0,
     border: 0,
     textTransform: 'none',
     backgroundColor: 'transparent',

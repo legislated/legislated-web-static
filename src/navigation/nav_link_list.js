@@ -8,7 +8,8 @@ import { stylesheet, mobile } from 'shared/styles'
 export class NavLinkList extends Component {
   props: {
     showsIcons?: boolean,
-    styles?: Rule
+    styles?: Rule,
+    onClick?: Function
   }
 
   static defaultProps = {
@@ -17,22 +18,27 @@ export class NavLinkList extends Component {
 
   // lifecycle
   render () {
-    const { showsIcons, styles } = this.props
+    const { showsIcons, styles, onClick } = this.props
+
+    const linkProps = {
+      styles: rules.link,
+      onClick
+    }
 
     return <div {...css(rules.links, styles)}>
       <NavLink
-        styles={rules.link}
+        {...linkProps}
         to='/'
         iconName='search'
         label='Search Bills' />
       <div {...rules.secondaryLinks}>
         <NavLink
-          styles={rules.link}
+          {...linkProps}
           to='/faq'
           iconName={showsIcons ? 'question' : null}
           label='FAQ' />
         <NavLink
-          styles={rules.link}
+          {...linkProps}
           to='/about'
           iconName={showsIcons ? 'heart' : null}
           label='About Us' />
