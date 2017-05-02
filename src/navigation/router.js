@@ -10,6 +10,10 @@ import { set } from 'shared/storage'
 
 let hasEnteredSearch = false
 
+export function reset () {
+  hasEnteredSearch = false
+}
+
 function onChange (route: { location: { pathname: string } }) {
   const { pathname } = route.location
 

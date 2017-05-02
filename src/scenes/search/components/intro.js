@@ -26,7 +26,7 @@ export class Intro extends Component {
 
   // lifecycle
   render () {
-    const isVisited = get('visited-intro') !== null
+    const isVisited = !!get('visited-intro')
     return isVisited ? null : <BillAnimation>{this.renderContent()}</BillAnimation>
   }
 
