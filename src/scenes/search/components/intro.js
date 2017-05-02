@@ -6,7 +6,7 @@ import type { Rule } from 'glamor' // eslint-disable-line
 import { BillAnimation } from './bill_animation'
 import { Link } from 'shared/components'
 import { get, set } from 'shared/storage'
-import { stylesheet, borders, fonts } from 'shared/styles'
+import { stylesheet, borders, fonts, mobile } from 'shared/styles'
 
 export class Intro extends Component {
   props: {
@@ -43,22 +43,23 @@ export class Intro extends Component {
         Our mission is to make it as simple as possible for residents of
         Illinois to impact our state government. We want you to be more engaged
         on the issues you care about, more connected to the lawmakers who impact
-        them, and less tangled up in by the spider's web of info out there.
+        them, and less tangled up in the spider's web of info out there.
       </p>
       <p>
-        Never heard of a witness slip? It's a tool the state provides us
-        residents of Illinois to voice our opinions on the bills they write.
-        Search for a bill you care about and let the legislature know what your
-        stance is.
+        Never heard of a witness slip? As a resident of Illinois, it's a tool
+        that allows you to voice your opinion on the laws your representatives
+        write. Search for a bill you care about and let the legislature know
+        what your stance is.
       </p>
       <div {...rules.action}>
-        <span>
-          Want to learn More? <Link to='/faq'>Visit our FAQs</Link>
+        <span>Want to learn more?</span>{' '}
+        <span {...rules.actionLinks}>
+          <Link to='/faq'>Visit our FAQs</Link>
+          <Link styles={rules.accept} onClick={this.didClickAccept}>
+            <FontAwesome name='check' />
+            <span>Got it.</span>
+          </Link>
         </span>
-        <Link styles={rules.accept} onClick={this.didClickAccept}>
-          <FontAwesome name='check' />
-          <span>Got it.</span>
-        </Link>
       </div>
     </div>
   }
@@ -78,10 +79,16 @@ const rules = stylesheet({
   },
   action: {
     marginTop: 20,
-    '> span:first-child': {
+    '> span:first-child, a:first-child': {
       ...fonts.bold,
       fontSize: 20
     }
+  },
+  actionLinks: {
+    ...mobile({
+      display: 'block',
+      marginTop: 10
+    })
   },
   accept: {
     ...borders.low(['left']),
