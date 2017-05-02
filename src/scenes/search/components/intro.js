@@ -49,7 +49,7 @@ export class Intro extends Component {
         Never heard of a witness slip? As a resident of Illinois, it's a tool
         that allows you to voice your opinion on the laws your representatives
         write. Search for a bill you care about and let the legislature know
-        what your stance is.
+        what how you feel.
       </p>
       <div {...rules.action}>
         <span>Want to learn more?</span>{' '}
