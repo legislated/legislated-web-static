@@ -48,7 +48,7 @@ describe('#render', () => {
     })
 
     it('adds the style to the field', () => {
-      expect(element.field()).toMatchRule(/174vovc/)
+      expect(element.field()).toMatchRule(/1r4ohh8/)
     })
 
     it('adds the style to the icon', () => {

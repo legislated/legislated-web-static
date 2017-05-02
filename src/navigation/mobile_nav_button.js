@@ -1,41 +1,42 @@
 // @flow
 import React, { Component } from 'react'
-import FontAwesome from 'react-fontawesome'
-import { css } from 'glamor'
-import { mobile } from 'shared/styles'
-import { dispatch } from 'shared/dispatcher'
+import { stylesheet, colors } from 'shared/styles'
 
 export class MobileNavButton extends Component {
-  props: {
-    isOpen: boolean
-  }
-
-  // events
-  didClickMenu = () => {
-    const event = this.props.isOpen ? 'close-menu' : 'open-menu'
-    dispatch(event)
-  }
+  props: {|
+    onClick: Function
+  |}
 
   // lifecycle
   render () {
-    const icon = this.props.isOpen ? 'close' : 'bars'
-    return <button {...rule} onClick={this.didClickMenu}>
-      <FontAwesome name={icon} />
+    return <button type='button' {...rules.hamburger} {...this.props}>
+      <span />
+      <span />
+      <span />
     </button>
   }
 }
 
-const rule = css({
-  display: 'none',
-  padding: 0,
-  border: 'none',
-  background: 'none',
-  fontSize: 28,
-  cursor: 'pointer',
-  ':focus': {
-    outline: 'none'
-  },
-  ...mobile({
-    display: 'block'
-  })
+const rules = stylesheet({
+  hamburger: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    width: 32,
+    transition: 'opacity 0.15s linear',
+    '&:focus': {
+      outline: 'none'
+    },
+    '&:hover, &:active': {
+      opacity: 0.6
+    },
+    '> span': {
+      height: 4,
+      borderRadius: 2,
+      backgroundColor: colors.black
+    },
+    '> span:not(:last-child)': {
+      marginBottom: 5
+    }
+  }
 })
