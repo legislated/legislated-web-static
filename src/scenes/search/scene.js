@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Relay from 'react-relay'
 import moment from 'moment'
 import { throttle } from 'lodash'
-import { SearchField, BillsList, LoadingIndicator } from './components'
+import { Intro, SearchField, BillsList, LoadingIndicator } from './components'
 import { stylesheet, utils } from 'shared/styles'
 import type { Viewer, RelayProp } from 'shared/types'
 
@@ -53,8 +53,9 @@ class SearchView extends Component {
     const { viewer, relay } = this.props
 
     return <div {...rules.container}>
+      <Intro styles={rules.section} />
       <SearchField
-        styles={rules.searchField}
+        styles={rules.section}
         value={query}
         onChange={this.searchFieldDidChange} />
       <div {...rules.content}>
@@ -74,7 +75,7 @@ const rules = stylesheet({
   container: {
     ...utils.column
   },
-  searchField: {
+  section: {
     marginBottom: 30
   },
   content: {
