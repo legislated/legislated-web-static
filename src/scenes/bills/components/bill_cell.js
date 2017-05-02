@@ -40,7 +40,7 @@ class Cell extends Component {
         <Button
           styles={rules.button}
           to={`bill/${bill.id}`}
-          label='Bill Details'
+          label='More Info'
           iconName='file-text-o' />
       </div>
     </div>

@@ -16,11 +16,9 @@ function loadSubject () {
 const element = {
   title: () => subject.find('h1'),
   number: () => subject.find('h4'),
-  slipLink: () => subject.find('Button').at(0),
-  detailsLink: () => subject.find('Button').at(1),
-  textLink: () => subject.find('Button').at(2),
   summary: () => subject.find('Element').at(0),
   date: () => subject.find('Element span').at(0),
+  actions: () => subject.find('ActionsView'),
   hoursLeft: () => subject.find('Element span').at(1),
   committee: () => subject.find('Element').at(2)
 }
@@ -32,9 +30,6 @@ beforeEach(() => {
     documentNumber: 'HB1234',
     title: 'Foo',
     summary: 'A bill, fantastic',
-    witnessSlipUrl: 'http://www.test.com/slip',
-    billDetailsUrl: 'http://www.test.com/details',
-    fullTextUrl: 'http://www.test.com/text',
     hearing: {
       date: moment().add(11.9, 'hours').utc()
     },
@@ -49,7 +44,7 @@ afterEach(() => {
 })
 
 describe('#render', () => {
-  describe('nomrally', () => {
+  describe('normally', () => {
     beforeEach(loadSubject)
 
     it('shows the title', () => {
@@ -58,18 +53,6 @@ describe('#render', () => {
 
     it('shows the document number', () => {
       expect(element.number()).toHaveText(bill.documentNumber)
-    })
-
-    it('shows the witness slip link', () => {
-      expect(element.slipLink()).toHaveProp('to', bill.witnessSlipUrl)
-    })
-
-    it('shows the details link', () => {
-      expect(element.detailsLink()).toHaveProp('to', bill.detailsUrl)
-    })
-
-    it('shows the full text link', () => {
-      expect(element.textLink()).toHaveProp('to', bill.fullTextUrl)
     })
 
     it('shows the summary', () => {
@@ -86,6 +69,10 @@ describe('#render', () => {
 
     it('shows the committee name', () => {
       expect(element.committee()).toHaveProp('children', bill.committee.name)
+    })
+
+    it('shows the actions', () => {
+      expect(element.actions()).toHaveProp('bill', bill)
     })
   })
 
