@@ -12,7 +12,7 @@ export class Button extends Component {
   props: {
     label: string,
     iconName: string,
-    type?: ButtonType
+    type?: ButtonType,
   } & LinkProps
 
   // lifecycle

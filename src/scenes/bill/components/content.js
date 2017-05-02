@@ -2,9 +2,8 @@
 import React, { Component } from 'react'
 import Relay from 'react-relay'
 import moment from 'moment'
-import { css } from 'glamor'
-import { Element } from '../components'
-import { Button } from 'shared/components'
+import { Actions } from './actions'
+import { Element } from './element'
 import { stylesheet, borders, colors, mobile } from 'shared/styles'
 import type { Bill } from 'shared/types'
 
@@ -42,24 +41,7 @@ class ContentView extends Component {
           <Element label='Committee'>{bill.committee.name}</Element>
         </div>
       </div>
-      <div {...rules.actions}>
-        <Button
-          styles={css(rules.button, rules.primaryButton)}
-          to={bill.witnessSlipUrl}
-          label='Take Action'
-          iconName='pencil-square-o'
-          type='solid' />
-        <Button
-          styles={rules.button}
-          to={bill.detailsUrl}
-          label='View Details'
-          iconName='info-circle' />
-        <Button
-          styles={rules.button}
-          to={bill.fullTextUrl}
-          label='View Bill'
-          iconName='file-text-o' />
-      </div>
+      <Actions bill={bill} />
     </div>
   }
 }
@@ -100,32 +82,6 @@ const rules = stylesheet({
   hoursLeft: {
     marginLeft: 5,
     color: colors.secondary
-  },
-  actions: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  button: {
-    marginRight: 10,
-    ':last-child': {
-      marginRight: 0
-    },
-    ...mobile({
-      flex: 1,
-      marginRight: 0,
-      marginBottom: 10,
-      ':last-child': {
-        marginLeft: 10
-      },
-      ':nth-last-child(-n+2)': {
-        marginBottom: 0
-      }
-    })
-  },
-  primaryButton: {
-    ...mobile({
-      flexBasis: '100%'
-    })
   }
 })
 
@@ -137,9 +93,6 @@ export const Content = Relay.createContainer(ContentView, {
         title
         summary
         sponsorName
-        detailsUrl
-        fullTextUrl
-        witnessSlipUrl
         hearing {
           date
         }
@@ -149,6 +102,7 @@ export const Content = Relay.createContainer(ContentView, {
         chamber {
           name
         }
+        ${Actions.getFragment('bill')}
       }
     `
   }
