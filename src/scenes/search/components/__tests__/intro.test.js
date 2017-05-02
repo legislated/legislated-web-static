@@ -18,7 +18,7 @@ function loadSubject () {
 
 const element = {
   animation: () => subject.find('BillAnimation'),
-  accept: () => subject.find('div > Link')
+  accept: () => subject.find('Link').at(1)
 }
 
 // spec
