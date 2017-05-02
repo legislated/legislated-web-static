@@ -2,7 +2,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment'
-import { BillsScene } from '../scene'
+import { SearchScene } from '../scene'
 
 const pageSize = 25
 
@@ -10,7 +10,7 @@ const pageSize = 25
 let subject
 let viewer
 let relayProp
-let relayConfig = BillsScene.relayConfig()
+let relayConfig = SearchScene.relayConfig()
 
 function loadSubject () {
   relayProp = {
@@ -18,7 +18,7 @@ function loadSubject () {
     setVariables: jest.fn()
   }
 
-  subject = shallow(<BillsScene viewer={viewer} relay={relayProp} />)
+  subject = shallow(<SearchScene viewer={viewer} relay={relayProp} />)
 }
 
 const element = {

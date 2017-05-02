@@ -9,7 +9,7 @@ import type { Viewer, RelayProp } from 'shared/types'
 
 const pageSize = 25
 
-class Scene extends Component {
+class SearchView extends Component {
   props: {
     viewer: ?Viewer,
     relay: ?RelayProp
@@ -90,7 +90,7 @@ const rules = stylesheet({
   }
 })
 
-export const BillsScene = Relay.createContainer(Scene, {
+export const SearchScene = Relay.createContainer(SearchView, {
   initialVariables: {
     first: pageSize,
     query: '',
