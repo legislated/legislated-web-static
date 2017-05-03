@@ -21,12 +21,15 @@ export class FaqView extends Component {
             passed in committee, so they do work! Let’s keep it up!
           </p>
           <p>
-            <strong>If you feel strongly about a bill, it is vitally important
-            that you call and/or visit your ILGA Representative and
-            Senator.</strong> Ask your friends to do the same! Slips are counted
-            by a small group of ILGA members to move the bill out of committee,
-            but your reps need to hear from you. It is by far the most effective
-            way to influence them.
+            Witness Slips are not substitutes for in-person visits, calls, letters, or emails.
+            Your State Representative or Senator will not know that you filled out a Witness Slip.
+            Witness Slips are a different tool.
+            <strong>It is vitally important that you call, write, and/or visit your
+            ILGA Representative and Senator on issues that are important to you.
+            Ask your friends to do the same!</strong>
+            Slips are counted by a small group of ILGA members to move the bill
+            out of committee, but your reps need to hear from you.
+            It is by far the most effective way to influence them.
           </p>
           <p>
             If you are not sure who your representatives are, look them up
@@ -100,6 +103,11 @@ export class FaqView extends Component {
           <p>
             More detailed instructions are available in the
             {' '}<Link to='http://my.ilga.gov/Documents/ILGA%20Dashboard%20User%20Guide.pdf'>ILGA Witness Slip User Guide</Link>.
+          </p>
+        </Question>
+        <Question title='Are there Witness Slips at the federal level?'>
+          <p>
+            No.
           </p>
         </Question>
         <Question title='Why am I filling out a slip for the same bill each week?'>
