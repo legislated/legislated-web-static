@@ -65,6 +65,7 @@ class SearchView extends Component {
         {viewer && relay && <BillsList
           bills={viewer.bills}
           animated={!isFiltering}
+          isSearching={!!relay.variables.query}
           onLoadMore={this.didClickLoadMore} />}
       </div>
     </div>

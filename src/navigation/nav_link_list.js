@@ -29,8 +29,8 @@ export class NavLinkList extends Component {
       <NavLink
         {...linkProps}
         to='/'
-        iconName='search'
-        label='Search Bills' />
+        iconName='home'
+        label='Home' />
       <div {...rules.secondaryLinks}>
         <NavLink
           {...linkProps}

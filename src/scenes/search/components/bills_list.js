@@ -12,6 +12,7 @@ class List extends Component {
   props: {
     bills: Connection<Bill>,
     animated: Boolean,
+    isSearching: Boolean,
     onLoadMore: () => void,
   }
 
@@ -22,12 +23,13 @@ class List extends Component {
 
   // lifecycle
   render () {
-    const { bills: connection, animated, onLoadMore } = this.props
+    const { bills: connection, animated, isSearching, onLoadMore } = this.props
 
     const bills = unwrap(connection)
     const hasNextPage = bills.pageInfo && bills.pageInfo.hasNextPage
 
     return <div {...rules.container}>
+      <div>{`Results: ${isSearching ? `${bills.nodes.length}` : 'all'} bills.`}</div>
       <BillAnimation disable={!animated}>
         {this.renderCells(bills.nodes)}
       </BillAnimation>

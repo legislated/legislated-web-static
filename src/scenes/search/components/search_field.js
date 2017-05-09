@@ -63,6 +63,7 @@ const rules = stylesheet({
     ...borders.low(),
     display: 'flex',
     alignItems: 'center',
+    width: '50%',
     height: 50,
     padding: '0 15px',
     backgroundColor: colors.neutral,
@@ -88,6 +89,9 @@ const rules = stylesheet({
     flex: 1,
     fontSize: 20,
     border: 'none',
+    '::placeholder': {
+      color: '#DEDEDE'
+    },
     ':focus': {
       outline: 'none'
     }
