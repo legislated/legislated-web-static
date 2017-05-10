@@ -6,7 +6,7 @@ import type { Rule } from 'glamor' // eslint-disable-line
 import { BillAnimation } from './bill_animation'
 import { Link } from 'shared/components'
 import { get, set } from 'shared/storage'
-import { stylesheet, borders, fonts, mobile } from 'shared/styles'
+import { stylesheet, borders, mobile } from 'shared/styles'
 
 export class Intro extends Component {
   props: {

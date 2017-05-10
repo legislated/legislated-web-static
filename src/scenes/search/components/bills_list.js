@@ -38,7 +38,7 @@ class List extends Component {
       <div {...rules.header}>
         <h2>Upcoming Bills</h2>
         <div>{`${format(startDate)} to ${format(endDate)}`}</div>
-        <div>{`Found ${count} results.`}</div>
+        <div>{`Found ${count} result${count === 1 ? '' : 's'}.`}</div>
       </div>
       <BillAnimation disable={!animated}>{this.renderBills(bills)}</BillAnimation>
       <LoadMoreButton styles={rules.loadMoreButton} hasMore={pageInfo.hasNextPage} onClick={onLoadMore} />
