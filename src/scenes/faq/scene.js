@@ -32,7 +32,7 @@ export class FaqView extends Component {
             For as much time as it would take to share an article online,
             you can make a contribution to your government.
           </p>
-          <h5>What it isn’t</h5>
+          <h5>What it isn't</h5>
           <p>
             Witness Slips are not substitutes for in-person visits, calls, letters, or emails.
             Your State Representative or Senator will not know that you filled out a Witness Slip.
@@ -60,7 +60,7 @@ export class FaqView extends Component {
         <Question title='When is the Witness Slip submission deadline?'>
           <p>
             The Senate allows you to submit a Witness Slip until the end of the
-            day of the committee hearing’s scheduled date.
+            day of the committee hearing's scheduled date.
           </p>
           <p>
             The House allows you to submit a Witness Slip until the conclusion of
@@ -72,7 +72,7 @@ export class FaqView extends Component {
             For any bill on Legislated.org, the "Take Action" button will open a form that
             you can use to submit the Witness Slip. If you cannot find a bill
             here, you can try to find it on the
-            {' '}<Link to='http://my.ilga.gov'>Illinois General Assembly’s Dashboard</Link>.
+            {' '}<Link to='http://my.ilga.gov'>Illinois General Assembly's Dashboard</Link>.
           </p>
         </Question>
         <Question title='How do I complete a Witness Slip?'>
@@ -89,24 +89,24 @@ export class FaqView extends Component {
             <h5>Step-by-step:</h5>
             <ol>
               <li>
-                Click the “Take Action” button next to the bill, which will take you to the
-                {' '}<Link to='http://my.ilga.gov'>Illinois General Assembly’s Dashboard</Link>.
+                Click the "Take Action” button next to the bill, which will take you to the
+                {' '}<Link to='http://my.ilga.gov'>Illinois General Assembly's Dashboard</Link>.
               </li>
               <li>
                 Log in or fill out your personal identification information as prompted.
-                (Enter your job title or “Self” under “Title,” and your organization or “Self” under “Firm/business or agency.”)
+                (Enter your job title or "Self” under "Title,” and your organization or "Self” under "Firm/business or agency.”)
               </li>
-              <li>Under “Persons, groups, firms represented in this appearance,” enter “Self.”</li>
-              <li>In the representation section, enter “Self.”</li>
+              <li>Under "Persons, groups, firms represented in this appearance,” enter "Self.”</li>
+              <li>In the representation section, enter "Self.”</li>
               <li>
-                Check “Proponent” or “Opponent” in the position section.
+                Check "Proponent” or "Opponent” in the position section.
                 If you are unsure of your stance on a particular witness slip please visit
                 {' '}<Link to='https://www.facebook.com/groups/WitnessSlipProjectIllinois/'>The Witness Slip Project (Illinois)</Link> on Facebook or
                 {' '}<Link to='https://twitter.com/WitnessSlipsIL'>@WitnessSlipsIL</Link> on Twitter.
               </li>
-              <li>Check the box marked “Record of Appearance Only” in the testimony section.</li>
+              <li>Check the box marked "Record of Appearance Only” in the testimony section.</li>
               <li>Enter CAPTCHA and agree to terms of service.</li>
-              <li>Click “Create Slip.”</li>
+              <li>Click "Create Slip.”</li>
             </ol>
           </div>
         </Question>
@@ -115,13 +115,13 @@ export class FaqView extends Component {
             <strong>Creating an account is HIGHLY recommended! </strong>
             If you have an account you will only have to fill out your personal information once.
             After that simply choose proponent/opponent for any Slip and submit.
-            You will also be able to keep track of the Slips you’ve created.
+            You will also be able to keep track of the Slips you've created.
             <ol>
-              <li>Go to the {' '}<Link to='http://my.ilga.gov'>Illinois General Assembly’s Dashboard</Link></li>
-              <li>In the left sidebar, select “Register”</li>
+              <li>Go to the {' '}<Link to='http://my.ilga.gov'>Illinois General Assembly's Dashboard</Link></li>
+              <li>In the left sidebar, select "Register”</li>
               <li>Enter email and password</li>
-              <li>Check “Agree to Terms”</li>
-              <li>Click “Register”</li>
+              <li>Check "Agree to Terms”</li>
+              <li>Click "Register”</li>
               <li>You will receive a confirmation email. Follow the link to verify your account and enter your profile information.</li>
             </ol>
             The next time you select a Witness Slip, all of your information will be
@@ -139,7 +139,7 @@ export class FaqView extends Component {
         </Question>
         <Question title='Why am I filling out a Slip for the same bill each week?'>
           <p>
-            If a bill isn’t called at a committee meeting, you have to re-file one
+            If a bill isn't called at a committee meeting, you have to re-file one
             for the new hearing date.
           </p>
         </Question>
