@@ -13,7 +13,7 @@ function loadSubject () {
 }
 
 const element = {
-  field: () => subject.childAt(1),
+  field: () => subject.find('div > div').at(1),
   input: () => subject.find(`input[name='search-field']`),
   icon: () => subject.find('FontAwesome')
 }
@@ -48,11 +48,7 @@ describe('#render', () => {
     })
 
     it('adds the style to the field', () => {
-      expect(element.field()).toMatchRule(/1r4ohh8/)
-    })
-
-    it('adds the style to the icon', () => {
-      expect(element.icon()).toMatchRule(/hkep22/)
+      expect(element.field()).toMatchRule(/i3g58o/)
     })
   })
 })

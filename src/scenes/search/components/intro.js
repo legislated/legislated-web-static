@@ -6,7 +6,7 @@ import type { Rule } from 'glamor' // eslint-disable-line
 import { BillAnimation } from './bill_animation'
 import { Link } from 'shared/components'
 import { get, set } from 'shared/storage'
-import { stylesheet, borders, fonts, mobile } from 'shared/styles'
+import { stylesheet, borders, mobile } from 'shared/styles'
 
 export class Intro extends Component {
   props: {
@@ -40,19 +40,10 @@ export class Intro extends Component {
     return <div {...css(rules.intro, styles)}>
       <h1>Hey, welcome to Legislated!</h1>
       <p>
-        Our mission is to make it as simple as possible for residents of
-        Illinois to impact state government. We want you to be more engaged
-        on the issues you care about, more connected to the lawmakers who work
-        on them, and less tangled up in the spider's web of info out there.
-      </p>
-      <p>
         Never heard of a witness slip? As a resident of Illinois, it's a tool
         that allows you to voice your opinion on the laws your representatives
         write. Search for a bill you care about and let the legislature know
-        how you feel.
-      </p>
-      <div {...rules.action}>
-        <span>Want to learn more?</span>{' '}
+        how you feel. <strong>Want to learn more?</strong>
         <span {...rules.actionLinks}>
           <Link to='/faq'>Visit our FAQs</Link>
           <Link styles={rules.accept} onClick={this.didClickAccept}>
@@ -60,34 +51,24 @@ export class Intro extends Component {
             <span>Got it.</span>
           </Link>
         </span>
-      </div>
+      </p>
     </div>
   }
 }
 
 const rules = stylesheet({
   intro: {
-    ...borders.low(['bottom']),
     fontSize: 18,
-    paddingBottom: 30,
     '> h1': {
-      marginBottom: 20
-    },
-    '> p + p': {
-      marginTop: 10
-    }
-  },
-  action: {
-    marginTop: 20,
-    '> span:first-child, a:first-child': {
-      ...fonts.bold,
-      fontSize: 20
+      marginBottom: 15
     }
   },
   actionLinks: {
+    marginLeft: 10,
     ...mobile({
       display: 'block',
-      marginTop: 10
+      marginTop: 10,
+      marginLeft: 0
     })
   },
   accept: {

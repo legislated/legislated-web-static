@@ -114,9 +114,9 @@ const rules = stylesheet({
     })
   },
   summary: {
+    ...borders.low(['top']),
     marginTop: 10,
-    paddingTop: 10,
-    borderTop: `1px solid ${colors.neutralOutline}`
+    paddingTop: 10
   }
 })
 

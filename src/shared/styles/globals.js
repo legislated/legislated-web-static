@@ -38,6 +38,9 @@ globals({
   h1: {
     fontSize: 28
   },
+  h2: {
+    fontSize: 24
+  },
   h3: {
     fontSize: 20
   },
@@ -68,6 +71,7 @@ globals({
 css.insert(`
 ${query} {
   h1 { font-size: 24px; }
+  h2 { font-size: 20px; }
   h3, h4 { font-size: 18px; }
   ol {
     -webkit-padding-start: 15px
