@@ -31,7 +31,7 @@ const rules = stylesheet({
     height: 80,
     paddingLeft: 30,
     paddingRight: 30,
-    backgroundColor: alpha(colors.white, 0.95),
+    backgroundColor: alpha(colors.background, 0.95),
     ...mobile({
       height: 60,
       paddingLeft: 15,

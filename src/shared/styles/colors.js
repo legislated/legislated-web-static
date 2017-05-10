@@ -4,10 +4,10 @@ import color from 'color'
 export const colors = {
   black: '#000000',
   white: '#f9fdff',
-  background: '#f9fdff', // if you update, update index.ejs too
+  background: '#f9fdff',
+  backgroundAccent: '#ebf5ff',
   neutral: '#ffffff',
-  neutralOutline: '#e8f7ff',
-  neutralShadow: '#dff4ff',
+  neutralShadow: '#def0fb',
   primary: '#5498f7',
   primaryShadow: '#457dcb',
   primaryHighlight: '#6ba8ff',

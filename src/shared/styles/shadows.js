@@ -15,6 +15,6 @@ function make (color: string, height: number): ShadowStyle {
 
 export const shadows = {
   make,
-  low: make(colors.neutralOutline, 3),
+  low: make(colors.neutralShadow, 3),
   high: make(colors.primaryHighlight, 4)
 }

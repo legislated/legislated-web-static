@@ -1,18 +1,24 @@
 // @flow
 import React, { Component } from 'react'
 import Relay from 'react-relay'
+import type moment from 'moment'
 import { BillCell } from './bill_cell'
 import { BillAnimation, billRule } from './bill_animation'
 import { LoadMoreButton } from './load_more_button'
 import { stylesheet, mobile } from 'shared/styles'
-import type { Bill, Connection } from 'shared/types' // eslint-disable-line
+import type { Bill, SearchConnection } from 'shared/types' // eslint-disable-line
 import { unwrap } from 'shared/types/connection'
+
+function format (date: moment): string {
+  return date.format('MMM Do')
+}
 
 class List extends Component {
   props: {
-    bills: Connection<Bill>,
+    bills: SearchConnection<Bill>,
+    startDate: moment,
+    endDate: moment,
     animated: Boolean,
-    isSearching: Boolean,
     onLoadMore: () => void,
   }
 
@@ -23,26 +29,25 @@ class List extends Component {
 
   // lifecycle
   render () {
-    const { bills: connection, animated, isSearching, onLoadMore } = this.props
+    const { bills: connection, startDate, endDate, animated, onLoadMore } = this.props
+    const { pageInfo, count } = connection
 
     const bills = unwrap(connection)
-    const hasNextPage = bills.pageInfo && bills.pageInfo.hasNextPage
 
     return <div {...rules.container}>
-      <div>{`Results: ${isSearching ? `${bills.nodes.length}` : 'all'} bills.`}</div>
-      <BillAnimation disable={!animated}>
-        {this.renderCells(bills.nodes)}
-      </BillAnimation>
-      <LoadMoreButton styles={rules.loadMoreButton} hasMore={hasNextPage} onClick={onLoadMore} />
+      <div {...rules.header}>
+        <h2>Upcoming Bills</h2>
+        <div>{`${format(startDate)} to ${format(endDate)}`}</div>
+        <div>{`Found ${count} results.`}</div>
+      </div>
+      <BillAnimation disable={!animated}>{this.renderBills(bills)}</BillAnimation>
+      <LoadMoreButton styles={rules.loadMoreButton} hasMore={pageInfo.hasNextPage} onClick={onLoadMore} />
     </div>
   }
 
-  renderCells (bills: Array<Bill>): Array<React$Element<*>> {
+  renderBills (bills: Array<Bill>): Array<React$Element<*>> {
     return bills.map((bill, i) => {
-      return <BillCell
-        key={bill.id}
-        styles={billRule}
-        bill={bill} />
+      return <BillCell key={bill.id} styles={billRule} bill={bill} />
     })
   }
 }
@@ -52,6 +57,29 @@ const rules = stylesheet({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch'
+  },
+  header: {
+    marginBottom: 15,
+    '> h2': {
+      display: 'inline-block',
+      marginBottom: 5,
+      ...mobile({
+        marginBottom: 0
+      })
+    },
+    '> div': {
+      fontSize: 18,
+      ':first-of-type': {
+        display: 'inline-block',
+        marginLeft: 5
+      },
+      ...mobile({
+        fontSize: 16,
+        ':first-of-type': {
+          display: 'none'
+        }
+      })
+    }
   },
   loadMoreButton: {
     alignSelf: 'center',
@@ -66,6 +94,7 @@ export const BillsList = Relay.createContainer(List, {
   fragments: {
     bills: () => Relay.QL`
       fragment on BillSearchConnection {
+        count
         edges {
           node {
             id
