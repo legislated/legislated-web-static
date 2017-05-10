@@ -1,9 +1,21 @@
 // @flow
+import 'glamor/reset'
 import { each } from 'lodash'
 import { css } from 'glamor'
 import { fonts } from './fonts'
+import { colors } from './colors'
 import { query } from './mobile'
 
+// extra resets
+css.insert(`
+ol {
+  -webkit-margin-after: 0;
+  -webkit-margin-before: 0;
+  -webkit-padding-start: 30px;
+}
+`)
+
+// global rules
 function globals (definitions) {
   each(definitions, (definition, selector) => {
     css.global(selector, definition)
@@ -11,8 +23,17 @@ function globals (definitions) {
 }
 
 globals({
+  html: {
+    lineHeight: 1.3
+  },
+  body: {
+    backgroundColor: colors.background
+  },
   'p, h1, h2, h3, h4, h5, h6, ul': {
     margin: 0
+  },
+  'p, span, div': {
+    lineHeight: 1.4
   },
   h1: {
     fontSize: 28
@@ -23,6 +44,10 @@ globals({
   h4: {
     ...fonts.regular,
     fontSize: 20
+  },
+  h5: {
+    ...fonts.bold,
+    fontSize: 16
   },
   a: {
     cursor: 'pointer'
@@ -37,12 +62,16 @@ globals({
   }
 })
 
+
 // hack around the fact that glamor doesn't parse media queries out of
 // css.global properly
 // see: https://github.com/threepointone/glamor/issues/202
-const globalQuery = `${query} {
+css.insert(`
+${query} {
   h1 { font-size: 24px; }
   h3, h4 { font-size: 18px; }
-}`
-
-css.insert(globalQuery)
+  ol {
+    -webkit-padding-start: 15px
+  }
+}
+`)

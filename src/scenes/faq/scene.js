@@ -10,14 +10,14 @@ export class FaqView extends Component {
       <div {...rules.content}>
         <h1>FAQ</h1>
         <Question title='What is a Witness Slip?'>
-          <p><strong>What it is</strong></p>
+          <h5>What it is</h5>
           <p>
             A Witness Slip allows a person or group to voice support for or against
             a particular bill that can be filed as a record online.
             While it is not a vote, it helps the legislative committee gauge how the
             community feels about the bill.
           </p>
-          <p><strong>How it works</strong></p>
+          <h5>How it works</h5>
           <p>
             The Slips are then read at the start of committee hearings.
             Because of the influx in participation with witness slips, we have been
@@ -25,14 +25,14 @@ export class FaqView extends Component {
             {' '}<Link to='http://www.ilga.gov/legislation/billstatus.asp?DocNum=40&GAID=14&GA=100&DocTypeID=HB&LegID=99242&SessionID=91'>HB40</Link>{' '}
             which was passed in committee!
           </p>
-          <p><strong>Why it matters</strong></p>
+          <h5>Why it matters</h5>
           <p>
             While you can only vote for your representatives twice per year,
             you can submit a witness slip on every bill and affect how decisions are made.
             For as much time as it would take to share an article online,
             you can make a contribution to your government.
           </p>
-          <p><strong>What it isn’t</strong></p>
+          <h5>What it isn’t</h5>
           <p>
             Witness Slips are not substitutes for in-person visits, calls, letters, or emails.
             Your State Representative or Senator will not know that you filled out a Witness Slip.
@@ -77,6 +77,7 @@ export class FaqView extends Component {
         </Question>
         <Question title='How do I complete a Witness Slip?'>
           <div>
+            <h5>Watch this video!</h5>
             <div {...rules.video}>
               <iframe {...rules.iframe}
                 width='560'
@@ -85,6 +86,7 @@ export class FaqView extends Component {
                 frameBorder='0'
                 allowFullScreen />
             </div>
+            <h5>Step-by-step:</h5>
             <ol>
               <li>
                 Click the “Take Action” button next to the bill, which will take you to the
@@ -172,11 +174,19 @@ const rules = stylesheet({
     ...borders.low(),
     padding: 15,
     backgroundColor: colors.neutral,
+    ' h5': {
+      marginBottom: 5
+    },
+    ' ol': {
+      marginTop: 10,
+      marginBottom: 10
+    },
     ' p:not(:last-of-type)': {
       marginBottom: 10
     }
   },
   video: {
+    marginBottom: 10,
     ...mobile({
       position: 'relative',
       paddingBottom: '50%',
