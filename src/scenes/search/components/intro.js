@@ -41,9 +41,9 @@ export class Intro extends Component {
       <h1>Hey, welcome to Legislated!</h1>
       <p>
         Our mission is to make it as simple as possible for residents of
-        Illinois to impact our state government. We want you to be more engaged
-        on the issues you care about, more connected to the lawmakers who impact
-        them, and less tangled up in the spider's web of info out there.
+        Illinois to impact state government. We want you to be more engaged
+        on the issues you care about, more connected to the lawmakers who work
+        on them, and less tangled up in the spider's web of info out there.
       </p>
       <p>
         Never heard of a witness slip? As a resident of Illinois, it's a tool
