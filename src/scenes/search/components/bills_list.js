@@ -63,7 +63,7 @@ const rules = stylesheet({
 export const BillsList = Relay.createContainer(List, {
   fragments: {
     bills: () => Relay.QL`
-      fragment on BillConnection {
+      fragment on BillSearchConnection {
         edges {
           node {
             id
