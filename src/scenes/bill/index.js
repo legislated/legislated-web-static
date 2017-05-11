@@ -1,10 +1,11 @@
 // @flow
 import React from 'react'
 import Relay from 'react-relay'
+import { withRouter } from 'react-router'
 import { BillScene } from './scene'
 
 export const billRoute = {
-  component: BillScene,
+  component: withRouter(BillScene),
   queries: {
     viewer: () => Relay.QL`query { viewer }`
   },

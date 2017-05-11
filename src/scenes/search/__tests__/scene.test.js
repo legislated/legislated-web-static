@@ -1,24 +1,28 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
 import moment from 'moment'
+import { shallow, mount } from 'enzyme'
 import { SearchScene } from '../scene'
+import { session } from 'shared/storage'
 
 const pageSize = 25
+const { anything } = expect
 
 // subject
 let subject
 let viewer
+let location
 let relayProp
 let relayConfig = SearchScene.relayConfig()
 
-function loadSubject () {
+function loadSubject (options = { mount: false }) {
   relayProp = {
     variables: relayConfig.initialVariables,
     setVariables: jest.fn()
   }
 
-  subject = shallow(<SearchScene viewer={viewer} relay={relayProp} />)
+  const renderer = options.mount ? mount : shallow
+  subject = renderer(<SearchScene viewer={viewer} location={location} relay={relayProp} />)
 }
 
 const element = {
@@ -29,6 +33,8 @@ const element = {
 
 // specs
 beforeEach(() => {
+  location = {}
+
   // TODO: build rosie.js factories
   viewer = {
     bills: {
@@ -84,6 +90,34 @@ describe('#render', () => {
     it('hides the bills list', () => {
       expect(element.list()).toBeEmpty()
     })
+  })
+})
+
+describe('when navigating away', () => {
+  it('saves the number of fetched bills', () => {
+    loadSubject()
+    subject.unmount()
+    expect(session.get('@@legislated/last-search-count')).toEqual(`${pageSize}`)
+  })
+})
+
+describe('when navigating to search', () => {
+  const count = pageSize * 2
+
+  beforeEach(() => {
+    session.set('@@legislated/last-search-count', `${count}`)
+  })
+
+  it('restores the query on back', () => {
+    location.action = 'POP'
+    loadSubject({ mount: true })
+    expect(relayProp.setVariables).toHaveBeenLastCalledWith({ first: count }, anything())
+  })
+
+  it('does not restore the query on push', () => {
+    location.action = 'PUSH'
+    loadSubject({ mount: true })
+    expect(relayProp.setVariables).not.toHaveBeenCalled()
   })
 })
 

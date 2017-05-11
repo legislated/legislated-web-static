@@ -1541,6 +1541,10 @@ dom-converter@~0.1:
   dependencies:
     utila "~0.3"
 
+dom-helpers@^3.0.0:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.2.1.tgz#3203e07fed217bd1f424b019735582fc37b2825a"
+
 dom-serializer@0, dom-serializer@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-0.1.0.tgz#073c697546ce0780ce23be4a28e293e40bc30c82"
@@ -3922,7 +3926,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.8:
+prop-types@^15.5.6, prop-types@^15.5.8:
   version "15.5.8"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
   dependencies:
@@ -4045,6 +4049,14 @@ react-router-relay@^0.13.5:
     invariant "^2.2.1"
     lodash "^4.15.0"
     react-static-container "^1.0.1"
+
+react-router-scroll@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/react-router-scroll/-/react-router-scroll-0.4.2.tgz#4b90e8707edf96eba7f066d94c5b4338bd6848b7"
+  dependencies:
+    prop-types "^15.5.6"
+    scroll-behavior "^0.9.3"
+    warning "^3.0.0"
 
 react-router@^2.8.0:
   version "2.8.1"
@@ -4324,6 +4336,13 @@ sane@~1.5.0:
 sax@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.2.tgz#fd8631a23bc7826bef5d871bdb87378c95647828"
+
+scroll-behavior@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/scroll-behavior/-/scroll-behavior-0.9.3.tgz#e48bcc8af364f3f07176e8dbca3968bd5e71557b"
+  dependencies:
+    dom-helpers "^3.0.0"
+    invariant "^2.2.1"
 
 select-hose@^2.0.0:
   version "2.0.0"

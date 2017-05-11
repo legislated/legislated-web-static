@@ -5,7 +5,7 @@ import { css } from 'glamor'
 import type { Rule } from 'glamor' // eslint-disable-line
 import { BillAnimation } from './bill_animation'
 import { Link } from 'shared/components'
-import { get, set } from 'shared/storage'
+import { local } from 'shared/storage'
 import { stylesheet, borders, mobile } from 'shared/styles'
 
 export class Intro extends Component {
@@ -20,13 +20,13 @@ export class Intro extends Component {
   // events
   didClickAccept = () => {
     this.setState({ isAccepted: true }, () => {
-      set('visited-intro', 'true')
+      local.set('@@legislated/intro-visited', 'true')
     })
   }
 
   // lifecycle
   render () {
-    const isVisited = !!get('visited-intro')
+    const isVisited = !!local.get('@@legislated/intro-visited')
     return isVisited ? null : <BillAnimation>{this.renderContent()}</BillAnimation>
   }
 

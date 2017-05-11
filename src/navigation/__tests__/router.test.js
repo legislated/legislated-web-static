@@ -3,12 +3,7 @@ import { each } from 'lodash'
 import React from 'react'
 import { shallow } from 'enzyme'
 import { AppRouter, reset } from '../router'
-import { set } from 'shared/storage'
-
-// mocks
-jest.mock('shared/storage', () => {
-  return { set: jest.fn() }
-})
+import { local } from 'shared/storage'
 
 // subject
 let subject
@@ -27,6 +22,8 @@ afterEach(() => {
 })
 
 describe('when the user navigates', () => {
+  const key = '@@legislated/intro-visited'
+
   function visit (...paths) {
     const root = element.root()
     each(paths, (path) => {
@@ -39,18 +36,18 @@ describe('when the user navigates', () => {
   it('hides the intro when navigating away from search', () => {
     loadSubject()
     visit('/', '/faq')
-    expect(set).toHaveBeenCalledWith('visited-intro', 'true')
+    expect(local.get(key)).toEqual('true')
   })
 
   it('does not hide the intro search was refreshed', () => {
     loadSubject()
     visit('/', '/')
-    expect(set).not.toHaveBeenCalled()
+    expect(local.get(key)).toBeUndefined()
   })
 
   it('does not hide the intro when search was not visited', () => {
     loadSubject()
     visit('/faq')
-    expect(set).not.toHaveBeenCalled()
+    expect(local.get(key)).toBeUndefined()
   })
 })
