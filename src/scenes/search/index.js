@@ -1,10 +1,11 @@
 // @flow
 import React from 'react'
 import Relay from 'react-relay'
+import { withRouter } from 'react-router'
 import { SearchScene } from './scene'
 
 export const searchRoute = {
-  component: SearchScene,
+  component: withRouter(SearchScene),
   queries: {
     viewer: () => Relay.QL`query { viewer }`
   },

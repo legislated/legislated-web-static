@@ -54,7 +54,7 @@ class SearchView extends Component {
     const { location } = this.props
     const count = session.get('@@legislated/last-search-count')
 
-    if (count && location.action === 'POP') {
+    if (count && location && location.action === 'POP') {
       const first = Number.parseInt(count)
       this.setVariablesUnanimated({ first })
     }
