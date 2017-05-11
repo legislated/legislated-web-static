@@ -3,10 +3,11 @@ import React from 'react'
 import Relay from 'react-relay'
 import { Router, Route, browserHistory, applyRouterMiddleware } from 'react-router'
 import useRelay from 'react-router-relay'
+import useScroll from 'react-router-scroll/lib/useScroll'
 import { NotFoundView } from './not_found_view'
 import { Container } from './container'
 import { aboutRoute, searchRoute, billRoute, faqRoute } from '../scenes'
-import { set } from 'shared/storage'
+import { local } from 'shared/storage'
 
 let hasEnteredSearch = false
 
@@ -22,12 +23,14 @@ function onChange (route: { location: { pathname: string } }) {
   }
 
   if (hasEnteredSearch && pathname !== '/') {
-    set('visited-intro', 'true')
+    local.set('@@legislated/intro-visited', 'true')
   }
 }
 
-export const AppRouter = () => (
-  <Router history={browserHistory} render={applyRouterMiddleware(useRelay)} environment={Relay.Store}>
+export function AppRouter () {
+  const middleware = applyRouterMiddleware(useRelay, useScroll())
+
+  return <Router history={browserHistory} render={middleware} environment={Relay.Store}>
     <Route component={Container} onChange={onChange}>
       <Route path='/' {...searchRoute} />
       <Route path='about' {...aboutRoute} />
@@ -36,4 +39,4 @@ export const AppRouter = () => (
       <Route path='*' component={NotFoundView} />
     </Route>
   </Router>
-)
+}

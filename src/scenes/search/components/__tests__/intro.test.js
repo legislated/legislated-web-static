@@ -2,12 +2,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Intro } from '../intro'
-import { get, set } from 'shared/storage'
-
-// mocks
-jest.mock('shared/storage', () => {
-  return { get: jest.fn(), set: jest.fn() }
-})
+import { local } from 'shared/storage'
 
 // subject
 let subject
@@ -35,7 +30,7 @@ describe('#state', () => {
 
 describe('#render', () => {
   it(`does not render when it's already visited`, () => {
-    get.mockReturnValueOnce('true')
+    local.set('@@legislated/intro-visited', 'true')
     loadSubject()
     expect(subject.get(0)).toBeFalsy()
   })
@@ -51,6 +46,6 @@ describe('when the user clicks accept', () => {
   it('marks the intro as visited', () => {
     loadSubject()
     element.accept().simulate('click')
-    expect(set).toHaveBeenCalledWith('visited-intro', 'true')
+    expect(local.get('@@legislated/intro-visited')).toEqual('true')
   })
 })

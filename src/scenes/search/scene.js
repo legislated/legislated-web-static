@@ -4,20 +4,22 @@ import Relay from 'react-relay'
 import moment from 'moment'
 import { throttle } from 'lodash'
 import { Intro, SearchField, BillsList, LoadingIndicator } from './components'
+import { session } from 'shared/storage'
 import { stylesheet, colors, mobile, utils } from 'shared/styles'
-import type { Viewer, RelayProp } from 'shared/types'
+import type { Viewer, Location, RelayProp } from 'shared/types'
 
 const pageSize = 25
 
 class SearchView extends Component {
   props: {
     relay: RelayProp,
-    viewer: ?Viewer
+    viewer: ?Viewer,
+    location: Location
   }
 
   state = {
     query: '',
-    isFiltering: false
+    disableAnimations: false
   }
 
   // events
@@ -32,24 +34,41 @@ class SearchView extends Component {
   }
 
   filterBillsForQuery = throttle((query: string) => {
-    const { relay } = this.props
-    if (!relay) {
-      return
-    }
+    this.setVariablesUnanimated({ query })
+  }, 300)
 
-    this.setState({ isFiltering: true })
-    relay && relay.setVariables({ query }, (readyState) => {
+  // helpers
+  setVariablesUnanimated (variables: Object) {
+    this.setState({ disableAnimations: true })
+    this.props.relay.setVariables(variables, (readyState) => {
       if (readyState.done) {
         requestAnimationFrame(() => {
-          this.setState({ isFiltering: false })
+          this.setState({ disableAnimations: false })
         })
       }
     })
-  }, 300)
+  }
 
   // lifecycle
+  componentWillMount () {
+    const { location } = this.props
+    const count = session.get('@@legislated/last-search-count')
+
+    if (count && location.action === 'POP') {
+      const first = Number.parseInt(count)
+      this.setVariablesUnanimated({ first })
+    }
+
+    session.set('@@legislated/last-search-count', null)
+  }
+
+  componentWillUnmount () {
+    const { first } = this.props.relay.variables
+    session.set('@@legislated/last-search-count', `${first}`)
+  }
+
   render () {
-    const { query, isFiltering } = this.state
+    const { query, disableAnimations } = this.state
     const { viewer, relay } = this.props
     const { startDate, endDate } = relay.variables
 
@@ -70,7 +89,7 @@ class SearchView extends Component {
           bills={viewer.bills}
           startDate={startDate}
           endDate={endDate}
-          animated={!isFiltering}
+          animated={!disableAnimations}
           onLoadMore={this.didClickLoadMore} />}
       </div>
     </div>
@@ -126,7 +145,7 @@ export const SearchScene = Relay.createContainer(SearchView, {
     startDate: moment(),
     endDate: moment()
   },
-  prepareVariables: (previousVariables) => {
+  prepareVariables (previousVariables) {
     return {
       ...previousVariables,
       startDate: moment().startOf('day'),
