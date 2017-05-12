@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Link as RouteLink } from 'react-router'
 import { css } from 'glamor'
 import type { Rule } from 'glamor' // eslint-disable-line
-import { colors } from 'shared/styles'
+import { stylesheet, colors } from 'shared/styles'
 
 export type LinkProps = {
   to?: string,
@@ -23,7 +23,7 @@ export class Link extends Component {
       return null
     }
 
-    const linkRule = css(rule, styles)
+    const linkRule = css(rules.link, styles)
 
     // use anchor tags for absolute urls, otherwise use a router link
     if (!url || /https?:\/\//.test(url)) {
@@ -34,11 +34,13 @@ export class Link extends Component {
   }
 }
 
-const rule = css({
-  display: 'inline-block',
-  color: colors.primary,
-  transition: 'color 0.25s',
-  ':hover': {
-    color: colors.primaryHighlight
+const rules = stylesheet({
+  link: {
+    display: 'inline-block',
+    color: colors.primary,
+    transition: 'color 0.25s',
+    ':hover': {
+      color: colors.primaryHighlight
+    }
   }
 })

@@ -4,6 +4,7 @@ import Relay from 'react-relay'
 import moment from 'moment'
 import { Actions } from './actions'
 import { Element } from './element'
+import { CopyLink } from 'shared/components'
 import { stylesheet, borders, colors, mobile } from 'shared/styles'
 import type { Bill } from 'shared/types'
 
@@ -24,8 +25,13 @@ class ContentView extends Component {
 
     return <div>
       <div {...rules.header}>
-        {bill.title && <h1>{bill.title}</h1>}
-        <h4>{bill.documentNumber}</h4>
+        <section>
+          <h1>{bill.title}</h1>
+          <h4>{bill.documentNumber}</h4>
+        </section>
+        <section>
+          <CopyLink value={document.location.href} />
+        </section>
       </div>
       <div {...rules.body}>
         <div {...rules.column}>
@@ -49,9 +55,17 @@ class ContentView extends Component {
 const rules = stylesheet({
   header: {
     display: 'flex',
-    flexDirection: 'column',
+    justifyContent: 'space-between',
     marginBottom: 15,
+    '> section': {
+      display: 'flex',
+      flexDirection: 'column'
+    },
     ...mobile({
+      flexDirection: 'column',
+      '> section:first-child': {
+        marginBottom: 10
+      },
       '> h1': {
         marginBottom: 5
       }
@@ -69,6 +83,9 @@ const rules = stylesheet({
   },
   column: {
     flex: 1,
+    ':not(:last-of-type)': {
+      marginRight: 15
+    },
     '> *:not(:last-child)': {
       marginBottom: 10
     },
