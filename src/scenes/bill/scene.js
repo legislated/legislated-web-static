@@ -1,21 +1,13 @@
 // @flow
 import React, { Component } from 'react'
 import Relay from 'react-relay'
-import FontAwesome from 'react-fontawesome'
 import { Content } from './components'
-import { Link } from 'shared/components'
 import { stylesheet, colors, shadows, borders } from 'shared/styles'
-import type { Viewer, History } from 'shared/types'
+import type { Viewer } from 'shared/types'
 
 class BillView extends Component {
   props: {
     viewer: ?Viewer,
-    history: History
-  }
-
-  // events
-  didClickBack = () => {
-    this.props.history.goBack()
   }
 
   // lifecycle
@@ -24,10 +16,6 @@ class BillView extends Component {
 
     return <div {...rules.container}>
       <div {...rules.content}>
-        <Link styles={rules.backLink} onClick={() => this.didClickBack()}>
-          <FontAwesome name='chevron-left' />
-          <span>Back to Search</span>
-        </Link>
         {viewer ? <Content bill={viewer.bill} /> : <div>Loading...</div>}
       </div>
     </div>
