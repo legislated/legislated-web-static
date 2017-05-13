@@ -6,7 +6,7 @@ import { Actions } from './actions'
 import { Element } from './element'
 import { stylesheet, borders, colors, mobile } from 'shared/styles'
 import type { Bill } from 'shared/types'
-import {Helmet} from "react-helmet"
+import {Helmet} from 'react-helmet'
 
 const { floor } = Math
 
@@ -25,12 +25,12 @@ class ContentView extends Component {
 
     return <div>
       <Helmet>
-        <meta name="description" content={"IL " + bill.documentNumber + " on Legislated"} />
-        <meta name="og:title" content={"IL " + bill.documentNumber + " on Legislated"} />
-        <meta name="twitter:title" content={"IL " + bill.documentNumber + " on Legislated"} />
-        <meta name="og:type" content="article" />
-        <meta name="og:description" content={bill.title} />
-        <meta name="twitter:description" content={bill.title} />
+        <meta name='description' content={'IL ' + bill.documentNumber + ' on Legislated'} />
+        <meta name='og:title' content={'IL ' + bill.documentNumber + ' on Legislated'} />
+        <meta name='twitter:title' content={'IL ' + bill.documentNumber + ' on Legislated'} />
+        <meta name='og:type' content='article' />
+        <meta name='og:description' content={bill.title} />
+        <meta name='twitter:description' content={bill.title} />
       </Helmet>
       <div {...rules.header}>
         {bill.title && <h1>{bill.title}</h1>}

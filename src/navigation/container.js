@@ -4,8 +4,7 @@ import React, { Component } from 'react'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { Header } from './header'
 import { stylesheet, fonts, mobile } from 'shared/styles'
-import {Helmet} from "react-helmet"
-
+import {Helmet} from 'react-helmet'
 
 export class Container extends Component {
   props: {
@@ -17,16 +16,16 @@ export class Container extends Component {
 
     return <StickyContainer id='container' {...rules.container}>
       <Helmet>
-        <meta name="description" content="Your seat in the state capitol" />
-        <meta name="og:url" content="https://legislated.org/" />
-        <meta name="og:type" content="website" />
-        <meta name="og:site_name" content="Legislated" />
-        <meta name="og:title" content="Legislated" />
-        <meta name="og:description" content="Your seat in the state capitol" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@WitnessSlipsIL" />
-        <meta name="twitter:title" content="Legislated" />
-        <meta name="twitter:description" content="Your seat in the state capitol" />
+        <meta name='description' content='Your seat in the state capitol' />
+        <meta name='og:url' content='https://legislated.org/' />
+        <meta name='og:type' content='website' />
+        <meta name='og:site_name' content='Legislated' />
+        <meta name='og:title' content='Legislated' />
+        <meta name='og:description' content='Your seat in the state capitol' />
+        <meta name='twitter:card' content='summary' />
+        <meta name='twitter:site' content='@WitnessSlipsIL' />
+        <meta name='twitter:title' content='Legislated' />
+        <meta name='twitter:description' content='Your seat in the state capitol' />
       </Helmet>
       <Sticky {...rules.header}>
         <Header />

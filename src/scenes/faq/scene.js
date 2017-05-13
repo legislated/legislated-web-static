@@ -3,17 +3,17 @@ import React, { Component } from 'react'
 import { Question } from './question'
 import { Link } from 'shared/components'
 import { stylesheet, colors, shadows, borders, mobile } from 'shared/styles'
-import {Helmet} from "react-helmet"
+import {Helmet} from 'react-helmet'
 
 export class FaqView extends Component {
   render () {
     return <div {...rules.container}>
       <Helmet>
-        <meta name="description" content="Frequently Asked Questions" />
-        <meta name="og:url" content="https://legislated.org/faq" />
-        <meta name="og:type" content="article" />
-        <meta name="og:description" content="Frequently Asked Questions" />
-        <meta name="twitter:description" content="Frequently Asked Questions" />
+        <meta name='description' content='Frequently Asked Questions' />
+        <meta name='og:url' content='https://legislated.org/faq' />
+        <meta name='og:type' content='article' />
+        <meta name='og:description' content='Frequently Asked Questions' />
+        <meta name='twitter:description' content='Frequently Asked Questions' />
       </Helmet>
       <div {...rules.content}>
         <h1>FAQ</h1>
