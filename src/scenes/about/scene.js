@@ -2,10 +2,18 @@
 import React, { Component } from 'react'
 import { Link } from 'shared/components'
 import { stylesheet, colors, shadows, borders } from 'shared/styles'
+import {Helmet} from "react-helmet"
 
 export class AboutView extends Component {
   render () {
     return <div {...rules.container}>
+      <Helmet>
+        <meta name="description" content="About Us" />
+        <meta name="og:url" content="https://legislated.org/about" />
+        <meta name="og:type" content="article" />
+        <meta name="og:description" content="About Us" />
+        <meta name="twitter:description" content="About Us" />
+      </Helmet>
       <div {...rules.content}>
         <h1>About Us</h1>
         <p>

@@ -3,10 +3,18 @@ import React, { Component } from 'react'
 import { Question } from './question'
 import { Link } from 'shared/components'
 import { stylesheet, colors, shadows, borders, mobile } from 'shared/styles'
+import {Helmet} from "react-helmet"
 
 export class FaqView extends Component {
   render () {
     return <div {...rules.container}>
+      <Helmet>
+        <meta name="description" content="Frequently Asked Questions" />
+        <meta name="og:url" content="https://legislated.org/faq" />
+        <meta name="og:type" content="article" />
+        <meta name="og:description" content="Frequently Asked Questions" />
+        <meta name="twitter:description" content="Frequently Asked Questions" />
+      </Helmet>
       <div {...rules.content}>
         <h1>FAQ</h1>
         <Question title='What is a Witness Slip?'>
@@ -27,7 +35,7 @@ export class FaqView extends Component {
           </p>
           <h5>Why it matters</h5>
           <p>
-            While you can only vote for your representatives twice per year,
+            While you can only vote for your representatives every other year,
             you can submit a witness slip on every bill and affect how decisions are made.
             For as much time as it would take to share an article online,
             you can make a contribution to your government.
