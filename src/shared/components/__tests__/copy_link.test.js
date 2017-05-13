@@ -2,6 +2,12 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { CopyLink } from '../copy_link'
+import { notifications } from 'shared/notifications'
+
+// mocks
+jest.mock('shared/notifications', () => ({
+  notifications: { add: jest.fn() }
+}))
 
 // subject
 let subject
@@ -25,5 +31,17 @@ describe('on click', () => {
     value = 'http://fake.url/'
     loadSubject()
     expect(element.clipboard()).toHaveProp('text', value)
+  })
+})
+
+describe('on copy', () => {
+  it('fires a notification', () => {
+    loadSubject()
+    value = 'http://fake.url/'
+    element.clipboard().simulate('copy', value)
+    expect(notifications.add).toHaveBeenCalledWith({
+      key: 'copy-link',
+      message: expect.stringMatching(/[Cc]opied/)
+    })
   })
 })
