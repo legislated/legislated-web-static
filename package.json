@@ -7,10 +7,10 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --debug --hot --inline --env.env=development",
-    "build:stage": "webpack -p --env.env=staging",
+    "build:staging": "webpack -p --env.env=staging",
     "build:prod": "webpack -p --env.env=production",
-    "deploy:stage": "yarn build:stage && yarn deploy:stage:sync",
-    "deploy:stage:sync": "aws s3 sync --acl public-read dist/ s3://staging.legislated.org --profile legislated-bucket-staging",
+    "deploy:staging": "yarn build:staging && yarn deploy:staging:sync",
+    "deploy:staging:sync": "aws s3 sync --acl public-read dist/ s3://staging.legislated.org --profile legislated-bucket-staging",
     "deploy:prod": "yarn build:prod && yarn deploy:prod:sync",
     "deploy:prod:sync": "aws s3 sync --acl public-read dist/ s3://legislated.org --profile legislated-bucket-production",
     "test": "jest",
