@@ -6,7 +6,7 @@ import useRelay from 'react-router-relay'
 import useScroll from 'react-router-scroll/lib/useScroll'
 import { NotFoundView } from './not_found_view'
 import { Container } from './container'
-import { aboutRoute, searchRoute, billRoute, faqRoute } from '../scenes'
+import { searchRoute, billRoute, aboutRoute, faqRoute, adminBillsRoute } from '../scenes'
 import { local } from 'shared/storage'
 
 let hasEnteredSearch = false
@@ -36,6 +36,7 @@ export function AppRouter () {
       <Route path='about' {...aboutRoute} />
       <Route path='faq' {...faqRoute} />
       <Route path='bill/:id' {...billRoute} />
+      <Route path='admin' {...adminBillsRoute} />
       <Route path='*' component={NotFoundView} />
     </Route>
   </Router>
