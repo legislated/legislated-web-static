@@ -1,7 +1,9 @@
 // @flow
 import React, { Component, PropTypes } from 'react'
 import Relay from 'react-relay'
+import { environment } from '../../../relay'
 import type { Viewer, RelayProp } from 'shared/types'
+import { session } from 'shared/storage'
 
 type AdminBillsProps = {
   viewer: ?Viewer,
@@ -20,7 +22,9 @@ class AdminBillsView extends Component {
     const { viewer } = nextProps
 
     if (viewer && !viewer.isAdmin) {
-      this.context.router.push('/')
+      this.context.router.replace('/admin')
+      environment.recreate()
+      session.set('@@legislated/admin-header', null)
     }
   }
 

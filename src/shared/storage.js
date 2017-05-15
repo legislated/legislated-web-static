@@ -28,7 +28,8 @@ type LocalStoreKey =
   '@@legislated/intro-visited'
 
 type SessionStoreKey =
-  '@@legislated/last-search-count'
+  '@@legislated/last-search-count' |
+  '@@legislated/admin-header'
 
 export const local: Store<LocalStoreKey> = new Store(localStorage)
 export const session: Store<SessionStoreKey> = new Store(sessionStorage)
