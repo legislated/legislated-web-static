@@ -37,10 +37,10 @@ export class AdminGate extends Component {
   }
 
   renderSignInForm (): React$Element<*> {
-    return <form  onSubmit={this.formSubmit} >
+    return <form onSubmit={this.formSubmit} >
       <input name='username' onChange={this.didUpdateField} />
       <input type='password' name='password' onChange={this.didUpdateField} />
-      <input type='submit'/>
+      <input type='submit' />
     </form>
   }
 }

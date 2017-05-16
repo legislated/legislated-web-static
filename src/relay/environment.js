@@ -1,5 +1,5 @@
 // @flow
-import Relay, { DefaultNetworkLayer, Environment } from 'react-relay'
+import { DefaultNetworkLayer, Environment } from 'react-relay'
 import config from '../config'
 
 type EnvironmentListener = (environment: Object) => void

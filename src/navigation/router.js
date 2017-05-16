@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
 import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router'
 import useRelay from 'react-router-relay'
 import useScroll from 'react-router-scroll/lib/useScroll'
