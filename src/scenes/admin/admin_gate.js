@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react'
-import { Base64 } from 'js-base64'
-import { session } from 'shared/storage'
-import { events } from 'shared/events'
+import { Button } from 'shared/components'
+import { stylesheet } from 'shared/styles'
+import { auth } from 'shared/auth'
 
 export class AdminGate extends Component {
   props: {
@@ -18,29 +18,48 @@ export class AdminGate extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  formSubmit = (event: { preventDefault: Function }) => {
-    event.preventDefault()
+  formSubmit = () => {
     const { username, password } = this.state
-    const authValue = Base64.encode(`${username}:${password}£`)
-    const authHeader = `Basic ${authValue}`
-    session.set('@@legislated/admin-header', authHeader)
-    events.emit(events.setAuthHeader, authHeader)
+    auth.signIn(username, password)
   }
 
   // lifecycle
   render () {
-    const hasAdminHeader = !!session.get('@@legislated/admin-header')
-
-    return <div>
-      {hasAdminHeader ? this.props.children : this.renderSignInForm()}
-    </div>
+    return auth.isSignedIn ? this.renderSignOutForm() : this.renderSignInForm()
   }
 
   renderSignInForm (): React$Element<*> {
-    return <form onSubmit={this.formSubmit} >
-      <input name='username' onChange={this.didUpdateField} />
-      <input type='password' name='password' onChange={this.didUpdateField} />
-      <input type='submit' />
-    </form>
+    return <div {...rules.container}>
+      <form {...rules.form} onSubmit={this.formSubmit} >
+        <h2>Administration Sign In</h2>
+        <label htmlFor='username'>Username</label>
+        <input name='username' onChange={this.didUpdateField} />
+        <label htmlFor='password'>Password</label>
+        <input type='password' name='password' onChange={this.didUpdateField} />
+        <Button styles={rules.action} label='Sign In' iconName='sign-in' onClick={this.formSubmit} />
+      </form>
+    </div>
+  }
+
+  renderSignOutForm (): React$Element<*> {
+    return <div>
+      <Button label='Sign Out' iconName='sign-out' onClick={auth.signOut} />
+      {this.props.children}
+    </div>
   }
 }
+
+const rules = stylesheet({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    '> input': {
+      marginBottom: 10
+    }
+  }
+})
