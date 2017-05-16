@@ -53,9 +53,9 @@ const rules = stylesheet({
   notification: {
     ...borders.low(),
     ...shadows.low,
-    position: 'absolute',
+    position: 'fixed',
     bottom: 30,
-    right: -230,
+    right: -245,
     width: 200,
     padding: 15,
     borderRadius: 3,
