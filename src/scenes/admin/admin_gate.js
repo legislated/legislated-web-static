@@ -18,30 +18,30 @@ export class AdminGate extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  formSubmit = () => {
+  didClickSignIn = () => {
     const { username, password } = this.state
     auth.signIn(username, password)
   }
 
   // lifecycle
   render () {
-    return auth.isSignedIn ? this.renderSignOutForm() : this.renderSignInForm()
+    return auth.isSignedIn ? this.renderAdminContent() : this.renderSignInForm()
   }
 
   renderSignInForm (): React$Element<*> {
     return <div {...rules.container}>
-      <form {...rules.form} onSubmit={this.formSubmit} >
+      <form {...rules.form}>
         <h2>Administration Sign In</h2>
         <label htmlFor='username'>Username</label>
         <input name='username' onChange={this.didUpdateField} />
         <label htmlFor='password'>Password</label>
         <input type='password' name='password' onChange={this.didUpdateField} />
-        <Button styles={rules.action} label='Sign In' iconName='sign-in' onClick={this.formSubmit} />
+        <Button styles={rules.action} label='Sign In' iconName='sign-in' onClick={this.didClickSignIn} />
       </form>
     </div>
   }
 
-  renderSignOutForm (): React$Element<*> {
+  renderAdminContent (): React$Element<*> {
     return <div>
       <Button label='Sign Out' iconName='sign-out' onClick={auth.signOut} />
       {this.props.children}
