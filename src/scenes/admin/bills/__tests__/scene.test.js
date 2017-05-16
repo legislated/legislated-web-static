@@ -2,6 +2,12 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { AdminBillsScene } from '../scene'
+import { auth } from 'shared/auth'
+
+// mocks
+jest.mock('shared/auth', () => ({
+  auth: { signOut: jest.fn() }
+}))
 
 // subject
 let subject
@@ -24,5 +30,12 @@ describe('#componentWillReceiveProps', () => {
     viewer = { isAdmin: false }
     subject.instance().componentWillReceiveProps({ viewer })
     expect(router.replace).toHaveBeenCalledWith('/admin')
+  })
+
+  it('signs out the user if it is not an admin', () => {
+    loadSubject()
+    viewer = { isAdmin: false }
+    subject.instance().componentWillReceiveProps({ viewer })
+    expect(auth.signOut).toHaveBeenCalled()
   })
 })
