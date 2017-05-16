@@ -5,7 +5,8 @@ import useRelay from 'react-router-relay'
 import useScroll from 'react-router-scroll/lib/useScroll'
 import { NotFoundView } from './not_found_view'
 import { Container } from './container'
-import { environment } from '../relay'
+import { buildEnvironment } from '../relay'
+import { events } from 'shared/events'
 import { local } from 'shared/storage'
 import { searchRoute, billRoute, aboutRoute, faqRoute, adminRoute, adminBillsRoute } from '../scenes'
 
@@ -29,22 +30,22 @@ function onChange (route: { location: { pathname: string } }) {
 
 export class AppRouter extends Component {
   state: { environment: ?Object } = {
-    environment: null
+    environment: buildEnvironment()
   }
 
   // events
-  didUpdateEnvironment = (environment: Object) => {
+  didUpdateEnvironment = (header: string) => {
+    const environment = buildEnvironment({ 'Authorization': header })
     this.setState({ environment })
   }
 
   // lifecycle
   componentWillMount () {
-    environment.on(this.didUpdateEnvironment)
-    environment.recreate()
+    events.on(events.setAuthHeader, this.didUpdateEnvironment)
   }
 
   componentWillUnmount () {
-    environment.off()
+    events.off(events.setAuthHeader, this.didUpdateEnvironment)
   }
 
   render () {

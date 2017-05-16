@@ -6,7 +6,7 @@ import { AdminBillsScene } from '../scene'
 // subject
 let subject
 let viewer
-let router = { push: jest.fn() }
+let router = { replace: jest.fn() }
 
 function loadSubject () {
   const context = { router }
@@ -23,6 +23,6 @@ describe('#componentWillReceiveProps', () => {
     loadSubject()
     viewer = { isAdmin: false }
     subject.instance().componentWillReceiveProps({ viewer })
-    expect(router.push).toHaveBeenCalledWith('/')
+    expect(router.replace).toHaveBeenCalledWith('/admin')
   })
 })

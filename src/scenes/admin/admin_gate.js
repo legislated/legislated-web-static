@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Base64 } from 'js-base64'
 import { session } from 'shared/storage'
-import { environment } from '../../relay'
+import { events } from 'shared/events'
 
 export class AdminGate extends Component {
   props: {
@@ -23,8 +23,8 @@ export class AdminGate extends Component {
     const { username, password } = this.state
     const authValue = Base64.encode(`${username}:${password}£`)
     const authHeader = `Basic ${authValue}`
-    environment.recreate({ Authorization: authHeader })
     session.set('@@legislated/admin-header', authHeader)
+    events.emit(events.setAuthHeader, authHeader)
   }
 
   // lifecycle

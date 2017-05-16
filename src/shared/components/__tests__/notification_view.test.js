@@ -2,7 +2,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { NotificationView } from '../notification_view'
-import { notifications } from 'shared/notifications'
+import { events } from 'shared/events'
 
 jest.mock('shared/async', () => ({
   sleep: () => Promise.resolve()
@@ -24,7 +24,7 @@ describe('after receiving a notification', () => {
   it('shows the notification', () => {
     loadSubject()
     subject.instance().componentDidMount()
-    notifications.add('note')
+    events.emit(events.showNotification, 'note')
     expect(subject).toHaveState('isHidden', false)
     expect(subject).toHaveState('notification', 'note')
   })
