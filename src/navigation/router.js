@@ -16,20 +16,8 @@ export function reset () {
   hasEnteredSearch = false
 }
 
-function onChange (route: { location: { pathname: string } }) {
-  const { pathname } = route.location
-
-  if (!hasEnteredSearch && pathname === '/') {
-    hasEnteredSearch = true
-  }
-
-  if (hasEnteredSearch && pathname !== '/') {
-    local.set('@@legislated/intro-visited', 'true')
-  }
-}
-
 export class AppRouter extends Component {
-  state: { environment: ?Object } = {
+  state: { environment: Object } = {
     environment: buildEnvironment()
   }
 
@@ -37,6 +25,18 @@ export class AppRouter extends Component {
   didUpdateEnvironment = (header: string) => {
     const environment = buildEnvironment({ 'Authorization': header })
     this.setState({ environment })
+  }
+
+  didChangeRoute = (route: { location: { pathname: string } }) => {
+    const { pathname } = route.location
+
+    if (!hasEnteredSearch && pathname === '/') {
+      hasEnteredSearch = true
+    }
+
+    if (hasEnteredSearch && pathname !== '/') {
+      local.set('@@legislated/intro-visited', 'true')
+    }
   }
 
   // lifecycle
@@ -50,10 +50,11 @@ export class AppRouter extends Component {
 
   render () {
     const { environment } = this.state
+    debugger
     const middleware = applyRouterMiddleware(useRelay, useScroll())
 
     return <Router history={browserHistory} render={middleware} environment={environment}>
-      <Route component={Container} onChange={onChange}>
+      <Route component={Container} onChange={this.didChangeRoute}>
         <Route path='/' {...searchRoute} />
         <Route path='about' {...aboutRoute} />
         <Route path='faq' {...faqRoute} />
