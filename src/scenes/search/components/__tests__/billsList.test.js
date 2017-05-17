@@ -21,7 +21,7 @@ function loadSubject () {
 }
 
 const element = {
-  bills: () => subject.find('Cell'),
+  bills: () => subject.find('BillCell'),
   date: () => subject.find('div > div > div').at(0),
   count: () => subject.find('div > div > div').at(1),
   loadButton: () => subject.find('LoadMoreButton')

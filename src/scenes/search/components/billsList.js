@@ -13,7 +13,7 @@ function format (date: moment): string {
   return date.format('MMM Do')
 }
 
-class List extends Component {
+let BillsList = class BillsList extends Component {
   props: {
     bills: SearchConnection<Bill>,
     startDate: moment,
@@ -90,7 +90,7 @@ const rules = stylesheet({
   }
 })
 
-export const BillsList = Relay.createContainer(List, {
+BillsList = Relay.createContainer(BillsList, {
   fragments: {
     bills: () => Relay.QL`
       fragment on BillSearchConnection {
@@ -108,3 +108,5 @@ export const BillsList = Relay.createContainer(List, {
     `
   }
 })
+
+export { BillsList }

@@ -8,7 +8,7 @@ import type { Bill } from 'shared/types'
 import { Button } from 'shared/components'
 import { stylesheet, fonts, colors, shadows, borders, mobile } from 'shared/styles'
 
-class Cell extends Component {
+let BillCell = class BillCell extends Component {
   props: {
     bill: Bill,
     styles?: Rule
@@ -120,7 +120,7 @@ const rules = stylesheet({
   }
 })
 
-export const BillCell = Relay.createContainer(Cell, {
+BillCell = Relay.createContainer(BillCell, {
   fragments: {
     bill: () => Relay.QL`
       fragment on Bill {
@@ -138,3 +138,5 @@ export const BillCell = Relay.createContainer(Cell, {
     `
   }
 })
+
+export { BillCell }
