@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { AdminBillsScene } from '../scene'
+import { AdminBillsScene } from '../AdminBillsScene'
 import { auth } from 'shared/auth'
 
 // mocks

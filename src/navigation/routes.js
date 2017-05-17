@@ -1,8 +1,8 @@
 // @flow
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
-import { NotFoundView } from './not_found_view'
-import { Container } from './container'
+import { Container } from './Container'
+import { NotFoundView } from './components'
 import { local } from 'shared/storage'
 import { searchRoute, billRoute, aboutRoute, faqRoute, adminRoute, adminBillsRoute } from '../scenes'
 

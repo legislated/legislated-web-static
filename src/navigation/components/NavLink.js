@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
 import { Link } from 'shared/components'
-import type { LinkProps } from 'shared/components/link'
+import type { LinkProps } from 'shared/components/Link'
 import { stylesheet, borders, mobile } from 'shared/styles'
 
 export class NavLink extends Component {

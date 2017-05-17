@@ -2,7 +2,7 @@
 import React from 'react'
 import Relay from 'react-relay'
 import { withRouter } from 'react-router'
-import { SearchScene } from './scene'
+import { SearchScene } from './SearchScene'
 
 export const searchRoute = {
   component: withRouter(SearchScene),

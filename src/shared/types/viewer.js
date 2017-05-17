@@ -1,9 +1,9 @@
 // @flow
-import type { Connection } from './connection'
-import type { Bill } from './bill'
+import type { SearchConnection } from './Connection'
+import type { Bill } from './Bill'
 
 export type Viewer = {
   isAdmin: boolean,
   bill: Bill,
-  bills: Connection<Bill>
+  bills: SearchConnection<Bill>
 }

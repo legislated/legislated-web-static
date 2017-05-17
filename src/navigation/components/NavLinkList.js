@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { NavLink } from './nav_link'
+import { NavLink } from './NavLink'
 import { css } from 'glamor'
 import type { Rule } from 'glamor' // eslint-disable-line
 import { stylesheet, mobile } from 'shared/styles'

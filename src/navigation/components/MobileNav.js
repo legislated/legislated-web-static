@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react'
 import { css } from 'glamor'
-import { MobileNavButton } from './mobile_nav_button'
-import { NavLinkList } from './nav_link_list'
+import { MobileNavButton } from './MobileNavButton'
+import { NavLinkList } from './NavLinkList'
 import { stylesheet, colors, alpha, mobile } from 'shared/styles'
 
 export class MobileNav extends Component {

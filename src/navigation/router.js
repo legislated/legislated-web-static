@@ -1,13 +1,13 @@
 // @flow
 import React, { Component } from 'react'
-import { Router, browserHistory, applyRouterMiddleware } from 'react-router'
+import { Router as BaseRouter, browserHistory, applyRouterMiddleware } from 'react-router'
 import useRelay from 'react-router-relay'
 import useScroll from 'react-router-scroll/lib/useScroll'
-import { Routes } from './routes'
+import { Routes } from './Routes'
 import { buildEnvironment } from '../relay'
 import { events } from 'shared/events'
 
-export class AppRouter extends Component {
+export class Router extends Component {
   routes: React$Element<*>
 
   state: { environment: Object } = {
@@ -38,8 +38,11 @@ export class AppRouter extends Component {
     const { environment } = this.state
     const middleware = applyRouterMiddleware(useRelay, useScroll())
 
-    return <Router history={browserHistory} render={middleware} environment={environment}>
+    return <BaseRouter
+      history={browserHistory}
+      render={middleware}
+      environment={environment}>
       {this.routes}
-    </Router>
+    </BaseRouter>
   }
 }

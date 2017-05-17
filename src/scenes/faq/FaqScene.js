@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react'
-import { Question } from './question'
+import { Question } from './Question'
 import { Link } from 'shared/components'
 import { stylesheet, colors, shadows, borders, mobile } from 'shared/styles'
 
-export class FaqView extends Component {
+export class FaqScene extends Component {
   render () {
     return <div {...rules.container}>
       <div {...rules.content}>

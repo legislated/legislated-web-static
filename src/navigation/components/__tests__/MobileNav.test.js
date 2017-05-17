@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { MobileNav } from '../mobile_nav'
+import { MobileNav } from '../MobileNav'
 
 // subject
 let subject

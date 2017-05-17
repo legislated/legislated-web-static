@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Link } from '../link'
+import { Link } from '../Link'
 
 // subject
 let subject

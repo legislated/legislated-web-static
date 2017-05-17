@@ -5,7 +5,7 @@ import { Content } from './components'
 import { stylesheet, colors, shadows, borders } from 'shared/styles'
 import type { Viewer } from 'shared/types'
 
-class BillView extends Component {
+let BillScene = class BillScene extends Component {
   props: {
     viewer: ?Viewer,
   }
@@ -43,7 +43,7 @@ const rules = stylesheet({
   }
 })
 
-export const BillScene = Relay.createContainer(BillView, {
+BillScene = Relay.createContainer(BillScene, {
   initialVariables: {
     id: ''
   },
@@ -57,3 +57,5 @@ export const BillScene = Relay.createContainer(BillView, {
     `
   }
 })
+
+export { BillScene }

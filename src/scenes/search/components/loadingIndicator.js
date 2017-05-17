@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { css } from 'glamor'
-import { BillAnimation, billRule } from './bill_animation'
+import { BillAnimation, billRule } from './BillAnimation'
 import { stylesheet, colors, shadows, borders } from 'shared/styles'
 
 export class LoadingIndicator extends Component {

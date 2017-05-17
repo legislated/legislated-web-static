@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Link } from 'shared/components'
 import { stylesheet, colors, shadows, borders } from 'shared/styles'
 
-export class AboutView extends Component {
+export class AboutScene extends Component {
   render () {
     return <div {...rules.container}>
       <div {...rules.content}>

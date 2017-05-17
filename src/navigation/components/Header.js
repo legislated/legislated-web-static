@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
-import { MobileNav } from './mobile_nav'
-import { NavLinkList } from './nav_link_list'
+import { MobileNav } from './MobileNav'
+import { NavLinkList } from './NavLinkList'
 import { stylesheet, fonts, borders, colors, alpha, mobile } from 'shared/styles'
 
 export class Header extends Component {

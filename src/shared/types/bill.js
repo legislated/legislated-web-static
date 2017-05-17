@@ -1,7 +1,7 @@
 // @flow
-import type { Hearing } from './hearing'
-import type { Committee } from './committee'
-import type { Chamber } from './chamber'
+import type { Hearing } from './Hearing'
+import type { Committee } from './Committee'
+import type { Chamber } from './Chamber'
 
 // type
 export type Bill = {

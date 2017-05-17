@@ -1,6 +1,6 @@
 // @flow
-export { billRoute } from './bill'
-export { searchRoute } from './search'
-export { aboutRoute } from './about'
-export { faqRoute } from './faq'
-export { adminRoute, adminBillsRoute } from './admin'
+export { billRoute } from './Bill'
+export { searchRoute } from './Search'
+export { aboutRoute } from './About'
+export { faqRoute } from './Faq'
+export { adminRoute, adminBillsRoute } from './Admin'

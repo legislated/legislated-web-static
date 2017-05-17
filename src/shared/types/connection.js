@@ -1,6 +1,6 @@
 // @flow
-import type { Edge } from './edge'
-import type { PageInfo } from './page_info'
+import type { Edge } from './Edge'
+import type { PageInfo } from './PageInfo'
 
 // types
 export type Connection<T> = {

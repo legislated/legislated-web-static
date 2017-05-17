@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { NavLinkList } from '../nav_link_list'
+import { NavLinkList } from '../NavLinkList'
 
 // subject
 let subject

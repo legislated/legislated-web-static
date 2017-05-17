@@ -10,7 +10,7 @@ import type { Viewer, Location, RelayProp } from 'shared/types'
 
 const pageSize = 25
 
-class SearchView extends Component {
+let SearchScene = class SearchScene extends Component {
   props: {
     relay: RelayProp,
     viewer: ?Viewer,
@@ -138,7 +138,7 @@ const rules = stylesheet({
   }
 })
 
-export const SearchScene = Relay.createContainer(SearchView, {
+SearchScene = Relay.createContainer(SearchScene, {
   initialVariables: {
     first: pageSize,
     query: '',
@@ -162,3 +162,5 @@ export const SearchScene = Relay.createContainer(SearchView, {
     `
   }
 })
+
+export { SearchScene }

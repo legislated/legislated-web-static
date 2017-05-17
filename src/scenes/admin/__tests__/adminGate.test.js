@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { AdminGate } from '../admin_gate'
+import { AdminGate } from '../AdminGate'
 import { auth } from 'shared/auth'
 
 // mocks

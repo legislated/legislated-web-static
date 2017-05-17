@@ -9,7 +9,7 @@ type AdminBillsProps = {
   relay: RelayProp
 }
 
-class AdminBillsView extends Component {
+let AdminBillsScene = class AdminBillsScene extends Component {
   props: AdminBillsProps
 
   static contextTypes = {
@@ -31,7 +31,7 @@ class AdminBillsView extends Component {
   }
 }
 
-export const AdminBillsScene = Relay.createContainer(AdminBillsView, {
+AdminBillsScene = Relay.createContainer(AdminBillsScene, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
@@ -47,3 +47,5 @@ export const AdminBillsScene = Relay.createContainer(AdminBillsView, {
     `
   }
 })
+
+export { AdminBillsScene }

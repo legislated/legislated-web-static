@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import { render } from 'react-dom'
-import { AppRouter } from './navigation'
+import { Router } from './Navigation'
 
 // render application
-render(<AppRouter />, document.getElementById('root'))
+render(<Router />, document.getElementById('root'))

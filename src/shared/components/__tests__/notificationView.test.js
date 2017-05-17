@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { NotificationView } from '../notification_view'
+import { NotificationView } from '../NotificationView'
 import { events } from 'shared/events'
 
 jest.mock('shared/async', () => ({

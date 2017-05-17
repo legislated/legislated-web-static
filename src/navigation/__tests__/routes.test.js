@@ -2,7 +2,7 @@
 import { each } from 'lodash'
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Routes, reset } from '../routes'
+import { Routes, reset } from '../Routes'
 import { local } from 'shared/storage'
 
 // subject

@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { CopyLink } from '../copy_link'
+import { CopyLink } from '../CopyLink'
 import { events } from 'shared/events'
 
 // mocks

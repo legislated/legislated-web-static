@@ -2,7 +2,7 @@
 import React from 'react'
 import moment from 'moment'
 import { shallow } from 'enzyme'
-import { Content } from '../content'
+import { Content } from '../Content'
 
 // subject
 let subject

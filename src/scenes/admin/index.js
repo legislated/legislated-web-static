@@ -1,5 +1,5 @@
 // @flow
-import { AdminGate } from './admin_gate'
+import { AdminGate } from './AdminGate'
 export { adminBillsRoute } from './bills'
 
 export const adminRoute = {

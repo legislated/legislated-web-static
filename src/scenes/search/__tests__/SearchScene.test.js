@@ -2,7 +2,7 @@
 import React from 'react'
 import moment from 'moment'
 import { shallow, mount } from 'enzyme'
-import { SearchScene } from '../scene'
+import { SearchScene } from '../SearchScene'
 import { session } from 'shared/storage'
 
 const pageSize = 25

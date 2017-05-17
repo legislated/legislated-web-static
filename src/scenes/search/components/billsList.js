@@ -2,9 +2,9 @@
 import React, { Component } from 'react'
 import Relay from 'react-relay'
 import type moment from 'moment'
-import { BillCell } from './bill_cell'
-import { BillAnimation, billRule } from './bill_animation'
-import { LoadMoreButton } from './load_more_button'
+import { BillCell } from './BillCell'
+import { BillAnimation, billRule } from './BillAnimation'
+import { LoadMoreButton } from './LoadMoreButton'
 import { stylesheet, mobile } from 'shared/styles'
 import type { Bill, SearchConnection } from 'shared/types' // eslint-disable-line
 import { unwrap } from 'shared/types/connection'
