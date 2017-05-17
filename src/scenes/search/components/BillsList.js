@@ -7,7 +7,7 @@ import { BillAnimation, billRule } from './BillAnimation'
 import { LoadMoreButton } from './LoadMoreButton'
 import { stylesheet, mobile } from 'shared/styles'
 import type { Bill, SearchConnection } from 'shared/types' // eslint-disable-line
-import { unwrap } from 'shared/types/connection'
+import { unwrap } from 'shared/types/Connection'
 
 function format (date: moment): string {
   return date.format('MMM Do')

@@ -1,2 +1,2 @@
 // @flow
-export { Router } from './router'
+export { Router } from './Router'
