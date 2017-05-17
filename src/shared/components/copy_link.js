@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Clipboard from 'react-copy-to-clipboard'
 import FontAwesome from 'react-fontawesome'
 import { Link } from './link'
-import { notifications } from 'shared/notifications'
+import { events } from 'shared/events'
 import { stylesheet } from 'shared/styles'
 
 export class CopyLink extends Component {
@@ -13,7 +13,7 @@ export class CopyLink extends Component {
 
   // events
   didCopyValue = (text: string) => {
-    notifications.add({
+    events.emit(events.showNotification, {
       key: 'copy-link',
       message: 'Copied link to clipboard ✔'
     })

@@ -2,18 +2,18 @@
 import { each } from 'lodash'
 import React from 'react'
 import { shallow } from 'enzyme'
-import { AppRouter, reset } from '../router'
+import { Routes, reset } from '../routes'
 import { local } from 'shared/storage'
 
 // subject
 let subject
 
 function loadSubject () {
-  subject = shallow(<AppRouter />)
+  subject = shallow(<Routes />)
 }
 
 const element = {
-  root: () => subject.children('Route')
+  root: () => subject.at(0)
 }
 
 // spec

@@ -43,14 +43,18 @@ export class MockStore {
 // exports
 export const Store = new MockStore()
 export const Route = Relay.Route
+export const Environment = Relay.Environment
+export const DefaultNetworkLayer = Relay.DefaultNetworkLayer
 export const PropTypes = Relay.PropTypes
 
 export default {
   Store,
   Mutation,
+  Environment,
+  DefaultNetworkLayer,
+  Route,
+  PropTypes,
   QL: Relay.QL,
-  Route: Relay.Route,
-  PropTypes: Relay.PropTypes,
   createContainer: (Component, config) => {
     Component.relayConfig = function () {
       return config

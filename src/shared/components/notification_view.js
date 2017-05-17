@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import { css } from 'glamor'
-import { notifications } from '../notifications'
-import type { Notification } from '../notifications' // eslint-disable-line
+import { events } from 'shared/events'
 import { sleep } from 'shared/async'
+import type { Notification } from 'shared/types'
 import { stylesheet, colors, borders, shadows } from 'shared/styles'
 
 const animationDuration = 300
@@ -34,11 +34,11 @@ export class NotificationView extends Component {
 
   // lifecycle
   componentDidMount () {
-    notifications.on(this.didReceiveNotification)
+    events.on(events.showNotification, this.didReceiveNotification)
   }
 
   componentWillUnmount () {
-    notifications.off()
+    events.off(events.showNotification, this.didReceiveNotification)
   }
 
   render () {

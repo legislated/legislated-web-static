@@ -2,11 +2,14 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { CopyLink } from '../copy_link'
-import { notifications } from 'shared/notifications'
+import { events } from 'shared/events'
 
 // mocks
-jest.mock('shared/notifications', () => ({
-  notifications: { add: jest.fn() }
+jest.mock('shared/events', () => ({
+  events: {
+    emit: jest.fn(),
+    showNotification: 'show-notification'
+  }
 }))
 
 // subject
@@ -39,7 +42,7 @@ describe('on copy', () => {
     loadSubject()
     value = 'http://fake.url/'
     element.clipboard().simulate('copy', value)
-    expect(notifications.add).toHaveBeenCalledWith({
+    expect(events.emit).toHaveBeenCalledWith('show-notification', {
       key: 'copy-link',
       message: expect.stringMatching(/[Cc]opied/)
     })
