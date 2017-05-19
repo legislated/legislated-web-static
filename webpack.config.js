@@ -33,7 +33,8 @@ module.exports = function (config) {
         }
       }),
       new HtmlWebpackPlugin({
-        template: './src/index.ejs'
+        template: './src/index.ejs',
+        favicon: './assets/150x150_favicon-04.png'
       })
     ],
     module: {
@@ -41,6 +42,12 @@ module.exports = function (config) {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /(node_modules)/
+      }, {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+        loaders: [
+          'file-loader?name=assets/[name].[ext]',
+          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
       }]
     }
   }
