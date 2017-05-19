@@ -1,18 +1,16 @@
 // @flow
 import React, { Component } from 'react'
-import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
 import { MobileNav } from './mobile_nav'
 import { NavLinkList } from './nav_link_list'
-import { stylesheet, fonts, borders, colors, alpha, mobile } from 'shared/styles'
+import { stylesheet, borders, colors, alpha, mobile } from 'shared/styles'
 
 export class Header extends Component {
   // lifecycle
   render () {
     return <div {...rules.container}>
       <RouteLink {...rules.logoLink} to='/'>
-        <FontAwesome name='institution' />
-        <span>Legislated</span>
+        <img src='/assets/legislated_headerlogo-01.png' alt='Legislated' height='40' width='280' />
       </RouteLink>
       <MobileNav />
       <div {...rules.nav}>
@@ -46,9 +44,8 @@ const rules = stylesheet({
     ':hover': {
       color: alpha(colors.black, 0.6)
     },
-    '> span:last-child': {
-      ...fonts.bold,
-      marginLeft: 15
+    '> img': {
+      verticalAlign: 'middle'
     },
     ...mobile({
       fontSize: 28
