@@ -3,14 +3,15 @@ import React, { Component } from 'react'
 import { Link as RouteLink } from 'react-router'
 import { MobileNav } from './mobile_nav'
 import { NavLinkList } from './nav_link_list'
-import { stylesheet, borders, colors, alpha, mobile } from 'shared/styles'
+import { stylesheet, fonts, borders, colors, alpha, mobile } from 'shared/styles'
 
 export class Header extends Component {
   // lifecycle
   render () {
     return <div {...rules.container}>
       <RouteLink {...rules.logoLink} to='/'>
-        <img src='/assets/legislated_headerlogo-01.png' alt='Legislated' height='40' width='280' />
+        <img src='/assets/logo.png' alt='Legislated' height='40' width='40' />
+        <span>LEGISLATED</span>
       </RouteLink>
       <MobileNav />
       <div {...rules.nav}>
@@ -45,7 +46,12 @@ const rules = stylesheet({
       color: alpha(colors.black, 0.6)
     },
     '> img': {
-      verticalAlign: 'middle'
+      verticalAlign: 'top'
+    },
+    '> span:last-child': {
+      ...fonts. bold,
+     marginLeft: 15,
+     letterSpacing: 5
     },
     ...mobile({
       fontSize: 28
