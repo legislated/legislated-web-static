@@ -2,7 +2,7 @@
 import React from 'react'
 import Relay from 'react-relay'
 import { withRouter } from 'react-router'
-import { AdminBillsScene } from './scene'
+import { AdminBillsScene } from './AdminBillsScene'
 
 export const adminBillsRoute = {
   component: withRouter(AdminBillsScene),

@@ -1,5 +1,5 @@
 // @flow
-export { Link } from './link'
-export { CopyLink } from './copy_link'
-export { Button } from './button'
-export { NotificationView } from './notification_view'
+export { Link } from './Link'
+export { CopyLink } from './CopyLink'
+export { Button } from './Button'
+export { NotificationView } from './NotificationView'

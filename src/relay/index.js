@@ -1,2 +1,2 @@
 // @flow
-export { buildEnvironment } from './build_environment'
+export { buildEnvironment } from './buildEnvironment'

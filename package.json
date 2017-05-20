@@ -83,7 +83,7 @@
     ]
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./test/setup_framework.js",
+    "setupTestFrameworkScriptFile": "./test/setupFramework.js",
     "setupFiles": [
       "./test/setup.js"
     ],
