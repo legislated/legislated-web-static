@@ -35,7 +35,7 @@ module.exports = function (config) {
       }),
       new HtmlWebpackPlugin({
         template: './src/index.ejs',
-        favicon: './assets/150x150_favicon-04.png'
+        favicon: './assets/logo.png'
       }),
       new CopyWebpackPlugin([{
         from: 'assets',
