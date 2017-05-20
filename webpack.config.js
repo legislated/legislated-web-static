@@ -2,6 +2,7 @@ var webpack = require('webpack')
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = function (config) {
   return {
@@ -35,7 +36,11 @@ module.exports = function (config) {
       new HtmlWebpackPlugin({
         template: './src/index.ejs',
         favicon: './assets/150x150_favicon-04.png'
-      })
+      }),
+      new CopyWebpackPlugin([{
+        from: 'assets',
+        to: 'assets'
+      }])
     ],
     module: {
       loaders: [{
