@@ -49,9 +49,9 @@ const rules = stylesheet({
       verticalAlign: 'top'
     },
     '> span:last-child': {
-      ...fonts. bold,
-     marginLeft: 15,
-     letterSpacing: 5
+      ...fonts.bold,
+      marginLeft: 15,
+      letterSpacing: 5
     },
     ...mobile({
       fontSize: 28
