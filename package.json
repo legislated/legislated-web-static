@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "color": "^1.0.3",
+    "copy-webpack-plugin": "^4.0.1",
     "file-loader": "^0.11.1",
     "glamor": "^2.20.24",
     "image-webpack-loader": "^3.3.1",
