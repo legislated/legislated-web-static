@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { Question } from './Question'
+import { Question } from './components'
 import { Link } from 'shared/components'
 import { stylesheet, colors, shadows, borders, mobile } from 'shared/styles'
 
