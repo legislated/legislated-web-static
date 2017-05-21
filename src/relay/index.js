@@ -1,2 +1,2 @@
 // @flow
-export { createRelayEnvironment } from './environment'
+export { buildEnvironment } from './buildEnvironment'

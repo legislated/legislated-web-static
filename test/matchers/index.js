@@ -1,2 +1,2 @@
-export { toMatchRule } from './to_match_rule'
-export { toMatchStyles } from './to_match_styles'
+export { toMatchRule } from './toMatchRule'
+export { toMatchStyles } from './toMatchStyles'

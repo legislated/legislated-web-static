@@ -1,5 +1,5 @@
 // @flow
-export { Intro } from './intro'
-export { SearchField } from './search_field'
-export { BillsList } from './bills_list'
-export { LoadingIndicator } from './loading_indicator'
+export { Intro } from './Intro'
+export { SearchField } from './SearchField'
+export { BillsList } from './BillsList'
+export { LoadingIndicator } from './LoadingIndicator'

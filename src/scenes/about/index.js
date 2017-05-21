@@ -1,6 +1,6 @@
 // @flow
-import { AboutView } from './scene'
+import { AboutScene } from './AboutScene'
 
 export const aboutRoute = {
-  component: AboutView
+  component: AboutScene
 }

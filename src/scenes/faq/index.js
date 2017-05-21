@@ -1,6 +1,6 @@
 // @flow
-import { FaqView } from './scene'
+import { FaqScene } from './FaqScene'
 
 export const faqRoute = {
-  component: FaqView
+  component: FaqScene
 }

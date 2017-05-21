@@ -4,5 +4,5 @@ set -e
 if [ $TRAVIS_BRANCH == 'production' ]; then
   yarn build:prod
 else
-  yarn build:stage
+  yarn build:staging
 fi

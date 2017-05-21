@@ -16,6 +16,9 @@ suppress_type=$FlowIssue
 suppress_type=$FlowFixMe
 suppress_type=$FixMe
 
+; optional features
+unsafe.enable_getters_and_setters=true
+
 ; we'd like to do this, but it doesn't seem to work:
 ; module.name_mapper='^shared/(.*)$' -> '<PROJECT_ROOT>/src/shared/\1'
 ; https://github.com/facebook/flow/issues/1068

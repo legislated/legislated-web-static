@@ -7,10 +7,10 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --debug --hot --inline --env.env=development",
-    "build:stage": "webpack -p --env.env=staging",
+    "build:staging": "webpack -p --env.env=staging",
     "build:prod": "webpack -p --env.env=production",
-    "deploy:stage": "yarn build:stage && yarn deploy:stage:sync",
-    "deploy:stage:sync": "aws s3 sync --acl public-read dist/ s3://staging.legislated.org --profile legislated-bucket-staging",
+    "deploy:staging": "yarn build:staging && yarn deploy:staging:sync",
+    "deploy:staging:sync": "aws s3 sync --acl public-read dist/ s3://staging.legislated.org --profile legislated-bucket-staging",
     "deploy:prod": "yarn build:prod && yarn deploy:prod:sync",
     "deploy:prod:sync": "aws s3 sync --acl public-read dist/ s3://legislated.org --profile legislated-bucket-production",
     "test": "jest",
@@ -23,11 +23,14 @@
   },
   "dependencies": {
     "color": "^1.0.3",
+    "eventemitter3": "^2.0.3",
     "glamor": "^2.20.24",
+    "js-base64": "^2.1.9",
     "lodash": "^4.17.2",
     "moment": "^2.18.1",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.4.2",
+    "react-copy-to-clipboard": "^5.0.0",
     "react-dom": "^15.4.1",
     "react-fontawesome": "^1.5.0",
     "react-relay": "^0.10.0",
@@ -83,7 +86,7 @@
     ]
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./test/setup_framework.js",
+    "setupTestFrameworkScriptFile": "./test/setupFramework.js",
     "setupFiles": [
       "./test/setup.js"
     ],
