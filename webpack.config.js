@@ -2,6 +2,7 @@ var webpack = require('webpack')
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = function (config) {
   return {
@@ -33,14 +34,25 @@ module.exports = function (config) {
         }
       }),
       new HtmlWebpackPlugin({
-        template: './src/index.ejs'
-      })
+        template: './src/index.ejs',
+        favicon: './assets/logo.png'
+      }),
+      new CopyWebpackPlugin([{
+        from: 'assets',
+        to: 'assets'
+      }])
     ],
     module: {
       loaders: [{
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /(node_modules)/
+      }, {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+        loaders: [
+          'file-loader?name=assets/[name].[ext]',
+          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
       }]
     }
   }

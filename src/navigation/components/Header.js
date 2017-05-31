@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react'
-import FontAwesome from 'react-fontawesome'
 import { Link as RouteLink } from 'react-router'
 import { MobileNav } from './MobileNav'
 import { NavLinkList } from './NavLinkList'
@@ -11,8 +10,8 @@ export class Header extends Component {
   render () {
     return <div {...rules.container}>
       <RouteLink {...rules.logoLink} to='/'>
-        <FontAwesome name='institution' />
-        <span>Legislated</span>
+        <img src='/assets/logo.png' alt='Legislated' height='40' width='40' />
+        <span>LEGISLATED</span>
       </RouteLink>
       <MobileNav />
       <div {...rules.nav}>
@@ -46,9 +45,13 @@ const rules = stylesheet({
     ':hover': {
       color: alpha(colors.black, 0.6)
     },
+    '> img': {
+      verticalAlign: 'top'
+    },
     '> span:last-child': {
       ...fonts.bold,
-      marginLeft: 15
+      marginLeft: 15,
+      letterSpacing: 5
     },
     ...mobile({
       fontSize: 28
