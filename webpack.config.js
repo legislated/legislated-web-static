@@ -1,8 +1,8 @@
 var webpack = require('webpack')
 var path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var CleanWebpackPlugin = require('clean-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
+var HtmlPlugin = require('html-webpack-plugin')
+var CleanPlugin = require('clean-webpack-plugin')
+var CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = function (config) {
   return {
@@ -25,7 +25,7 @@ module.exports = function (config) {
       historyApiFallback: true
     },
     plugins: [
-      new CleanWebpackPlugin([
+      new CleanPlugin([
         'dist'
       ]),
       new webpack.DefinePlugin({
@@ -33,26 +33,35 @@ module.exports = function (config) {
           'ENVIRONMENT': JSON.stringify(config.env)
         }
       }),
-      new HtmlWebpackPlugin({
+      new HtmlPlugin({
         template: './src/index.ejs',
         favicon: './assets/logo.png'
       }),
-      new CopyWebpackPlugin([{
+      new CopyPlugin([{
         from: 'assets',
         to: 'assets'
       }])
     ],
     module: {
-      loaders: [{
+      rules: [{
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /(node_modules)/
+        exclude: /(node_modules)/,
+        use: 'babel-loader'
       }, {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-        loaders: [
-          'file-loader?name=assets/[name].[ext]',
-          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
-        ]
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        use: [{
+          loader: 'file-loader',
+          query: {
+            name: 'assets/[name].[ext]'
+          }
+        }, {
+          loader: 'image-webpack-loader',
+          query: {
+            bypassOnDebug: true,
+            optimizationLevel: 7,
+            interlaced: false
+          }
+        }]
       }]
     }
   }
