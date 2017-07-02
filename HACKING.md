@@ -61,4 +61,6 @@ Relay is a library that allows React components to declarative specify the data 
 
 #### [Flow](https://flow.org/en/docs/getting-started/)
 
-Flow is a relatively unobtrusive static type checker for JavaScript. The reasons for using a type-checker are beyond the scope of this document. If you're familiar with static-typing, the linked intro should be enough to get you going. If you're not, the easiest way to get started is probably to pair program with someone who is.
+Flow is a relatively unobtrusive static type checker for JavaScript. The reasons for using a type-checker are beyond the scope of this document. If you're familiar with static typing, the linked intro should be enough to get you going.
+
+If you're not, the easiest way to get started is probably to pair program with someone who is. However, don't worry about it too much; it's more important to get started hacking. Write your code without types and we can help retrofit it into your PR afterwards.
