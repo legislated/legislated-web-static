@@ -1,5 +1,5 @@
 // @flow
-import { DefaultNetworkLayer, Environment } from 'react-relay'
+import { DefaultNetworkLayer, Environment } from 'react-relay/classic'
 import config from '../config'
 
 export function buildEnvironment (headers: Object = {}): any {

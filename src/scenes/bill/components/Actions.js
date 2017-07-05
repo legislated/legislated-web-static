@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
+import Relay from 'react-relay/classic'
 import { Button } from 'shared/components'
 import { stylesheet, mobile } from 'shared/styles'
 import type { Bill } from 'shared/types'

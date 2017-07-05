@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
+import Relay from 'react-relay/classic'
 import type moment from 'moment'
 import { BillCell } from './BillCell'
 import { BillAnimation, billRule } from './BillAnimation'

@@ -1,4 +1,4 @@
-const Relay = require.requireActual('react-relay')
+const Relay = require.requireActual('react-relay/classic')
 
 // mocks
 export class Mutation extends Relay.Mutation {

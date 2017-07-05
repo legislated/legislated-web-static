@@ -1,6 +1,6 @@
 // @flow
 import React, { Component, PropTypes } from 'react'
-import Relay from 'react-relay'
+import Relay from 'react-relay/classic'
 import type { Viewer, RelayProp } from 'shared/types'
 import { auth } from 'shared/auth'
 

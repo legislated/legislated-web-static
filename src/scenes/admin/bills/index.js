@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import Relay from 'react-relay'
+import Relay from 'react-relay/classic'
 import { withRouter } from 'react-router'
 import { AdminBillsScene } from './AdminBillsScene'
 

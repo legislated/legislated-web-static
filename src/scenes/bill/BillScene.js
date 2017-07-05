@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
+import Relay from 'react-relay/classic'
 import { Content } from './components'
 import { stylesheet, colors, shadows, borders } from 'shared/styles'
 import type { Viewer } from 'shared/types'

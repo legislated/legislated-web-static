@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
+import Relay from 'react-relay/classic'
 import moment from 'moment'
 import { throttle } from 'lodash'
 import { Intro, SearchField, BillsList, LoadingIndicator } from './components'
