@@ -1,6 +1,6 @@
 // @flow
 import { Environment, RecordSource, Store, Network } from 'relay-runtime'
-import config from '../config'
+import config from 'shared/config'
 import { events } from 'shared/events'
 
 // current environment

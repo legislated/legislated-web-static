@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { RelayRoute } from './RelayRoute'
 import { Container, NotFoundView } from './components'
-import { searchRoute, billRoute, aboutRoute, faqRoute } from '../scenes'
+import * as scenes from '../scenes'
 
 export class Router extends Component {
   render () {
@@ -14,10 +14,10 @@ export class Router extends Component {
 export const routes = () => (
   <Container>
     <Switch>
-      <RelayRoute path='/' {...searchRoute} />
-      <Route path='about' {...aboutRoute} />
-      <Route path='faq' {...faqRoute} />
-      <RelayRoute path='bill/:id' {...billRoute} />
+      <RelayRoute path='/bill/:id' {...scenes.bill} />
+      <Route path='/about' {...scenes.about} />
+      <Route path='/faq' {...scenes.faq} />
+      <RelayRoute path='/' {...scenes.search} />
       <Route path='*' component={NotFoundView} />
     </Switch>
   </Container>

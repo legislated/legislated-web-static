@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { QueryRenderer } from 'react-relay'
 import { Route } from 'react-router-dom'
-import { currentEnvironment } from '../relay'
+import { currentEnvironment } from 'shared/relay'
 import { events } from 'shared/events'
 import type { RelayRouteDestination } from 'shared/types'
 

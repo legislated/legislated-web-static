@@ -1,19 +1,20 @@
 // @flow
 import React, { Component } from 'react'
 import { createPaginationContainer, graphql } from 'react-relay/compat'
+import type { RelayPaginationProp } from 'react-relay'
 import { withRouter } from 'react-router-dom'
 import moment from 'moment'
 import { throttle } from 'lodash'
 import { Intro, SearchField, BillsList, LoadingIndicator } from './components'
 import { session } from 'shared/storage'
 import { stylesheet, colors, mobile, utils } from 'shared/styles'
-import type { Viewer, Location, RelayProp, RelayQueryConfig } from 'shared/types'
+import type { Viewer, Location, RelayQueryConfig } from 'shared/types'
 
 const pageSize = 25
 
 let SearchScene = class SearchScene extends Component {
   props: {
-    relay: RelayProp,
+    relay: RelayPaginationProp,
     location: Location,
     viewer: ?Viewer
   }
@@ -90,7 +91,8 @@ let SearchScene = class SearchScene extends Component {
         <SearchField
           styles={rules.section}
           value={query}
-          onChange={this.searchFieldDidChange} />
+          onChange={this.searchFieldDidChange}
+        />
       </div>
       <div {...rules.content}>
         <div {...rules.indicator}>
@@ -101,7 +103,8 @@ let SearchScene = class SearchScene extends Component {
           startDate={startDate}
           endDate={endDate}
           animated={!disableAnimations}
-          onLoadMore={this.didClickLoadMore} />}
+          onLoadMore={this.didClickLoadMore}
+        />}
       </div>
     </div>
   }
