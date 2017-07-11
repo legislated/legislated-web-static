@@ -1,48 +1,44 @@
 // @flow
 import React, { Component } from 'react'
-import { Router as BaseRouter, browserHistory, applyRouterMiddleware } from 'react-router'
-import useRelay from 'react-router-relay'
-import useScroll from 'react-router-scroll/lib/useScroll'
-import { Routes } from './Routes'
-import { buildEnvironment } from '../relay'
-import { events } from 'shared/events'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { RelayRoute } from './RelayRoute'
+import { Container, NotFoundView } from './components'
+import { searchRoute, billRoute, aboutRoute, faqRoute } from '../scenes'
 
 export class Router extends Component {
-  routes: React$Element<*>
-
-  state: { environment: Object } = {
-    environment: buildEnvironment()
-  }
-
-  constructor () {
-    super()
-    this.routes = Routes()
-  }
-
-  // events
-  didUpdateEnvironment = (header: string) => {
-    const environment = buildEnvironment({ 'Authorization': header })
-    this.setState({ environment })
-  }
-
-  // lifecycle
-  componentWillMount () {
-    events.on(events.setAuthHeader, this.didUpdateEnvironment)
-  }
-
-  componentWillUnmount () {
-    events.off(events.setAuthHeader, this.didUpdateEnvironment)
-  }
-
   render () {
-    const { environment } = this.state
-    const middleware = applyRouterMiddleware(useRelay, useScroll())
-
-    return <BaseRouter
-      history={browserHistory}
-      render={middleware}
-      environment={environment}>
-      {this.routes}
-    </BaseRouter>
+    return <BrowserRouter>{routes()}</BrowserRouter>
   }
 }
+
+export const routes = () => (
+  <Container>
+    <Switch>
+      <RelayRoute path='/' {...searchRoute} />
+      <Route path='about' {...aboutRoute} />
+      <Route path='faq' {...faqRoute} />
+      <RelayRoute path='bill/:id' {...billRoute} />
+      <Route path='*' component={NotFoundView} />
+    </Switch>
+  </Container>
+)
+
+// import { local } from 'shared/storage'
+//
+// let hasEnteredSearch = false
+//
+// export function reset () {
+//   hasEnteredSearch = false
+// }
+//
+// function didChangeRoute (route: { location: { pathname: string } }) {
+//   const { pathname } = route.location
+//
+//   if (!hasEnteredSearch && pathname === '/') {
+//     hasEnteredSearch = true
+//   }
+//
+//   if (hasEnteredSearch && pathname !== '/') {
+//     local.set('@@legislated/intro-visited', 'true')
+//   }
+// }

@@ -1,15 +1,12 @@
 // @flow
 import React from 'react'
-import Relay from 'react-relay/classic'
-import { withRouter } from 'react-router'
-import { SearchScene } from './SearchScene'
+import { SearchScene, queryConfig } from './SearchScene'
+import type { RelayRouteDestination } from 'shared/types'
 
-export const searchRoute = {
-  component: withRouter(SearchScene),
-  queries: {
-    viewer: () => Relay.QL`query { viewer }`
-  },
-  render: ({ props }: { props: Object }) => {
+export const searchRoute: RelayRouteDestination<*, *, *> = {
+  component: SearchScene,
+  ...queryConfig,
+  render (props) {
     if (props) {
       return <SearchScene {...props} />
     } else {

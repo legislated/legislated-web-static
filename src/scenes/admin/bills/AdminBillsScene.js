@@ -1,6 +1,7 @@
 // @flow
 import React, { Component, PropTypes } from 'react'
-import Relay from 'react-relay/classic'
+import { createFragmentContainer, graphql } from 'react-relay/compat'
+import { withRouter } from 'react-router-dom'
 import type { Viewer, RelayProp } from 'shared/types'
 import { auth } from 'shared/auth'
 
@@ -31,21 +32,17 @@ let AdminBillsScene = class AdminBillsScene extends Component {
   }
 }
 
-AdminBillsScene = Relay.createContainer(AdminBillsScene, {
-  fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
-        isAdmin
-        bills(first: 1) {
-          edges {
-            node {
-              id
-            }
-          }
+AdminBillsScene = createFragmentContainer(withRouter(AdminBillsScene), graphql`
+  fragment AdminBillsScene_viewer on Viewer {
+    isAdmin
+    bills(first: 1) {
+      edges {
+        node {
+          id
         }
       }
-    `
+    }
   }
-})
+`)
 
 export { AdminBillsScene }

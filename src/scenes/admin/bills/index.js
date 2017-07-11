@@ -1,11 +1,11 @@
 // @flow
 import React from 'react'
-import Relay from 'react-relay/classic'
-import { withRouter } from 'react-router'
+import Relay from 'react-relay/compat'
+import { withRouter } from 'react-router-dom'
 import { AdminBillsScene } from './AdminBillsScene'
 
 export const adminBillsRoute = {
-  component: withRouter(AdminBillsScene),
+  component: AdminBillsScene,
   queries: {
     viewer: () => Relay.QL`query { viewer }`
   },

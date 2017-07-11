@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay/classic'
+import { createFragmentContainer, graphql } from 'react-relay/compat'
 import moment from 'moment'
 import { css } from 'glamor'
 import type { Rule } from 'glamor' // eslint-disable-line
@@ -36,12 +36,14 @@ let BillCell = class BillCell extends Component {
           styles={rules.button}
           to={bill.witnessSlipUrl}
           label='Take Action'
-          iconName='pencil-square-o' />
+          iconName='pencil-square-o'
+        />
         <Button
           styles={rules.button}
           to={`bill/${bill.id}`}
           label='More Info'
-          iconName='file-text-o' />
+          iconName='file-text-o'
+        />
       </div>
     </div>
   }
@@ -120,23 +122,19 @@ const rules = stylesheet({
   }
 })
 
-BillCell = Relay.createContainer(BillCell, {
-  fragments: {
-    bill: () => Relay.QL`
-      fragment on Bill {
-        id
-        documentNumber
-        title
-        summary
-        witnessSlipUrl
-        detailsUrl
-        fullTextUrl
-        hearing {
-          date
-        }
-      }
-    `
+BillCell = createFragmentContainer(BillCell, graphql`
+  fragment BillCell_bill on Bill {
+    id
+    documentNumber
+    title
+    summary
+    witnessSlipUrl
+    detailsUrl
+    fullTextUrl
+    hearing {
+      date
+    }
   }
-})
+`)
 
 export { BillCell }

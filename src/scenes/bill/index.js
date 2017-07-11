@@ -1,19 +1,25 @@
 // @flow
 import React from 'react'
-import Relay from 'react-relay/classic'
-import { withRouter } from 'react-router'
+import { graphql } from 'react-relay'
 import { BillScene } from './BillScene'
+import type { RelayRouteDestination } from 'shared/types'
 
-export const billRoute = {
-  component: withRouter(BillScene),
-  queries: {
-    viewer: () => Relay.QL`query { viewer }`
-  },
-  render: ({ props }: { props: Object }) => {
+export const billRoute: RelayRouteDestination<*, *, *> = {
+  component: BillScene,
+  query: graphql`
+    query billQuery($billId: ID!) {
+      viewer {
+        bill(id: $billId) {
+          ...BillScene_bill
+        }
+      }
+    }
+  `,
+  render (props) {
     if (props) {
       return <BillScene {...props} />
     } else {
-      return <BillScene viewer={null} />
+      return <BillScene bill={null} />
     }
   }
 }

@@ -1,22 +1,23 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay/classic'
+import { createFragmentContainer, graphql } from 'react-relay'
+import { withRouter } from 'react-router-dom'
 import { Content } from './components'
 import { stylesheet, colors, shadows, borders } from 'shared/styles'
-import type { Viewer } from 'shared/types'
+import type { Bill } from 'shared/types'
 
 let BillScene = class BillScene extends Component {
   props: {
-    viewer: ?Viewer,
+    bill: ?Bill,
   }
 
   // lifecycle
   render () {
-    const { viewer } = this.props
+    const { bill } = this.props
 
     return <div {...rules.container}>
       <div {...rules.content}>
-        {viewer ? <Content bill={viewer.bill} /> : <div>Loading...</div>}
+        {bill ? <Content bill={bill} /> : <div>Loading...</div>}
       </div>
     </div>
   }
@@ -43,19 +44,10 @@ const rules = stylesheet({
   }
 })
 
-BillScene = Relay.createContainer(BillScene, {
-  initialVariables: {
-    id: ''
-  },
-  fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
-        bill(id: $id) {
-          ${Content.getFragment('bill')}
-        }
-      }
-    `
+BillScene = createFragmentContainer(withRouter(BillScene), graphql`
+  fragment BillScene_bill on Bill {
+    ...Content_bill
   }
-})
+`)
 
 export { BillScene }

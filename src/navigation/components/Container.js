@@ -2,7 +2,7 @@
 import 'shared/styles/globals'
 import React, { Component } from 'react'
 import { StickyContainer, Sticky } from 'react-sticky'
-import { Header } from './components'
+import { Header } from './Header'
 import { NotificationView } from 'shared/components'
 import { stylesheet, fonts, mobile } from 'shared/styles'
 

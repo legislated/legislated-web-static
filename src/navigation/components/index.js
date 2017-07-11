@@ -1,3 +1,3 @@
 // @flow
-export { Header } from './Header'
+export { Container } from './Container'
 export { NotFoundView } from './NotFoundView'

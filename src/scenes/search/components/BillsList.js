@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay/classic'
+import { createFragmentContainer, graphql } from 'react-relay/compat'
 import type moment from 'moment'
 import { BillCell } from './BillCell'
 import { BillAnimation, billRule } from './BillAnimation'
@@ -22,11 +22,6 @@ let BillsList = class BillsList extends Component {
     onLoadMore: () => void,
   }
 
-  // events
-  didClickLoadMore = () => {
-    this.props.onLoadMore()
-  }
-
   // lifecycle
   render () {
     const { bills: connection, startDate, endDate, animated, onLoadMore } = this.props
@@ -40,8 +35,14 @@ let BillsList = class BillsList extends Component {
         <div>{`${format(startDate)} to ${format(endDate)}`}</div>
         <div>{`Found ${count} result${count === 1 ? '' : 's'}.`}</div>
       </div>
-      <BillAnimation disable={!animated}>{this.renderBills(bills)}</BillAnimation>
-      <LoadMoreButton styles={rules.loadMoreButton} hasMore={pageInfo.hasNextPage} onClick={onLoadMore} />
+      <BillAnimation disable={!animated}>
+        {this.renderBills(bills)}
+      </BillAnimation>
+      <LoadMoreButton
+        styles={rules.loadMoreButton}
+        hasMore={pageInfo.hasNextPage}
+        onClick={onLoadMore}
+      />
     </div>
   }
 
@@ -90,23 +91,19 @@ const rules = stylesheet({
   }
 })
 
-BillsList = Relay.createContainer(BillsList, {
-  fragments: {
-    bills: () => Relay.QL`
-      fragment on BillSearchConnection {
-        count
-        edges {
-          node {
-            id
-            ${BillCell.getFragment('bill')}
-          }
-        }
-        pageInfo {
-          hasNextPage
-        }
+BillsList = createFragmentContainer(BillsList, graphql`
+  fragment BillsList_bills on BillSearchConnection {
+    count
+    edges {
+      node {
+        id
+        ...BillCell_bill
       }
-    `
+    }
+    pageInfo {
+      hasNextPage
+    }
   }
-})
+`)
 
 export { BillsList }
