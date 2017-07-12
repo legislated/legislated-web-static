@@ -1,13 +1,16 @@
 // @flow
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
 import { Button } from 'shared/components'
 import { stylesheet } from 'shared/styles'
 import { auth } from 'shared/auth'
 
-export class AdminGate extends Component {
+@withRouter
+export class AdminAuthScene extends Component {
   props: {
     children?: any
-  }
+  } & ContextRouter
 
   state = {
     username: '',
@@ -21,14 +24,11 @@ export class AdminGate extends Component {
   didClickSignIn = () => {
     const { username, password } = this.state
     auth.signIn(username, password)
+    this.props.history.replace('/admin/bills')
   }
 
   // lifecycle
   render () {
-    return auth.isSignedIn ? this.renderAdminContent() : this.renderSignInForm()
-  }
-
-  renderSignInForm (): React$Element<*> {
     return <div {...rules.container}>
       <form {...rules.form}>
         <h2>Administration Sign In</h2>
@@ -38,13 +38,6 @@ export class AdminGate extends Component {
         <input type='password' name='password' onChange={this.didUpdateField} />
         <Button styles={rules.action} label='Sign In' iconName='sign-in' onClick={this.didClickSignIn} />
       </form>
-    </div>
-  }
-
-  renderAdminContent (): React$Element<*> {
-    return <div>
-      <Button label='Sign Out' iconName='sign-out' onClick={auth.signOut} />
-      {this.props.children}
     </div>
   }
 }

@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { createFragmentContainer, graphql } from 'react-relay/compat'
+import { createFragmentContainer, graphql } from 'react-relay'
 import { Button } from 'shared/components'
 import { stylesheet, mobile } from 'shared/styles'
 import type { Bill } from 'shared/types'

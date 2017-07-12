@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { createPaginationContainer, graphql } from 'react-relay/compat'
+import { createPaginationContainer, graphql } from 'react-relay'
 import type { RelayPaginationProp } from 'react-relay'
 import type moment from 'moment'
 import { BillCell } from './BillCell'

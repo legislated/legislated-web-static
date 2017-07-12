@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { createFragmentContainer, graphql } from 'react-relay/compat'
+import { createFragmentContainer, graphql } from 'react-relay'
 import moment from 'moment'
 import { css } from 'glamor'
 import type { Rule } from 'glamor' // eslint-disable-line

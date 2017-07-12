@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { AdminGate } from '../AdminGate'
+import { AdminAuthScene } from '../AdminAuthScene'
 import { auth } from 'shared/auth'
 
 // mocks
@@ -13,7 +13,7 @@ jest.mock('shared/auth', () => ({
 let subject
 
 function loadSubject () {
-  subject = shallow(<AdminGate />)
+  subject = shallow(<AdminAuthScene />)
 }
 
 const element = {

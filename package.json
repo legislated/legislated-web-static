@@ -46,9 +46,9 @@
     "babel-eslint": "^7.1.1",
     "babel-jest": "^19.0.0",
     "babel-loader": "^6.4.1",
-    "babel-plugin-react-relay": "^0.10.0",
     "babel-plugin-relay": "^1.1.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.16.0",
@@ -81,16 +81,11 @@
       "react"
     ],
     "plugins": [
-      [
-        "relay",
-        {
-          "compat": true,
-          "schema": "schema.json"
-        }
-      ],
+      ["relay", { "compat": true, "schema": "schema.json" }],
       "transform-flow-strip-types",
       "transform-class-properties",
-      "transform-object-rest-spread"
+      "transform-object-rest-spread",
+      "transform-decorators-legacy"
     ]
   },
   "jest": {
@@ -111,11 +106,11 @@
       "flow-typed"
     ],
     "globals": [
+      "fetch",
+      "requestAnimationFrame",
       "Class",
       "React$Element",
-      "React$Component",
-      "fetch",
-      "requestAnimationFrame"
+      "React$Component"
     ]
   }
 }

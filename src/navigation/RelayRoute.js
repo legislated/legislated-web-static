@@ -49,7 +49,7 @@ export class RelayRoute extends Component {
       environment={environment}
       query={query}
       variables={variables}
-      render={({ error, props }: { error: ?Error, props: ?Object }) => {
+      render={({ error, props }: { error: ?Error, props: Object }) => {
         if (error) {
           throw new Error(error) // TODO: show error view
         }
