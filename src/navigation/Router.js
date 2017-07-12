@@ -14,11 +14,11 @@ export class Router extends Component {
 export const routes = () => (
   <Container>
     <Switch>
-      <RelayRoute path='/bill/:id' {...scenes.bill} />
+      <RelayRoute path='/' exact {...scenes.search} />
       <Route path='/about' {...scenes.about} />
       <Route path='/faq' {...scenes.faq} />
-      <RelayRoute path='/' {...scenes.search} />
-      <Route path='*' component={NotFoundView} />
+      <RelayRoute path='/bill/:id' {...scenes.bill} />
+      <Route component={NotFoundView} />
     </Switch>
   </Container>
 )
