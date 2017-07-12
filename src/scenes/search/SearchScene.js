@@ -1,43 +1,28 @@
 // @flow
 import React, { Component } from 'react'
-import { createPaginationContainer, graphql } from 'react-relay/compat'
-import type { RelayPaginationProp } from 'react-relay'
+import { createRefetchContainer, graphql } from 'react-relay/compat'
+import type { RelayRefetchProp } from 'react-relay'
 import { withRouter } from 'react-router-dom'
-import moment from 'moment'
 import { throttle } from 'lodash'
+import { initialVariables } from './searchRoute'
 import { Intro, SearchField, BillsList, LoadingIndicator } from './components'
 import { session } from 'shared/storage'
 import { stylesheet, colors, mobile, utils } from 'shared/styles'
-import type { Viewer, Location, RelayQueryConfig } from 'shared/types'
-
-const pageSize = 25
+import type { Viewer, Location } from 'shared/types'
 
 let SearchScene = class SearchScene extends Component {
   props: {
-    relay: RelayPaginationProp,
+    viewer: ?Viewer,
     location: Location,
-    viewer: ?Viewer
+    relay: RelayRefetchProp
   }
 
   state = {
-    query: '',
+    query: initialVariables.query,
     disableAnimations: false
   }
 
   // events
-  didClickLoadMore = () => {
-    const { relay } = this.props
-    if (!relay.hasMore() || relay.isLoading()) {
-      return
-    }
-
-    relay.loadMore(pageSize, (error: ?Error) => {
-      if (error) {
-        console.error(`error loading next page: ${error.toString()}`)
-      }
-    })
-  }
-
   searchFieldDidChange = (query: string) => {
     this.setState({ query })
     this.filterBillsForQuery(query)
@@ -50,7 +35,7 @@ let SearchScene = class SearchScene extends Component {
   // helpers
   setVariablesUnanimated (variables: Object) {
     this.setState({ disableAnimations: true })
-    this.props.relay.refetchConnection(pageSize, (error: ?Error) => {
+    this.props.relay.refetch(variables, null, (error: ?Error) => {
       if (error) {
         console.error(`error updaing query: ${error.toString()}`)
       }
@@ -82,7 +67,6 @@ let SearchScene = class SearchScene extends Component {
   render () {
     const { viewer } = this.props
     const { query, disableAnimations } = this.state
-    const { startDate, endDate } = queryConfig.variables
 
     return <div {...rules.container}>
       <div {...rules.header}>
@@ -99,11 +83,8 @@ let SearchScene = class SearchScene extends Component {
           <LoadingIndicator isLoading={!viewer} />
         </div>
         {viewer && <BillsList
-          bills={viewer.bills}
-          startDate={startDate}
-          endDate={endDate}
+          viewer={viewer}
           animated={!disableAnimations}
-          onLoadMore={this.didClickLoadMore}
         />}
       </div>
     </div>
@@ -159,58 +140,31 @@ const rules = stylesheet({
   }
 })
 
-export const queryConfig: RelayQueryConfig<*> = {
-  query: graphql`
-    query SearchSceneQuery(
-      $first: Int!
-      $startDate: Time!
-      $endDate: Time!
-      $query: String!
-    ) {
-      viewer {
-        ...SearchScene_viewer
-      }
-    }
-  `,
-  variables: {
-    first: pageSize,
-    startDate: moment().startOf('day'),
-    endDate: moment().add(6, 'days').endOf('day'),
-    query: ''
-  }
-}
-
-SearchScene = createPaginationContainer(withRouter(SearchScene), graphql`
+SearchScene = createRefetchContainer(withRouter(SearchScene), graphql`
   fragment SearchScene_viewer on Viewer {
     bills(
-      first: $first,
+      first: $count,
+      after: $cursor,
+      query: $query,
       from: $startDate,
-      to: $endDate,
-      query: $query
-    ) @connection(key: "SearchScene_bills") {
+      to: $endDate
+    ) {
       edges { node { id } }
-      ...BillsList_bills
+    }
+    ...BillsList_viewer
+  }
+`, graphql`
+  query SearchSceneQuery(
+    $count: Int!,
+    $cursor: String!,
+    $query: String!,
+    $startDate: Time!,
+    $endDate: Time!
+  ) {
+    viewer {
+      ...SearchScene_viewer
     }
   }
-`, {
-  direction: 'forward',
-  getConnectionFromProps (props) {
-    return props.viewer && props.viewer.bills
-  },
-  getFragmentVariables (prevVars, totalCount) {
-    return {
-      ...prevVars,
-      count: totalCount
-    }
-  },
-  getVariables (props, { count, cursor }, fragmentVariables) {
-    return {
-      ...fragmentVariables,
-      count,
-      cursor
-    }
-  },
-  query: queryConfig.query
-})
+`)
 
 export { SearchScene }

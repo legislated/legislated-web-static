@@ -37,12 +37,12 @@ export class RelayRoute<P, C: Class<Component<*, P, *>>> extends Component<*, *,
 
   container = (props: Object) => {
     const { environment } = this.state
-    const { query, variables, render } = this.props
+    const { query, initialVariables, render } = this.props
 
     return <QueryRenderer
       environment={environment}
       query={query}
-      variables={variables}
+      variables={initialVariables}
       render={({ error, props }: { error: Error, props: ?P }) => {
         if (error) {
           throw new Error(error) // TODO: show error view

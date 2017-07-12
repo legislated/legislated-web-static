@@ -20,7 +20,8 @@
     "lint:fix": "snazzy --fix",
     "flow:restart": "flow stop && flow",
     "validate": "yarn lint && yarn flow && yarn test",
-    "relay": "relay-compiler --src ./src --schema schema.json"
+    "relay": "relay-compiler --src ./src --schema schema.json",
+    "relay:watch": "yarn relay -- --watch"
   },
   "dependencies": {
     "color": "^1.0.3",
