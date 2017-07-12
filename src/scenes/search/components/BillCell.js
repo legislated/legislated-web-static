@@ -49,6 +49,21 @@ let BillCell = class BillCell extends Component {
   }
 }
 
+BillCell = createFragmentContainer(BillCell, graphql`
+  fragment BillCell_bill on Bill {
+    id
+    documentNumber
+    title
+    summary
+    witnessSlipUrl
+    detailsUrl
+    fullTextUrl
+    hearing {
+      date
+    }
+  }
+`)
+
 const rules = stylesheet({
   container: {
     ...shadows.low,
@@ -121,20 +136,5 @@ const rules = stylesheet({
     paddingTop: 10
   }
 })
-
-BillCell = createFragmentContainer(BillCell, graphql`
-  fragment BillCell_bill on Bill {
-    id
-    documentNumber
-    title
-    summary
-    witnessSlipUrl
-    detailsUrl
-    fullTextUrl
-    hearing {
-      date
-    }
-  }
-`)
 
 export { BillCell }

@@ -68,44 +68,6 @@ let BillsList = class BillsList extends Component {
   }
 }
 
-const rules = stylesheet({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch'
-  },
-  header: {
-    marginBottom: 15,
-    '> h2': {
-      display: 'inline-block',
-      marginBottom: 5,
-      ...mobile({
-        marginBottom: 0
-      })
-    },
-    '> div': {
-      fontSize: 18,
-      ':first-of-type': {
-        display: 'inline-block',
-        marginLeft: 5
-      },
-      ...mobile({
-        fontSize: 16,
-        ':first-of-type': {
-          display: 'none'
-        }
-      })
-    }
-  },
-  loadMoreButton: {
-    alignSelf: 'center',
-    marginTop: 30,
-    ...mobile({
-      marginTop: 20
-    })
-  }
-})
-
 BillsList = createPaginationContainer(BillsList,
   graphql`
     fragment BillsList_viewer on Viewer {
@@ -149,5 +111,43 @@ BillsList = createPaginationContainer(BillsList,
     `
   })
 )
+
+const rules = stylesheet({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch'
+  },
+  header: {
+    marginBottom: 15,
+    '> h2': {
+      display: 'inline-block',
+      marginBottom: 5,
+      ...mobile({
+        marginBottom: 0
+      })
+    },
+    '> div': {
+      fontSize: 18,
+      ':first-of-type': {
+        display: 'inline-block',
+        marginLeft: 5
+      },
+      ...mobile({
+        fontSize: 16,
+        ':first-of-type': {
+          display: 'none'
+        }
+      })
+    }
+  },
+  loadMoreButton: {
+    alignSelf: 'center',
+    marginTop: 30,
+    ...mobile({
+      marginTop: 20
+    })
+  }
+})
 
 export { BillsList }

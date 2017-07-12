@@ -91,6 +91,36 @@ let SearchScene = class SearchScene extends Component {
   }
 }
 
+SearchScene = createRefetchContainer(withRouter(SearchScene),
+  graphql`
+    fragment SearchScene_viewer on Viewer {
+      bills(
+        first: $count,
+        after: $cursor,
+        query: $query,
+        from: $startDate,
+        to: $endDate
+      ) {
+        edges { node { id } }
+      }
+      ...BillsList_viewer
+    }
+  `,
+  graphql`
+    query SearchSceneQuery(
+      $count: Int!,
+      $cursor: String!,
+      $query: String!,
+      $startDate: Time!,
+      $endDate: Time!
+    ) {
+      viewer {
+        ...SearchScene_viewer
+      }
+    }
+  `
+)
+
 const rules = stylesheet({
   container: {
     ...utils.column
@@ -139,34 +169,5 @@ const rules = stylesheet({
     ...utils.column
   }
 })
-
-SearchScene = createRefetchContainer(withRouter(SearchScene),
-  graphql`
-    fragment SearchScene_viewer on Viewer {
-      bills(
-        first: $count,
-        after: $cursor,
-        query: $query,
-        from: $startDate,
-        to: $endDate
-      ) {
-        edges { node { id } }
-      }
-      ...BillsList_viewer
-    }
-  `,
-  graphql`
-    query SearchSceneQuery(
-      $count: Int!,
-      $cursor: String!,
-      $query: String!,
-      $startDate: Time!,
-      $endDate: Time!
-    ) {
-      viewer {
-        ...SearchScene_viewer
-      }
-    }
-  `)
 
 export { SearchScene }
