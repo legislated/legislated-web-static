@@ -39,6 +39,6 @@ export const routes = () => (
 //   }
 //
 //   if (hasEnteredSearch && pathname !== '/') {
-//     local.set('@@legislated/intro-visited', 'true')
+//     local.set('intro-visited', 'true')
 //   }
 // }

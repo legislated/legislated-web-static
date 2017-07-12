@@ -17,11 +17,8 @@ export const searchRoute: RelayRouteDestination<*, *, *> = {
   component: SearchScene,
   query: graphql`
     query searchRouteQuery(
-      $count: Int!,
-      $cursor: String!
-      $query: String!,
-      $startDate: Time!,
-      $endDate: Time!
+      $count: Int!, $cursor: String!
+      $query: String!, $startDate: Time!, $endDate: Time!
     ) {
       viewer {
         ...SearchScene_viewer

@@ -29,11 +29,11 @@ let SearchScene = class SearchScene extends Component {
   }
 
   filterBillsForQuery = throttle((query: string) => {
-    this.setVariablesUnanimated({ query })
+    this.refetchUnanimated({ query })
   }, 300)
 
   // helpers
-  setVariablesUnanimated (variables: Object) {
+  refetchUnanimated (variables: Object) {
     this.setState({ disableAnimations: true })
     this.props.relay.refetch(variables, null, (error: ?Error) => {
       if (error) {
@@ -43,25 +43,27 @@ let SearchScene = class SearchScene extends Component {
       requestAnimationFrame(() => {
         this.setState({ disableAnimations: false })
       })
-    }, variables)
+    })
   }
 
   // lifecycle
   componentWillMount () {
+    const count = session.get('last-search-count')
     const { location } = this.props
-    const count = session.get('@@legislated/last-search-count')
 
     if (count && location && location.action === 'POP') {
       const first = Number.parseInt(count)
-      this.setVariablesUnanimated({ first })
+      this.refetchUnanimated({ first })
     }
 
-    session.set('@@legislated/last-search-count', null)
+    session.set('last-search-count', null)
   }
 
   componentWillUnmount () {
-    const { first } = this.props.relay.variables
-    session.set('@@legislated/last-search-count', `${first}`)
+    const { viewer } = this.props
+    if (viewer) {
+      session.set('last-search-count', `${viewer.bills.edges.length}`)
+    }
   }
 
   render () {
@@ -95,11 +97,8 @@ SearchScene = createRefetchContainer(withRouter(SearchScene),
   graphql`
     fragment SearchScene_viewer on Viewer {
       bills(
-        first: $count,
-        after: $cursor,
-        query: $query,
-        from: $startDate,
-        to: $endDate
+        first: $count, after: $cursor,
+        query: $query, from: $startDate, to: $endDate
       ) {
         edges { node { id } }
       }
@@ -108,11 +107,8 @@ SearchScene = createRefetchContainer(withRouter(SearchScene),
   `,
   graphql`
     query SearchSceneQuery(
-      $count: Int!,
-      $cursor: String!,
-      $query: String!,
-      $startDate: Time!,
-      $endDate: Time!
+      $count: Int!, $cursor: String!,
+      $query: String!, $startDate: Time!, $endDate: Time!
     ) {
       viewer {
         ...SearchScene_viewer

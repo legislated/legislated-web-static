@@ -72,11 +72,8 @@ BillsList = createPaginationContainer(BillsList,
   graphql`
     fragment BillsList_viewer on Viewer {
       bills(
-        first: $count,
-        after: $cursor,
-        query: $query,
-        from: $startDate,
-        to: $endDate
+        first: $count, after: $cursor,
+        query: $query, from: $startDate, to: $endDate
       ) @connection(key: "BillsList_bills") {
         count
         pageInfo {
@@ -98,11 +95,8 @@ BillsList = createPaginationContainer(BillsList,
     },
     query: graphql`
       query BillsListQuery(
-        $count: Int!,
-        $cursor: String!,
-        $query: String!,
-        $startDate: Time!,
-        $endDate: Time!
+        $count: Int!, $cursor: String!,
+        $query: String!, $startDate: Time!, $endDate: Time!
       ) {
         viewer {
           ...BillsList_viewer

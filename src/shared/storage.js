@@ -1,35 +1,39 @@
 /* globals Storage, localStorage, sessionStorage */
 // @flow
-type Keys<K> = {
-  [key: string]: K
+
+function namespaceKey (key: string): string {
+  return `@@legislated/${key}`
 }
 
 class Store<K: string> {
   storage: Storage
 
-  constructor (storage: Storage, keys?: Keys<K>) {
+  constructor (storage: Storage) {
     this.storage = storage
   }
 
   set (key: K, value: ?string) {
+    const actualKey = namespaceKey(key)
+
     if (value) {
-      this.storage.setItem(key, value)
+      this.storage.setItem(actualKey, value)
     } else {
-      this.storage.removeItem(key)
+      this.storage.removeItem(actualKey)
     }
   }
 
   get (key: K): ?string {
-    return this.storage.getItem(key)
+    const actualKey = namespaceKey(key)
+    return this.storage.getItem(actualKey)
   }
 }
 
-type LocalStoreKey =
-  '@@legislated/intro-visited'
+type LocalStoreKey
+  = 'intro-visited'
 
-type SessionStoreKey =
-  '@@legislated/last-search-count' |
-  '@@legislated/admin-header'
+type SessionStoreKey
+  = 'last-search-count'
+  | 'admin-header'
 
 export const local: Store<LocalStoreKey> = new Store(localStorage)
 export const session: Store<SessionStoreKey> = new Store(sessionStorage)
