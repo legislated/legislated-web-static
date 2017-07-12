@@ -45,7 +45,7 @@ const AdminFilter = (props: ContextRouter) => {
 const AdminRoutes = (props: ContextRouter) => (
   <Switch>
     <Route path='/admin/sign-in' {...scenes.adminAuth} />
-    {/* <RelayRoute path='/admin/bills' {...scenes.adminBills} /> */}
+    <RelayRoute path='/admin/bills' {...scenes.adminBills} />
     <Redirect to='/admin/sign-in' />
   </Switch>
 )
