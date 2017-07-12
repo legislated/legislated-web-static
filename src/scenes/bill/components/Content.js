@@ -52,6 +52,25 @@ let Content = class Content extends Component {
   }
 }
 
+Content = createFragmentContainer(Content, graphql`
+  fragment Content_bill on Bill {
+    documentNumber
+    title
+    summary
+    sponsorName
+    hearing {
+      date
+    }
+    committee {
+      name
+    }
+    chamber {
+      name
+    }
+    ...Actions_bill
+  }
+`)
+
 const rules = stylesheet({
   header: {
     display: 'flex',
@@ -101,24 +120,5 @@ const rules = stylesheet({
     color: colors.secondary
   }
 })
-
-Content = createFragmentContainer(Content, graphql`
-  fragment Content_bill on Bill {
-    documentNumber
-    title
-    summary
-    sponsorName
-    hearing {
-      date
-    }
-    committee {
-      name
-    }
-    chamber {
-      name
-    }
-    ...Actions_bill
-  }
-`)
 
 export { Content }

@@ -3,7 +3,7 @@ import React from 'react'
 import { graphql } from 'react-relay'
 import moment from 'moment'
 import { SearchScene } from './SearchScene'
-import type { RelayRouteDestination } from 'shared/types'
+import type { RelayRouteConfig } from 'shared/types'
 
 export const initialVariables = {
   count: 20,
@@ -13,8 +13,7 @@ export const initialVariables = {
   endDate: moment().add(6, 'days').endOf('day')
 }
 
-export const searchRoute: RelayRouteDestination<*, *, *> = {
-  component: SearchScene,
+export const searchRoute: RelayRouteConfig = {
   query: graphql`
     query searchRouteQuery(
       $count: Int!, $cursor: String!

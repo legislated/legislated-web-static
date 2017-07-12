@@ -44,6 +44,15 @@ let Actions = class Actions extends Component {
   }
 }
 
+Actions = createFragmentContainer(Actions, graphql`
+  fragment Actions_bill on Bill {
+    detailsUrl
+    fullTextUrl
+    witnessSlipUrl
+    witnessSlipResultUrl
+  }
+`)
+
 const rules = stylesheet({
   actions: {
     display: 'flex',
@@ -81,14 +90,5 @@ const rules = stylesheet({
     })
   }
 })
-
-Actions = createFragmentContainer(Actions, graphql`
-  fragment Actions_bill on Bill {
-    detailsUrl
-    fullTextUrl
-    witnessSlipUrl
-    witnessSlipResultUrl
-  }
-`)
 
 export { Actions }

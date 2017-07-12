@@ -2,16 +2,15 @@
 import React, { Component } from 'react'
 import { QueryRenderer } from 'react-relay'
 import { Route } from 'react-router-dom'
+import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
 import { currentEnvironment } from 'shared/relay'
 import { events } from 'shared/events'
-import type { RelayRouteDestination } from 'shared/types'
+import type { RelayRouteConfig } from 'shared/types'
 
-type RelayRouteProps<P, C: Class<Component<*, P, *>>> = {
-  path: string,
-} & RelayRouteDestination<P, C, *>
-
-export class RelayRoute<P, C: Class<Component<*, P, *>>> extends Component<*, *, *> {
-  props: RelayRouteProps<P, C>
+export class RelayRoute extends Component {
+  props: {
+    path: string,
+  } & RelayRouteConfig
 
   state: { environment: Object } = {
     environment: currentEnvironment()
@@ -35,15 +34,22 @@ export class RelayRoute<P, C: Class<Component<*, P, *>>> extends Component<*, *,
     return <Route path={this.props.path} component={this.container} />
   }
 
-  container = (props: Object) => {
+  container = (props: ContextRouter) => {
     const { environment } = this.state
     const { query, initialVariables, render } = this.props
+    const { params } = props.match
+
+    // merge destination variables and route variables
+    const variables = {
+      ...initialVariables,
+      ...params
+    }
 
     return <QueryRenderer
       environment={environment}
       query={query}
-      variables={initialVariables}
-      render={({ error, props }: { error: Error, props: ?P }) => {
+      variables={variables}
+      render={({ error, props }: { error: ?Error, props: ?Object }) => {
         if (error) {
           throw new Error(error) // TODO: show error view
         }

@@ -4,24 +4,32 @@ import { createFragmentContainer, graphql } from 'react-relay'
 import { withRouter } from 'react-router-dom'
 import { Content } from './components'
 import { stylesheet, colors, shadows, borders } from 'shared/styles'
-import type { Bill } from 'shared/types'
+import type { Viewer } from 'shared/types'
 
 let BillScene = class BillScene extends Component {
   props: {
-    bill: ?Bill,
+    viewer: ?Viewer,
   }
 
   // lifecycle
   render () {
-    const { bill } = this.props
+    const { viewer } = this.props
 
     return <div {...rules.container}>
       <div {...rules.content}>
-        {bill ? <Content bill={bill} /> : <div>Loading...</div>}
+        {viewer ? <Content bill={viewer.bill} /> : <div>Loading...</div>}
       </div>
     </div>
   }
 }
+
+BillScene = createFragmentContainer(withRouter(BillScene), graphql`
+  fragment BillScene_viewer on Viewer {
+    bill(id: $id) {
+      ...Content_bill
+    }
+  }
+`)
 
 const rules = stylesheet({
   container: {
@@ -43,11 +51,5 @@ const rules = stylesheet({
     }
   }
 })
-
-BillScene = createFragmentContainer(withRouter(BillScene), graphql`
-  fragment BillScene_bill on Bill {
-    ...Content_bill
-  }
-`)
 
 export { BillScene }
