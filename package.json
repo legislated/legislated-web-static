@@ -111,7 +111,9 @@
       "flow-typed"
     ],
     "globals": [
+      "Class",
       "React$Element",
+      "React$Component",
       "fetch",
       "requestAnimationFrame"
     ]

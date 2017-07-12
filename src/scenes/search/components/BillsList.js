@@ -7,6 +7,7 @@ import { BillCell } from './BillCell'
 import { BillAnimation, billRule } from './BillAnimation'
 import { LoadMoreButton } from './LoadMoreButton'
 import { initialVariables } from '../searchRoute'
+import { withLoadMoreArgs } from 'shared/relay'
 import { stylesheet, mobile } from 'shared/styles'
 import { unwrap } from 'shared/types/Connection'
 import type { Viewer } from 'shared/types' // eslint-disable-line
@@ -105,59 +106,48 @@ const rules = stylesheet({
   }
 })
 
-BillsList = createPaginationContainer(BillsList, graphql`
-  fragment BillsList_viewer on Viewer {
-    bills(
-      first: $count,
-      after: $cursor,
-      query: $query,
-      from: $startDate,
-      to: $endDate
-    ) @connection(key: "BillsList_bills") {
-      count
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          id
-          ...BillCell_bill
+BillsList = createPaginationContainer(BillsList,
+  graphql`
+    fragment BillsList_viewer on Viewer {
+      bills(
+        first: $count,
+        after: $cursor,
+        query: $query,
+        from: $startDate,
+        to: $endDate
+      ) @connection(key: "BillsList_bills") {
+        count
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        edges {
+          node {
+            id
+            ...BillCell_bill
+          }
         }
       }
     }
-  }
-`, {
-  direction: 'forward',
-  query: graphql`
-    query BillsListQuery(
-      $count: Int!,
-      $cursor: String!,
-      $query: String!,
-      $startDate: Time!,
-      $endDate: Time!
-    ) {
-      viewer {
-        ...BillsList_viewer
-      }
-    }
   `,
-  getConnectionFromProps (props) {
-    return props.viewer && props.viewer.bills
-  },
-  getFragmentVariables (prevVars, totalCount) {
-    return {
-      ...prevVars,
-      count: totalCount
-    }
-  },
-  getVariables (props, { count, cursor }, fragmentVariables) {
-    return {
-      ...fragmentVariables,
-      count,
-      cursor
-    }
-  }
-})
+  withLoadMoreArgs({
+    getConnectionFromProps (props) {
+      return props.viewer && props.viewer.bills
+    },
+    query: graphql`
+      query BillsListQuery(
+        $count: Int!,
+        $cursor: String!,
+        $query: String!,
+        $startDate: Time!,
+        $endDate: Time!
+      ) {
+        viewer {
+          ...BillsList_viewer
+        }
+      }
+    `
+  })
+)
 
 export { BillsList }
