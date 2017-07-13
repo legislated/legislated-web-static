@@ -1,4 +1,6 @@
 // @flow
+import type { ContextRouter } from 'react-router-dom'
+
 type Props = Object
 
 export type RouteConfig = {
@@ -8,5 +10,5 @@ export type RouteConfig = {
 export type RelayRouteConfig = {
   query: mixed,
   render: Props => ?React$Element<*>,
-  initialVariables?: Object
+  getInitialVariables?: (ContextRouter) => Object
 }

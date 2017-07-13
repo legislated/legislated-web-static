@@ -6,8 +6,7 @@ import { Button } from 'shared/components'
 import { stylesheet } from 'shared/styles'
 import { auth } from 'shared/auth'
 
-@withRouter
-export class AdminAuthScene extends Component {
+let AdminAuthScene = class AdminAuthScene extends Component {
   props: {
     children?: any
   } & ContextRouter
@@ -56,3 +55,7 @@ const rules = stylesheet({
     }
   }
 })
+
+AdminAuthScene = withRouter(AdminAuthScene)
+
+export { AdminAuthScene }

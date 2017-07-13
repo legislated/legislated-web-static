@@ -1,14 +1,32 @@
 // @flow
 import 'shared/styles/globals'
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
 import { StickyContainer, Sticky } from 'react-sticky'
 import { Header } from './Header'
 import { NotificationView } from 'shared/components'
 import { stylesheet, fonts, mobile } from 'shared/styles'
+import { local } from 'shared/storage'
 
-export class Container extends Component {
-  props: {
-    children?: any
+type ContainerProps = {
+  children?: any
+} & ContextRouter
+
+let Container = class Container extends Component {
+  props: ContainerProps
+
+  componentDidUpdate (prevProps: ContainerProps) {
+    // // set scroll to top
+    // if (this.props.location !== prevProps.location) {
+    //   window.scrollTo(0, 0)
+    // }
+
+    // mark the intro as cleared if we've seen it and left the search scene
+    const { pathname } = this.props.location
+    if (local.get('intro-visited') && pathname !== '/') {
+      local.set('intro-cleared', 'true')
+    }
   }
 
   render () {
@@ -43,3 +61,7 @@ const rules = stylesheet({
     zIndex: 1
   }
 })
+
+Container = withRouter(Container)
+
+export { Container }

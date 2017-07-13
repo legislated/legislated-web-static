@@ -1,24 +1,24 @@
 // @flow
 import React, { Component } from 'react'
 import { createRefetchContainer, graphql } from 'react-relay'
-import type { RelayRefetchProp } from 'react-relay'
+import type { RelayRefetchProp } from 'react-relay' // eslint-disable-line
 import { withRouter } from 'react-router-dom'
+import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
 import { throttle } from 'lodash'
-import { initialVariables } from './searchRoute'
+import { constants } from './searchRoute'
 import { Intro, SearchField, BillsList, LoadingIndicator } from './components'
 import { session } from 'shared/storage'
 import { stylesheet, colors, mobile, utils } from 'shared/styles'
-import type { Viewer, Location } from 'shared/types'
+import type { Viewer } from 'shared/types'
 
 let SearchScene = class SearchScene extends Component {
   props: {
     viewer: ?Viewer,
-    location: Location,
     relay: RelayRefetchProp
-  }
+  } & ContextRouter
 
   state = {
-    query: initialVariables.query,
+    query: constants.query,
     disableAnimations: false
   }
 
@@ -28,14 +28,10 @@ let SearchScene = class SearchScene extends Component {
     this.filterBillsForQuery(query)
   }
 
-  filterBillsForQuery = throttle((query: string) => {
-    this.refetchUnanimated({ query })
-  }, 300)
-
   // helpers
-  refetchUnanimated (variables: Object) {
+  filterBillsForQuery = throttle((query: string) => {
     this.setState({ disableAnimations: true })
-    this.props.relay.refetch(variables, null, (error: ?Error) => {
+    this.props.relay.refetch({ query }, null, (error: ?Error) => {
       if (error) {
         console.error(`error updaing query: ${error.toString()}`)
       }
@@ -44,19 +40,21 @@ let SearchScene = class SearchScene extends Component {
         this.setState({ disableAnimations: false })
       })
     })
-  }
+  }, 300)
 
   // lifecycle
   componentWillMount () {
-    const count = session.get('last-search-count')
-    const { location } = this.props
-
-    if (count && location && location.action === 'POP') {
-      const first = Number.parseInt(count)
-      this.refetchUnanimated({ first })
+    if (this.props.history.action === 'POP') {
+      this.setState({ disableAnimations: true })
     }
+  }
 
-    session.set('last-search-count', null)
+  componentDidMount () {
+    if (this.props.history.action === 'POP') {
+      requestAnimationFrame(() => {
+        this.setState({ disableAnimations: false })
+      })
+    }
   }
 
   componentWillUnmount () {
@@ -82,7 +80,7 @@ let SearchScene = class SearchScene extends Component {
       </div>
       <div {...rules.content}>
         <div {...rules.indicator}>
-          <LoadingIndicator isLoading={!viewer} />
+          <LoadingIndicator isLoading={!viewer && !disableAnimations} />
         </div>
         {viewer && <BillsList
           viewer={viewer}

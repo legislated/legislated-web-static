@@ -1,16 +1,16 @@
 // @flow
 import React, { Component } from 'react'
 import { createPaginationContainer, graphql } from 'react-relay'
-import type { RelayPaginationProp } from 'react-relay'
+import type { RelayPaginationProp } from 'react-relay' // eslint-disable-line
 import type moment from 'moment'
 import { BillCell } from './BillCell'
 import { BillAnimation, billRule } from './BillAnimation'
 import { LoadMoreButton } from './LoadMoreButton'
-import { initialVariables } from '../searchRoute'
+import { constants } from '../searchRoute'
 import { withLoadMoreArgs } from 'shared/relay'
 import { stylesheet, mobile } from 'shared/styles'
+import type { Viewer } from 'shared/types'
 import { unwrap } from 'shared/types/Connection'
-import type { Viewer } from 'shared/types' // eslint-disable-line
 
 function format (date: moment): string {
   return date.format('MMM Do')
@@ -30,19 +30,18 @@ let BillsList = class BillsList extends Component {
       return
     }
 
-    relay.loadMore(initialVariables.count, (error: ?Error) => {
+    relay.loadMore(constants.count, (error: ?Error) => {
       if (error) {
         console.error(`error loading next page: ${error.toString()}`)
       }
     })
   }
 
-  // lifecycle
   render () {
     const { relay, viewer, animated } = this.props
     const { bills } = viewer
     const { count } = bills
-    const { startDate, endDate } = initialVariables
+    const { startDate, endDate } = constants
 
     return <div {...rules.container}>
       <div {...rules.header}>

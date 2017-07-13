@@ -1,5 +1,5 @@
 // @flow
-import { Environment, RecordSource, Store, Network } from 'relay-runtime'
+import { Environment, RecordSource, Store, Network, QueryResponseCache } from 'relay-runtime'
 import config from 'shared/config'
 import { events } from 'shared/events'
 
@@ -20,8 +20,20 @@ events.on(events.setAuthHeader, didSetAuthHeader)
 // helpers
 // see: https://facebook.github.io/relay/docs/network-layer.html
 function createQuery (headers: Object) {
+  const cache = new QueryResponseCache({ size: 250, ttl: 60 * 5 * 1000 })
+
   return async function query (operation, variables): Object {
-    const response = await fetch(config.graphUrl, {
+    // just use the query name for now since id is always null
+    const { name: queryId } = operation.name
+
+    // first check for a cache hit
+    let response = cache.get(queryId, variables)
+    if (response) {
+      return response
+    }
+
+    // fetch data if missed and cache response
+    response = await fetch(config.graphUrl, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -33,7 +45,10 @@ function createQuery (headers: Object) {
       })
     })
 
-    return response.json()
+    const json = await response.json()
+    cache.set(queryId, variables, json)
+
+    return json
   }
 }
 

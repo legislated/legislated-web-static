@@ -30,6 +30,7 @@ class Store<K: string> {
 
 type LocalStoreKey
   = 'intro-visited'
+  | 'intro-cleared'
 
 type SessionStoreKey
   = 'last-search-count'

@@ -20,14 +20,17 @@ export class Intro extends Component {
   // events
   didClickAccept = () => {
     this.setState({ isAccepted: true }, () => {
-      local.set('intro-visited', 'true')
+      local.set('intro-cleared', 'true')
     })
   }
 
   // lifecycle
+  componentWillMount () {
+    local.set('intro-visited', 'true')
+  }
+
   render () {
-    const isVisited = !!local.get('intro-visited')
-    return isVisited ? null : <BillAnimation>
+    return local.get('intro-cleared') ? null : <BillAnimation>
       {this.renderContent()}
     </BillAnimation>
   }

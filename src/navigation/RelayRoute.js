@@ -10,6 +10,7 @@ import type { RelayRouteConfig } from 'shared/types'
 export class RelayRoute extends Component {
   props: {
     path: string,
+    exact?: boolean
   } & RelayRouteConfig
 
   state: { environment: Object } = {
@@ -31,15 +32,22 @@ export class RelayRoute extends Component {
   }
 
   render () {
-    return <Route path={this.props.path} component={this.container} />
+    const { path, exact } = this.props
+
+    return <Route
+      path={path}
+      exact={exact}
+      component={this.container}
+    />
   }
 
   container = (props: ContextRouter) => {
     const { environment } = this.state
-    const { query, initialVariables, render } = this.props
+    const { query, getInitialVariables, render } = this.props
     const { params } = props.match
 
-    // merge destination variables and route variables
+    // merge config variables and route variables
+    const initialVariables = getInitialVariables && getInitialVariables(props)
     const variables = {
       ...initialVariables,
       ...params
