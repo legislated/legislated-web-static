@@ -2,15 +2,18 @@
 import React, { Component } from 'react'
 import { createPaginationContainer, graphql } from 'react-relay'
 import type { RelayPaginationProp } from 'react-relay' // eslint-disable-line
+import { withRouter } from 'react-router-dom'
+import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
 import type moment from 'moment'
 import { BillCell } from './BillCell'
 import { BillAnimation, billRule } from './BillAnimation'
 import { LoadMoreButton } from './LoadMoreButton'
 import { constants } from '../searchRoute'
 import { withLoadMoreArgs } from 'shared/relay'
+import { session } from 'shared/storage'
 import { stylesheet, mobile } from 'shared/styles'
-import type { Viewer } from 'shared/types'
 import { unwrap } from 'shared/types/Connection'
+import type { Viewer } from 'shared/types'
 
 function format (date: moment): string {
   return date.format('MMM Do')
@@ -21,6 +24,10 @@ let BillsList = class BillsList extends Component {
     viewer: Viewer,
     animated: Boolean,
     relay: RelayPaginationProp
+  } & ContextRouter
+
+  state = {
+    disableAnimations: false
   }
 
   // events
@@ -37,7 +44,30 @@ let BillsList = class BillsList extends Component {
     })
   }
 
+  // lifecycle
+  componentWillMount () {
+    if (this.props.history.action === 'POP') {
+      this.setState({ disableAnimations: true })
+    }
+  }
+
+  componentDidMount () {
+    if (this.props.history.action === 'POP') {
+      requestAnimationFrame(() => {
+        this.setState({ disableAnimations: false })
+      })
+    }
+  }
+
+  componentWillUnmount () {
+    const { viewer } = this.props
+    if (viewer) {
+      session.set('last-search-count', `${viewer.bills.edges.length}`)
+    }
+  }
+
   render () {
+    const { disableAnimations } = this.state
     const { relay, viewer, animated } = this.props
     const { bills } = viewer
     const { count } = bills
@@ -49,7 +79,7 @@ let BillsList = class BillsList extends Component {
         <div>{`${format(startDate)} to ${format(endDate)}`}</div>
         <div>{`Found ${count} result${count === 1 ? '' : 's'}.`}</div>
       </div>
-      <BillAnimation disable={!animated}>
+      <BillAnimation disable={!animated || disableAnimations}>
         {this.renderBills(unwrap(bills))}
       </BillAnimation>
       <LoadMoreButton
@@ -67,7 +97,7 @@ let BillsList = class BillsList extends Component {
   }
 }
 
-BillsList = createPaginationContainer(BillsList,
+BillsList = createPaginationContainer(withRouter(BillsList),
   graphql`
     fragment BillsList_viewer on Viewer {
       bills(

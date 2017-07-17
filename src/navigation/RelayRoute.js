@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { QueryRenderer } from 'react-relay'
 import { Route } from 'react-router-dom'
 import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
-import { currentEnvironment } from 'shared/relay'
+import { currentEnvironment, cacheResolvers } from 'shared/relay'
 import { events } from 'shared/events'
 import type { RelayRouteConfig } from 'shared/types'
 
@@ -25,10 +25,20 @@ export class RelayRoute extends Component {
   // lifecycle
   componentWillMount () {
     events.on(events.setEnvironment, this.didSetEnvironment)
+
+    const { cacheResolver } = this.props
+    if (cacheResolver) {
+      cacheResolvers.add(cacheResolver)
+    }
   }
 
   componentWillUnmount () {
     events.off(events.setEnvironment, this.didSetEnvironment)
+
+    const { cacheResolver } = this.props
+    if (cacheResolver) {
+      cacheResolvers.remove(cacheResolver)
+    }
   }
 
   render () {
@@ -57,7 +67,7 @@ export class RelayRoute extends Component {
       environment={environment}
       query={query}
       variables={variables}
-      render={({ error, props }: { error: ?Error, props: Object }) => {
+      render={({ error, props }: { error: ?Error, props: ?Object }) => {
         if (error) {
           throw new Error(error) // TODO: show error view
         }

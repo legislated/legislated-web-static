@@ -1,4 +1,5 @@
 // @flow
 export type Edge<T> = {
-  node: T
+  node: T,
+  cursor: string
 }

@@ -7,7 +7,6 @@ import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
 import { throttle } from 'lodash'
 import { constants } from './searchRoute'
 import { Intro, SearchField, BillsList, LoadingIndicator } from './components'
-import { session } from 'shared/storage'
 import { stylesheet, colors, mobile, utils } from 'shared/styles'
 import type { Viewer } from 'shared/types'
 
@@ -29,7 +28,7 @@ let SearchScene = class SearchScene extends Component {
   }
 
   // helpers
-  filterBillsForQuery = throttle((query: string) => {
+  filterBillsForQuery: (query: string) => void = throttle((query: string) => {
     this.setState({ disableAnimations: true })
     this.props.relay.refetch({ query }, null, (error: ?Error) => {
       if (error) {
@@ -43,27 +42,6 @@ let SearchScene = class SearchScene extends Component {
   }, 300)
 
   // lifecycle
-  componentWillMount () {
-    if (this.props.history.action === 'POP') {
-      this.setState({ disableAnimations: true })
-    }
-  }
-
-  componentDidMount () {
-    if (this.props.history.action === 'POP') {
-      requestAnimationFrame(() => {
-        this.setState({ disableAnimations: false })
-      })
-    }
-  }
-
-  componentWillUnmount () {
-    const { viewer } = this.props
-    if (viewer) {
-      session.set('last-search-count', `${viewer.bills.edges.length}`)
-    }
-  }
-
   render () {
     const { viewer } = this.props
     const { query, disableAnimations } = this.state
@@ -80,7 +58,7 @@ let SearchScene = class SearchScene extends Component {
       </div>
       <div {...rules.content}>
         <div {...rules.indicator}>
-          <LoadingIndicator isLoading={!viewer && !disableAnimations} />
+          <LoadingIndicator isLoading={!viewer} />
         </div>
         {viewer && <BillsList
           viewer={viewer}
