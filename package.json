@@ -24,21 +24,21 @@
     "relay:watch": "yarn relay -- --watch"
   },
   "dependencies": {
-    "color": "^1.0.3",
+    "color": "^2.0.0",
     "eventemitter3": "^2.0.3",
-    "glamor": "^2.20.24",
+    "glamor": "2.20.25",
     "js-base64": "^2.1.9",
     "lodash": "^4.17.2",
     "moment": "^2.18.1",
-    "react": "^15.4.1",
-    "react-addons-css-transition-group": "^15.4.2",
+    "react": "^15.6.1",
+    "react-addons-css-transition-group": "^15.6.0",
     "react-copy-to-clipboard": "^5.0.0",
-    "react-dom": "^15.4.1",
-    "react-fontawesome": "^1.5.0",
+    "react-dom": "^15.6.1",
+    "react-fontawesome": "^1.6.1",
     "react-relay": "^1.1.0",
-    "react-router-dom": "^4.1.1",
+    "react-router-dom": "^4.1.2",
     "react-router-scroll": "ytase/react-router-scroll#build",
-    "react-sticky": "^5.0.8",
+    "react-sticky": "5.0.8",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
@@ -77,11 +77,26 @@
   },
   "babel": {
     "presets": [
-      ["env", {"targets": {"browsers": ["last 2 versions"] }}],
+      [
+        "env",
+        {
+          "targets": {
+            "browsers": [
+              "last 2 versions"
+            ]
+          }
+        }
+      ],
       "react"
     ],
     "plugins": [
-      ["relay", {"compat": true, "schema": "schema.json"}],
+      [
+        "relay",
+        {
+          "compat": true,
+          "schema": "schema.json"
+        }
+      ],
       "transform-flow-strip-types",
       "transform-class-properties",
       "transform-object-rest-spread"
