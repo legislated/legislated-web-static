@@ -35,6 +35,7 @@ let SearchScene = class SearchScene extends Component {
         console.error(`error updaing query: ${error.toString()}`)
       }
 
+      // completion comes back before render
       requestAnimationFrame(() => {
         this.setState({ disableAnimations: false })
       })

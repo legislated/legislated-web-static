@@ -53,9 +53,7 @@ let BillsList = class BillsList extends Component {
 
   componentDidMount () {
     if (this.props.history.action === 'POP') {
-      requestAnimationFrame(() => {
-        this.setState({ disableAnimations: false })
-      })
+      this.setState({ disableAnimations: false })
     }
   }
 
