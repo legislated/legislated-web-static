@@ -42,18 +42,18 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.0.0",
-    "babel-eslint": "^7.1.1",
-    "babel-jest": "^19.0.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.1",
     "babel-plugin-relay": "^1.1.0",
-    "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.16.0",
-    "babel-preset-latest": "^6.16.0",
-    "babel-preset-react": "^6.16.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
     "enzyme": "^2.8.0",
@@ -77,17 +77,11 @@
   },
   "babel": {
     "presets": [
-      "latest",
+      ["env", {"targets": {"browsers": ["last 2 versions"] }}],
       "react"
     ],
     "plugins": [
-      [
-        "relay",
-        {
-          "compat": true,
-          "schema": "schema.json"
-        }
-      ],
+      ["relay", {"compat": true, "schema": "schema.json"}],
       "transform-flow-strip-types",
       "transform-class-properties",
       "transform-object-rest-spread"
