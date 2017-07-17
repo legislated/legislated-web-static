@@ -351,14 +351,15 @@ babel-core@^6.24.1, babel-core@^6.25.0:
     slash "^1.0.0"
     source-map "^0.5.0"
 
-babel-eslint@^7.2.3:
-  version "7.2.3"
-  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-7.2.3.tgz#b2fe2d80126470f5c19442dc757253a897710827"
+babel-eslint@7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-7.2.0.tgz#8941514b9dead06f0df71b29d5d5b193a92ee0ae"
   dependencies:
     babel-code-frame "^6.22.0"
     babel-traverse "^6.23.1"
     babel-types "^6.23.0"
-    babylon "^6.17.0"
+    babylon "^6.16.1"
+    lodash "^4.17.4"
 
 babel-generator@6.25.0, babel-generator@^6.25.0:
   version "6.25.0"
@@ -996,7 +997,7 @@ babylon@^6.11.0, babylon@^6.13.0, babylon@^6.15.0:
   version "6.16.1"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.16.1.tgz#30c5a22f481978a9e7f8cdfdf496b11d94b404d3"
 
-babylon@^6.17.0, babylon@^6.17.2, babylon@^6.17.4:
+babylon@^6.16.1, babylon@^6.17.2, babylon@^6.17.4:
   version "6.17.4"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.17.4.tgz#3e8b7402b88d22c3423e137a1577883b15ff869a"
 
