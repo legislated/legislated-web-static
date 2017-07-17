@@ -46,7 +46,7 @@
     "babel-core": "^6.0.0",
     "babel-eslint": "^7.1.1",
     "babel-jest": "^19.0.0",
-    "babel-loader": "^6.4.1",
+    "babel-loader": "^7.1.1",
     "babel-plugin-relay": "^1.1.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -59,9 +59,9 @@
     "enzyme": "^2.8.0",
     "eslint": ">=2.0.0",
     "eslint-plugin-flowtype": "^2.30.4",
-    "file-loader": "^0.11.1",
+    "file-loader": "^0.11.2",
     "flow-bin": "^0.50.0",
-    "html-webpack-plugin": "^2.28.0",
+    "html-webpack-plugin": "^2.29.0",
     "image-webpack-loader": "^3.3.1",
     "jest": "^19.0.2",
     "jest-enzyme": "^3.0.0",
@@ -69,8 +69,8 @@
     "relay-compiler": "^1.1.0",
     "snazzy": "^6.0.0",
     "standard": "^9.0.2",
-    "webpack": "^2.3.2",
-    "webpack-dev-server": "^2.4.2"
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1"
   },
   "graphql": {
     "file": "./schema.json"
