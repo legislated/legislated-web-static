@@ -9,10 +9,9 @@ import { BillCell } from './BillCell'
 import { BillAnimation, billRule } from './BillAnimation'
 import { LoadMoreButton } from './LoadMoreButton'
 import { constants } from '../searchRoute'
-import { withLoadMoreArgs } from 'shared/relay'
+import { withLoadMoreArgs, unwrap } from 'shared/relay'
 import { session } from 'shared/storage'
 import { stylesheet, mobile } from 'shared/styles'
-import { unwrap } from 'shared/types/Connection'
 import type { Viewer } from 'shared/types'
 
 function format (date: moment): string {

@@ -1,14 +1,26 @@
 // @flow
-export type { Viewer } from './Viewer'
-export type { Bill } from './Bill'
-export type { Hearing } from './Hearing'
-export type { Committee } from './Committee'
-export type { Chamber } from './Chamber'
-export type { Connection, SearchConnection } from './Connection'
-export type { Location } from './Location'
-export type { History } from './History'
-export type { Notification } from './Notification'
-export type { RelayProp } from './RelayProp'
-export type { StyleProp } from './StyleProp'
-export type { RelayCacheResovler } from './relay'
-export type { RouteConfig, RelayRouteConfig } from './router'
+export type {
+  StyleProp,
+  Notification
+} from './client'
+
+export type {
+  Viewer,
+  Bill,
+  Hearing,
+  Committee,
+  Chamber,
+  Connection,
+  SearchConnection,
+  Edge,
+  PageInfo
+} from './graph'
+
+export type {
+  RelayCacheResovler
+} from './relay'
+
+export type {
+  RouteConfig,
+  RelayRouteConfig
+} from './routes'

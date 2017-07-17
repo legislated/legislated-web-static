@@ -1,7 +1,6 @@
 // @flow
 import { isEmpty } from 'lodash'
-
-export type StyleProp = Object | Array<Object>
+import type { StyleProp } from 'shared/types'
 
 export function combine (prop: ?StyleProp): Array<Object> {
   if (!prop || isEmpty(prop)) {

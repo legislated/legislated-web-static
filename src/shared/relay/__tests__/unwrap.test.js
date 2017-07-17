@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { unwrap } from '../Connection'
+import { unwrap } from '../unwrap'
 
 describe('#unwrap', () => {
   it('unwraps the nodes', () => {
