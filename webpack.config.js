@@ -3,6 +3,7 @@ var path = require('path')
 var HtmlPlugin = require('html-webpack-plugin')
 var CleanPlugin = require('clean-webpack-plugin')
 var CopyPlugin = require('copy-webpack-plugin')
+var RelayCompilerPlugin = require('relay-compiler-webpack-plugin')
 
 module.exports = function (config) {
   return {
@@ -32,6 +33,10 @@ module.exports = function (config) {
         'process.env': {
           'ENVIRONMENT': JSON.stringify(config.env)
         }
+      }),
+      new RelayCompilerPlugin({
+        src: path.resolve('./src'),
+        schema: path.resolve('./schema.json')
       }),
       new HtmlPlugin({
         template: './src/index.ejs',

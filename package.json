@@ -67,6 +67,7 @@
     "jest-enzyme": "^3.5.3",
     "react-addons-test-utils": "^15.6.0",
     "relay-compiler": "^1.1.0",
+    "relay-compiler-webpack-plugin": "danielholmes/relay-compiler-webpack-plugin#relay-compiler-1.1.0-compat",
     "snazzy": "^7.0.0",
     "standard": "^10.0.2",
     "webpack": "^3.3.0",

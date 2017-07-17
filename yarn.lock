@@ -5769,6 +5769,10 @@ relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
 
+relay-compiler-webpack-plugin@danielholmes/relay-compiler-webpack-plugin#relay-compiler-1.1.0-compat:
+  version "0.3.0"
+  resolved "https://codeload.github.com/danielholmes/relay-compiler-webpack-plugin/tar.gz/ce36a74e6e3e2a82850ed0af58e9b8856aa2cf45"
+
 relay-compiler@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/relay-compiler/-/relay-compiler-1.1.0.tgz#39435607ff9d145a6bbfd5fe09aa2a44d1cf5aa3"
