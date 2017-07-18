@@ -1,6 +1,5 @@
 /* eslint-env jest */
 import React from 'react'
-import moment from 'moment'
 import { shallow, mount } from 'enzyme'
 import { SearchScene } from '../SearchScene'
 import { relayRefetchProp } from 'mocks/relayProps'
