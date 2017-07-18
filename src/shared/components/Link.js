@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { css } from 'glamor'
-import type { Rule } from 'glamor' // eslint-disable-line
+import type { Rule } from 'glamor'
 import { stylesheet, colors } from 'shared/styles'
 
 export type LinkProps = {

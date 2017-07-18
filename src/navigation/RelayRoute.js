@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { QueryRenderer } from 'react-relay'
 import { Route } from 'react-router-dom'
-import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
+import type { ContextRouter } from 'react-router-dom'
 import { currentEnvironment, cacheResolvers } from 'shared/relay'
 import { events } from 'shared/events'
 import type { RelayRouteConfig } from 'shared/types'

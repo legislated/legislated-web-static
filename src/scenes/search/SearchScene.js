@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import { createRefetchContainer, graphql } from 'react-relay'
-import type { RelayRefetchProp } from 'react-relay' // eslint-disable-line
+import type { RelayRefetchProp } from 'react-relay'
 import { withRouter } from 'react-router-dom'
-import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
+import type { ContextRouter } from 'react-router-dom'
 import { throttle } from 'lodash'
 import { constants } from './searchRoute'
 import { Intro, SearchField, BillsList, LoadingIndicator } from './components'

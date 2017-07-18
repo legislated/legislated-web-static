@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
+import type { ContextRouter } from 'react-router-dom'
 import { Button } from 'shared/components'
 import { stylesheet } from 'shared/styles'
 import { auth } from 'shared/auth'

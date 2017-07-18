@@ -1,6 +1,6 @@
 // @flow
 import { Network, QueryResponseCache } from 'relay-runtime'
-import type { QueryResult, QueryPayload } from 'relay-runtime' // eslint-disable-line
+import type { QueryResult, QueryPayload } from 'relay-runtime'
 import { getCacheResolver } from './cacheResolvers'
 import config from 'shared/config'
 

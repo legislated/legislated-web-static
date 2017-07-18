@@ -2,7 +2,7 @@
 import 'shared/styles/globals'
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
+import type { ContextRouter } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { Header } from './Header'
 import { NotificationView } from 'shared/components'
@@ -17,11 +17,6 @@ let Container = class Container extends Component {
   props: ContainerProps
 
   componentDidUpdate (prevProps: ContainerProps) {
-    // // set scroll to top
-    // if (this.props.location !== prevProps.location) {
-    //   window.scrollTo(0, 0)
-    // }
-
     // mark the intro as cleared if we've seen it and left the search scene
     const { pathname } = this.props.location
     if (local.get('intro-visited') && pathname !== '/') {

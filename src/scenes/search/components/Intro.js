@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
-import type { Rule } from 'glamor' // eslint-disable-line
+import type { Rule } from 'glamor'
 import { BillAnimation } from './BillAnimation'
 import { Link } from 'shared/components'
 import { local } from 'shared/storage'

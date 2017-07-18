@@ -1,7 +1,7 @@
 // @flow
 import { reduce, defaults } from 'lodash'
 import { css } from 'glamor'
-import type { RuleDefinition, RuleProp } from 'glamor' // eslint-disable-line
+import type { RuleDefinition, RuleProp } from 'glamor'
 
 type RuleDefinitionMap = { [key: string]: RuleDefinition }
 type RulePropMap = { [key: string]: RuleProp }

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { createFragmentContainer, graphql } from 'react-relay'
 import moment from 'moment'
 import { css } from 'glamor'
-import type { Rule } from 'glamor' // eslint-disable-line
+import type { Rule } from 'glamor'
 import type { Bill } from 'shared/types'
 import { Button } from 'shared/components'
 import { stylesheet, fonts, colors, shadows, borders, mobile } from 'shared/styles'

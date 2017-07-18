@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { css } from 'glamor'
-import type { Rule } from 'glamor' // eslint-disable-line
+import type { Rule } from 'glamor'
 import { stylesheet, colors, shadows } from 'shared/styles'
 
 export class LoadMoreButton extends Component {

@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { createFragmentContainer, graphql } from 'react-relay'
 import { withRouter } from 'react-router-dom'
-import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
+import type { ContextRouter } from 'react-router-dom'
 import { auth } from 'shared/auth'
 import { Button } from 'shared/components'
 import type { Viewer } from 'shared/types'

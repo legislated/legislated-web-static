@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
+import type { ContextRouter } from 'react-router-dom'
 import { RelayRoute } from './RelayRoute'
 import * as scenes from '../scenes'
 import { auth } from 'shared/auth'

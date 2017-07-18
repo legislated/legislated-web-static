@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import { createPaginationContainer, graphql } from 'react-relay'
-import type { RelayPaginationProp } from 'react-relay' // eslint-disable-line
+import type { RelayPaginationProp } from 'react-relay'
 import { withRouter } from 'react-router-dom'
-import type { ContextRouter } from 'react-router-dom' // eslint-disable-line
+import type { ContextRouter } from 'react-router-dom'
 import type moment from 'moment'
 import { BillCell } from './BillCell'
 import { BillAnimation, billRule } from './BillAnimation'
