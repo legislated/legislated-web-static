@@ -109,7 +109,8 @@
       "./test/setup.js"
     ],
     "moduleNameMapper": {
-      "^shared/(.*)$": "<rootDir>/src/shared/$1"
+      "^shared/(.*)$": "<rootDir>/src/shared/$1",
+      "^mocks/(.*)$": "<rootDir>/test/mocks/$1"
     }
   },
   "standard": {

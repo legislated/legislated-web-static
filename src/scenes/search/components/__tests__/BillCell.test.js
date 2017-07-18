@@ -7,7 +7,6 @@ import { BillCell } from '../BillCell'
 // subject
 let subject
 let bill
-let relayConfig = BillCell.relayConfig()
 
 function loadSubject () {
   subject = shallow(<BillCell bill={bill} />)
@@ -87,6 +86,6 @@ describe('#render', () => {
 
 describe('#fragments', () => {
   it('has a bill', () => {
-    expect(relayConfig.fragments.bill).toBeTruthy()
+    expect(BillCell.container.fragment).toBeTruthy()
   })
 })

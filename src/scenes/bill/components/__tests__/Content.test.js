@@ -7,7 +7,6 @@ import { Content } from '../Content'
 // subject
 let subject
 let bill
-let relayConfig = Content.relayConfig()
 
 function loadSubject () {
   subject = shallow(<Content bill={bill} />)
@@ -87,6 +86,6 @@ describe('#render', () => {
 
 describe('#fragments', () => {
   it('has a bill', () => {
-    expect(relayConfig.fragments.bill).toBeTruthy()
+    expect(Content.container.fragment).toBeTruthy()
   })
 })

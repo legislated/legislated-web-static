@@ -3,6 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { AdminAuthScene } from '../AdminAuthScene'
 import { auth } from 'shared/auth'
+import { routerProps } from 'mocks/routerProps'
 
 // mocks
 jest.mock('shared/auth', () => ({
@@ -13,7 +14,7 @@ jest.mock('shared/auth', () => ({
 let subject
 
 function loadSubject () {
-  subject = shallow(<AdminAuthScene />)
+  subject = shallow(<AdminAuthScene />).dive()
 }
 
 const element = {
@@ -51,5 +52,11 @@ describe('on submit', () => {
     subject.setState({ username: 'hello', password: 'world' })
     element.submit().simulate('click')
     expect(auth.signIn).toHaveBeenCalledWith('hello', 'world')
+  })
+
+  it('redirects to the admin bills page', () => {
+    loadSubject()
+    element.submit().simulate('click')
+    expect(routerProps.history.replace).toHaveBeenCalledWith('/admin/bills')
   })
 })

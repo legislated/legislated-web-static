@@ -6,10 +6,9 @@ import { Actions } from '../Actions'
 // subject
 let subject
 let bill
-let relayConfig = Actions.relayConfig()
 
 function loadSubject () {
-  subject = shallow(<Actions bill={bill} />)
+  subject = shallow(<Actions bill={bill} />).dive()
 }
 
 const element = {
@@ -54,8 +53,8 @@ describe('#render', () => {
   })
 })
 
-describe('#fragments', () => {
+describe('the relay container', () => {
   it('has a bill', () => {
-    expect(relayConfig.fragments.bill).toBeTruthy()
+    expect(Actions.container.fragment).toBeTruthy()
   })
 })
