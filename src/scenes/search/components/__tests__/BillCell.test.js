@@ -9,7 +9,7 @@ let subject
 let bill
 
 function loadSubject () {
-  subject = shallow(<BillCell bill={bill} />)
+  subject = shallow(<BillCell bill={bill} />).dive()
 }
 
 const element = {
@@ -84,8 +84,8 @@ describe('#render', () => {
   })
 })
 
-describe('#fragments', () => {
-  it('has a bill', () => {
-    expect(BillCell.container.fragment).toBeTruthy()
+describe('the relay container', () => {
+  it('exists', () => {
+    expect(BillCell.container).toBeTruthy()
   })
 })

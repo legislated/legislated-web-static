@@ -148,6 +148,10 @@ describe('on clicking load more', () => {
 })
 
 describe('the relay container', () => {
+  it('exists', () => {
+    expect(BillsList.container).toBeTruthy()
+  })
+
   it('exposes the connection', () => {
     const { getConnectionFromProps } = BillsList.container.options
     expect(getConnectionFromProps({ viewer })).toBe(viewer.bills)
