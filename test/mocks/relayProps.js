@@ -4,6 +4,7 @@ export const relayFragmentProp = {
 }
 
 export const relayRefetchProp = {
+  refetch: jest.fn()
 }
 
 export const relayPaginationProp = {

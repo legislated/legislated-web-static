@@ -6,7 +6,6 @@ class QueryRenderer {
 }
 
 function graphql (query) {
-  console.log('fakin the query')
   return query
 }
 

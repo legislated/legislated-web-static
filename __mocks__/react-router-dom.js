@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { routerProps } from 'mocks/routerProps'
 
 // actual
@@ -11,10 +11,16 @@ const {
 } = require.requireActual('react-router-dom')
 
 // mocks
-function withRouter (Component) {
-  return (props) => (
-    <Component {...routerProps} {...props} />
-  )
+function withRouter (Wrapped) {
+  return class Container extends Component {
+    static get name () {
+      return Wrapped.name
+    }
+
+    render () {
+      return <Wrapped {...routerProps} {...this.props} />
+    }
+  }
 }
 
 // interface
