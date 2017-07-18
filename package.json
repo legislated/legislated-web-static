@@ -65,7 +65,7 @@
     "image-webpack-loader": "^3.3.1",
     "jest": "^20.0.4",
     "jest-enzyme": "^3.5.3",
-    "react-addons-test-utils": "^15.6.0",
+    "react-test-renderer": "^15.6.1",
     "relay-compiler": "^1.1.0",
     "relay-compiler-webpack-plugin": "danielholmes/relay-compiler-webpack-plugin#relay-compiler-1.1.0-compat",
     "snazzy": "^7.0.0",
