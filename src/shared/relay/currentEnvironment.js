@@ -1,7 +1,7 @@
 // @flow
-import { Environment, RecordSource, Store } from 'relay-runtime'
+import { Environment, RecordSource, Store, Network } from 'relay-runtime'
 import { events } from 'shared/events'
-import { createNetwork } from './createNetwork'
+import { createQuery } from './createQuery'
 
 // current environment
 let environment = createEnvironment()
@@ -21,7 +21,7 @@ events.on(events.setAuthHeader, didSetAuthHeader)
 function createEnvironment (headers: Object = {}): Object {
   const source = new RecordSource()
   const store = new Store(source)
-  const network = createNetwork(headers)
+  const network = Network.create(createQuery(headers))
 
   return new Environment({ store, network })
 }

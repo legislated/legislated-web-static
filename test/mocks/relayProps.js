@@ -1,5 +1,4 @@
 /* globals jest */
-
 export const relayFragmentProp = {
 }
 

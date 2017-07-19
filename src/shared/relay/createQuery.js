@@ -1,28 +1,15 @@
 // @flow
-import { Network, QueryResponseCache } from 'relay-runtime'
-import type { QueryResult, QueryPayload } from 'relay-runtime'
+import { QueryResponseCache } from 'relay-runtime'
+import type { QueryResult, QueryPayload, FetchFunction } from 'relay-runtime'
 import { getCacheResolver } from './cacheResolvers'
 import config from 'shared/config'
 
-export function createNetwork (headers: Object): Network {
-  return Network.create(createQuery(headers))
-}
-
-// helpers
-function asPayload (result: ?QueryResult): ?QueryPayload {
-  return result && result.data ? { data: result.data } : null
-}
-
-function asResult (payload: ?QueryPayload): ?QueryResult {
-  return payload ? { data: payload.data } : null
-}
-
 // see: https://facebook.github.io/relay/docs/network-layer.html
 // see: https://github.com/facebook/relay/issues/1688#issuecomment-302931855
-function createQuery (headers: Object) {
+export function createQuery (headers: Object): FetchFunction {
   const cache = new QueryResponseCache({ size: 250, ttl: 60 * 5 * 1000 })
 
-  return async function query (operation, variables): Object {
+  return async function query (operation, variables) {
     // find an applicable stop-gap cache resolver (if any)
     const resolver = getCacheResolver(operation, variables)
     // default to operation name for queryId if nothing matches
@@ -67,4 +54,13 @@ function createQuery (headers: Object) {
 
     return result
   }
+}
+
+// helpers
+function asPayload (result: ?QueryResult): ?QueryPayload {
+  return result && result.data ? { data: result.data } : null
+}
+
+function asResult (payload: QueryPayload): QueryResult {
+  return { data: payload.data }
 }
