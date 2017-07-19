@@ -1,16 +1,29 @@
+# needed to install watchman for relay-compiler
+sudo: required
+
 language: node_js
-cache: yarn
+cache:
+  yarn: true
+  directories:
+    - node_modules
+    - watchman
+
 branches:
   only:
     - master
     - production
+
 before_script:
-  - chmod +x ./scripts/ci_build.sh
+  - chmod +x ./scripts/ci-build.sh
+  - chmod +x ./scripts/ci-watchman.sh
+  - ./scrips/ci-watchman.sh
+
 script:
   - yarn lint
   - yarn flow
   - yarn test
-  - ./scripts/ci_build.sh
+  - ./scripts/ci-build.sh
+
 deploy:
   - provider: s3
     access_key_id:
