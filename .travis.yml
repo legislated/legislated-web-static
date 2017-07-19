@@ -6,7 +6,7 @@ cache:
   yarn: true
   directories:
     - node_modules
-    - watchman
+    - ~/facebook/watchman
 
 branches:
   only:
