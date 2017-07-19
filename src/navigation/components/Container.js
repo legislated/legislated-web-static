@@ -16,12 +16,21 @@ type ContainerProps = {
 let Container = class Container extends Component {
   props: ContainerProps
 
-  componentDidUpdate (prevProps: ContainerProps) {
+  clearVisitedIntro () {
     // mark the intro as cleared if we've seen it and left the search scene
     const { pathname } = this.props.location
     if (local.get('intro-visited') && pathname !== '/') {
       local.set('intro-cleared', 'true')
     }
+  }
+
+  // lifecycle
+  componentWillMount () {
+    this.clearVisitedIntro()
+  }
+
+  componentDidUpdate (prevProps: ContainerProps) {
+    this.clearVisitedIntro()
   }
 
   render () {
