@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
-import type { Rule } from 'glamor' // eslint-disable-line
+import type { Rule } from 'glamor'
 import { BillAnimation } from './BillAnimation'
 import { Link } from 'shared/components'
 import { local } from 'shared/storage'
@@ -20,14 +20,19 @@ export class Intro extends Component {
   // events
   didClickAccept = () => {
     this.setState({ isAccepted: true }, () => {
-      local.set('@@legislated/intro-visited', 'true')
+      local.set('intro-cleared', 'true')
     })
   }
 
   // lifecycle
+  componentWillMount () {
+    local.set('intro-visited', 'true')
+  }
+
   render () {
-    const isVisited = !!local.get('@@legislated/intro-visited')
-    return isVisited ? null : <BillAnimation>{this.renderContent()}</BillAnimation>
+    return local.get('intro-cleared') ? null : <BillAnimation>
+      {this.renderContent()}
+    </BillAnimation>
   }
 
   renderContent (): ?React$Element<*> {

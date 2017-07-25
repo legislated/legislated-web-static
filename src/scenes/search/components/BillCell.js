@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
+import { createFragmentContainer, graphql } from 'react-relay'
 import moment from 'moment'
 import { css } from 'glamor'
-import type { Rule } from 'glamor' // eslint-disable-line
+import type { Rule } from 'glamor'
 import type { Bill } from 'shared/types'
 import { Button } from 'shared/components'
 import { stylesheet, fonts, colors, shadows, borders, mobile } from 'shared/styles'
@@ -36,16 +36,33 @@ let BillCell = class BillCell extends Component {
           styles={rules.button}
           to={bill.witnessSlipUrl}
           label='Take Action'
-          iconName='pencil-square-o' />
+          iconName='pencil-square-o'
+        />
         <Button
           styles={rules.button}
           to={`bill/${bill.id}`}
           label='More Info'
-          iconName='file-text-o' />
+          iconName='file-text-o'
+        />
       </div>
     </div>
   }
 }
+
+BillCell = createFragmentContainer(BillCell, graphql`
+  fragment BillCell_bill on Bill {
+    id
+    documentNumber
+    title
+    summary
+    witnessSlipUrl
+    detailsUrl
+    fullTextUrl
+    hearing {
+      date
+    }
+  }
+`)
 
 const rules = stylesheet({
   container: {
@@ -117,25 +134,6 @@ const rules = stylesheet({
     ...borders.low(['top']),
     marginTop: 10,
     paddingTop: 10
-  }
-})
-
-BillCell = Relay.createContainer(BillCell, {
-  fragments: {
-    bill: () => Relay.QL`
-      fragment on Bill {
-        id
-        documentNumber
-        title
-        summary
-        witnessSlipUrl
-        detailsUrl
-        fullTextUrl
-        hearing {
-          date
-        }
-      }
-    `
   }
 })
 

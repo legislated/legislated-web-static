@@ -22,15 +22,22 @@ afterEach(() => {
 })
 
 describe('#state', () => {
-  it('default to unaccepted', () => {
+  it('defaults to unaccepted', () => {
     loadSubject()
     expect(subject).toHaveState('isAccepted', false)
   })
 })
 
+describe('#componentWillMount', () => {
+  it('marks the intro as visited', () => {
+    loadSubject()
+    expect(local.get('intro-visited')).toEqual('true')
+  })
+})
+
 describe('#render', () => {
-  it(`does not render when it's already visited`, () => {
-    local.set('@@legislated/intro-visited', 'true')
+  it(`is blank it's already cleared`, () => {
+    local.set('intro-cleared', 'true')
     loadSubject()
     expect(subject.get(0)).toBeFalsy()
   })
@@ -46,6 +53,6 @@ describe('when the user clicks accept', () => {
   it('marks the intro as visited', () => {
     loadSubject()
     element.accept().simulate('click')
-    expect(local.get('@@legislated/intro-visited')).toEqual('true')
+    expect(local.get('intro-visited')).toEqual('true')
   })
 })

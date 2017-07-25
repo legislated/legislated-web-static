@@ -1,28 +1,18 @@
 /* eslint-env jest */
 import React from 'react'
-import moment from 'moment'
 import { shallow, mount } from 'enzyme'
 import { SearchScene } from '../SearchScene'
-import { session } from 'shared/storage'
+import { relayRefetchProp } from 'mocks/relayProps'
 
-const pageSize = 25
 const { anything } = expect
 
 // subject
 let subject
 let viewer
-let location
-let relayProp
-let relayConfig = SearchScene.relayConfig()
 
 function loadSubject (options = { mount: false }) {
-  relayProp = {
-    variables: relayConfig.initialVariables,
-    setVariables: jest.fn()
-  }
-
-  const renderer = options.mount ? mount : shallow
-  subject = renderer(<SearchScene viewer={viewer} location={location} relay={relayProp} />)
+  const renderer = options.mount ? mount : (component) => shallow(component).dive().dive()
+  subject = renderer(<SearchScene viewer={viewer} />)
 }
 
 const element = {
@@ -33,15 +23,10 @@ const element = {
 
 // specs
 beforeEach(() => {
-  location = {}
-
   // TODO: build rosie.js factories
   viewer = {
     bills: {
-      edges: [],
-      pageInfo: {
-        hasNextPage: true
-      }
+      edges: []
     }
   }
 })
@@ -53,17 +38,23 @@ afterEach(() => {
 describe('#state', () => {
   beforeEach(loadSubject)
 
-  it('starts with an empty query', () => {
+  it('initially has a blank query', () => {
     expect(subject).toHaveState('query', '')
   })
 })
 
 describe('#render', () => {
+  it('shows the search field with the current query', () => {
+    loadSubject()
+    subject.setState({ query: 'foo' })
+    expect(element.searchField()).toHaveValue('foo')
+  })
+
   it('shows the bills list', () => {
     loadSubject()
     const list = element.list()
     expect(list).toBePresent()
-    expect(list).toHaveProp('bills', viewer.bills)
+    expect(list).toHaveProp('viewer', viewer)
   })
 
   it('hides the loading indicator', () => {
@@ -71,113 +62,43 @@ describe('#render', () => {
     expect(element.indicator()).toHaveProp('isLoading', false)
   })
 
-  it('shows the search field with the current query', () => {
-    loadSubject()
-    subject.setState({ query: 'foo' })
-    expect(element.searchField()).toHaveValue('foo')
-  })
-
   describe('when loading', () => {
-    beforeEach(() => {
+    it('shows the loading indicator', () => {
       viewer = null
       loadSubject()
-    })
-
-    it('shows the loading indicator', () => {
       expect(element.indicator()).toHaveProp('isLoading', true)
     })
 
     it('hides the bills list', () => {
+      viewer = null
+      loadSubject()
       expect(element.list()).toBeEmpty()
     })
   })
 })
 
-describe('when navigating away', () => {
-  it('saves the number of fetched bills', () => {
-    loadSubject()
-    subject.unmount()
-    expect(session.get('@@legislated/last-search-count')).toEqual(`${pageSize}`)
-  })
-})
-
-describe('when navigating to search', () => {
-  const count = pageSize * 2
-
-  beforeEach(() => {
-    session.set('@@legislated/last-search-count', `${count}`)
-  })
-
-  it('restores the query on back', () => {
-    location.action = 'POP'
-    loadSubject({ mount: true })
-    expect(relayProp.setVariables).toHaveBeenLastCalledWith({ first: count }, anything())
-  })
-
-  it('does not restore the query on push', () => {
-    location.action = 'PUSH'
-    loadSubject({ mount: true })
-    expect(relayProp.setVariables).not.toHaveBeenCalled()
-  })
-})
-
 describe('on search field change', () => {
-  let onChange
-
-  beforeEach(() => {
+  it('updates the visible query', () => {
     loadSubject()
-    onChange = element.searchField().prop('onChange')
-  })
-
-  it('updates the state', () => {
-    onChange('foo')
+    element.searchField().simulate('change', 'foo')
     expect(subject).toHaveState('query', 'foo')
   })
 
-  it('updates the query variables', () => {
-    onChange('bar')
-    expect(relayProp.setVariables).toHaveBeenLastCalledWith({ query: 'bar' }, expect.anything())
-  })
-})
-
-describe('on clicking load more', () => {
-  it('fetches the next page', () => {
+  it('disables animations', () => {
     loadSubject()
-    element.list().simulate('loadMore')
-    expect(relayProp.setVariables).toHaveBeenLastCalledWith({ first: pageSize * 2 })
+    element.searchField().simulate('change', 'foo')
+    expect(element.list()).toHaveProp('animated', false)
+  })
+
+  it('refetches the relay query', () => {
+    loadSubject()
+    element.searchField().simulate('change', 'foo')
+    expect(relayRefetchProp.refetch).toHaveBeenLastCalledWith({ query: 'foo' }, null, anything())
   })
 })
 
-describe('#initialVariables', () => {
-  it('fetches the page size', () => {
-    expect(relayConfig.initialVariables.first).toEqual(pageSize)
-  })
-})
-
-describe('#prepareVariables', () => {
-  let previous = { query: 'foo', first: 5 }
-  let variables
-
-  beforeEach(() => {
-    variables = relayConfig.prepareVariables(previous)
-  })
-
-  it('propogates the query', () => {
-    expect(variables.query).toEqual(previous.query)
-  })
-
-  it('propogates the first count', () => {
-    expect(variables.first).toEqual(previous.first)
-  })
-
-  it('sets the date range to this week', () => {
-    expect(variables.startDate).toEqual(moment().startOf('day'))
-    expect(variables.endDate).toEqual(moment().add(6, 'days').endOf('day'))
-  })
-})
-
-describe('#fragments', () => {
-  it('has a viewer', () => {
-    expect(relayConfig.fragments.viewer).toBeTruthy()
+describe('the relay container', () => {
+  it('exists', () => {
+    expect(SearchScene.container).toBeTruthy()
   })
 })

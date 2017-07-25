@@ -3,6 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { AdminBillsScene } from '../AdminBillsScene'
 import { auth } from 'shared/auth'
+import { routerProps } from 'mocks/routerProps'
 
 // mocks
 jest.mock('shared/auth', () => ({
@@ -12,11 +13,9 @@ jest.mock('shared/auth', () => ({
 // subject
 let subject
 let viewer
-let router = { replace: jest.fn() }
 
 function loadSubject () {
-  const context = { router }
-  subject = shallow(<AdminBillsScene viewer={viewer} />, { context })
+  subject = shallow(<AdminBillsScene viewer={viewer} />).dive().dive()
 }
 
 // spec
@@ -25,17 +24,20 @@ afterEach(() => {
 })
 
 describe('#componentWillReceiveProps', () => {
-  it('redirects home when the user is not an admin', () => {
-    loadSubject()
-    viewer = { isAdmin: false }
-    subject.instance().componentWillReceiveProps({ viewer })
-    expect(router.replace).toHaveBeenCalledWith('/admin')
-  })
-
-  it('signs out the user if it is not an admin', () => {
+  it('signs the user out if not an admin', () => {
     loadSubject()
     viewer = { isAdmin: false }
     subject.instance().componentWillReceiveProps({ viewer })
     expect(auth.signOut).toHaveBeenCalled()
   })
+
+  it('redirects to the admin sign-in when not an admin', () => {
+    loadSubject()
+    viewer = { isAdmin: false }
+    subject.instance().componentWillReceiveProps({ viewer })
+    expect(routerProps.history.replace).toHaveBeenCalledWith('/admin/sign-in')
+  })
+})
+
+xdescribe('the relay container', () => {
 })

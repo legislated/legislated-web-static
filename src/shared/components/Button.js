@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
 import { Link } from './Link'
-import type { LinkProps } from './Link' // eslint-disable-line
+import type { LinkProps } from './Link'
 import { stylesheet, borders, colors, mobile } from 'shared/styles'
 
 type ButtonType = 'solid' | 'outline'

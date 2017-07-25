@@ -1,11 +1,11 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
+import { createFragmentContainer, graphql } from 'react-relay'
 import { Button } from 'shared/components'
 import { stylesheet, mobile } from 'shared/styles'
 import type { Bill } from 'shared/types'
 
-class ActionsView extends Component {
+let Actions = class Actions extends Component {
   props: {
     bill: Bill
   }
@@ -43,6 +43,15 @@ class ActionsView extends Component {
     </div>
   }
 }
+
+Actions = createFragmentContainer(Actions, graphql`
+  fragment Actions_bill on Bill {
+    detailsUrl
+    fullTextUrl
+    witnessSlipUrl
+    witnessSlipResultUrl
+  }
+`)
 
 const rules = stylesheet({
   actions: {
@@ -82,15 +91,4 @@ const rules = stylesheet({
   }
 })
 
-export const Actions = Relay.createContainer(ActionsView, {
-  fragments: {
-    bill: () => Relay.QL`
-      fragment on Bill {
-        detailsUrl
-        fullTextUrl
-        witnessSlipUrl
-        witnessSlipResultUrl
-      }
-    `
-  }
-})
+export { Actions }

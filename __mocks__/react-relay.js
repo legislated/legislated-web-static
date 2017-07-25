@@ -1,65 +1,52 @@
-const Relay = require.requireActual('react-relay')
+import React, { Component } from 'react'
+import { relayFragmentProp, relayRefetchProp, relayPaginationProp } from 'mocks/relayProps'
 
 // mocks
-export class Mutation extends Relay.Mutation {
-  _resolveProps (props) {
-    this.props = props
+class QueryRenderer {
+}
+
+function graphql (query) {
+  return query
+}
+
+function createMockContainer (Wrapped, relayProp, container) {
+  return class Container extends Component {
+    static container = container
+    static get name () {
+      return Wrapped.name
+    }
+
+    render () {
+      return <Wrapped relay={relayProp} {...this.props} />
+    }
   }
 }
 
-export class MockStore {
-  reset () {
-    this.successResponse = undefined
-  }
-
-  succeedWith (response) {
-    this.reset()
-    this.successResponse = response
-  }
-
-  failWith (response) {
-    this.reset()
-    this.failureResponse = response
-  }
-
-  update (callbacks) {
-    if (this.successResponse) {
-      callbacks.onSuccess(this.successResponse)
-    } else if (this.failureResponse) {
-      callbacks.onFailure(this.failureResponse)
-    }
-    this.reset()
-  }
-
-  commitUpdate (mutation, callbacks) {
-    return this.update(callbacks)
-  }
-
-  applyUpdate (mutation, callbacks) {
-    return this.update(callbacks)
-  }
+function createFragmentContainer (Wrapped, fragment) {
+  return createMockContainer(Wrapped, relayFragmentProp, {
+    fragment
+  })
 }
 
-// exports
-export const Store = new MockStore()
-export const Route = Relay.Route
-export const Environment = Relay.Environment
-export const DefaultNetworkLayer = Relay.DefaultNetworkLayer
-export const PropTypes = Relay.PropTypes
+function createRefetchContainer (Wrapped, fragment, query) {
+  return createMockContainer(Wrapped, relayRefetchProp, {
+    fragment,
+    query
+  })
+}
 
-export default {
-  Store,
-  Mutation,
-  Environment,
-  DefaultNetworkLayer,
-  Route,
-  PropTypes,
-  QL: Relay.QL,
-  createContainer: (Component, config) => {
-    Component.relayConfig = function () {
-      return config
-    }
+function createPaginationContainer (Wrapped, fragment, options) {
+  return createMockContainer(Wrapped, relayPaginationProp, {
+    fragment,
+    options
+  })
+}
 
-    return Component
-  }
+// interface
+export {
+  QueryRenderer,
+  graphql,
+  createFragmentContainer,
+  createRefetchContainer,
+  createPaginationContainer
 }

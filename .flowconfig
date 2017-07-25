@@ -3,6 +3,7 @@
 .*/node_modules/graphql/.*
 .*/node_modules/jest-enzyme/.*
 .*/node_modules/enzyme-matchers/.*
+.*/node_modules/relay-compiler-webpack-plugin/.*
 
 [include]
 
@@ -17,6 +18,7 @@ suppress_type=$FlowFixMe
 suppress_type=$FixMe
 
 ; optional features
+esproposal.decorators=ignore
 unsafe.enable_getters_and_setters=true
 
 ; we'd like to do this, but it doesn't seem to work:

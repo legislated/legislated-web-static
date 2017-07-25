@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
+import { createFragmentContainer, graphql } from 'react-relay'
 import moment from 'moment'
 import { Actions } from './Actions'
 import { Element } from './Element'
@@ -10,7 +10,7 @@ import type { Bill } from 'shared/types'
 
 const { floor } = Math
 
-class ContentView extends Component {
+let Content = class Content extends Component {
   props: {
     bill: Bill
   }
@@ -51,6 +51,25 @@ class ContentView extends Component {
     </div>
   }
 }
+
+Content = createFragmentContainer(Content, graphql`
+  fragment Content_bill on Bill {
+    documentNumber
+    title
+    summary
+    sponsorName
+    hearing {
+      date
+    }
+    committee {
+      name
+    }
+    chamber {
+      name
+    }
+    ...Actions_bill
+  }
+`)
 
 const rules = stylesheet({
   header: {
@@ -102,25 +121,4 @@ const rules = stylesheet({
   }
 })
 
-export const Content = Relay.createContainer(ContentView, {
-  fragments: {
-    bill: () => Relay.QL`
-      fragment on Bill {
-        documentNumber
-        title
-        summary
-        sponsorName
-        hearing {
-          date
-        }
-        committee {
-          name
-        }
-        chamber {
-          name
-        }
-        ${Actions.getFragment('bill')}
-      }
-    `
-  }
-})
+export { Content }

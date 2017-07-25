@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
+import { createFragmentContainer, graphql } from 'react-relay'
+import { withRouter } from 'react-router-dom'
 import { Content } from './components'
 import { stylesheet, colors, shadows, borders } from 'shared/styles'
 import type { Viewer } from 'shared/types'
@@ -22,6 +23,14 @@ let BillScene = class BillScene extends Component {
   }
 }
 
+BillScene = createFragmentContainer(withRouter(BillScene), graphql`
+  fragment BillScene_viewer on Viewer {
+    bill(id: $id) {
+      ...Content_bill
+    }
+  }
+`)
+
 const rules = stylesheet({
   container: {
     display: 'flex',
@@ -40,21 +49,6 @@ const rules = stylesheet({
       marginRight: 5,
       fontSize: 13
     }
-  }
-})
-
-BillScene = Relay.createContainer(BillScene, {
-  initialVariables: {
-    id: ''
-  },
-  fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
-        bill(id: $id) {
-          ${Content.getFragment('bill')}
-        }
-      }
-    `
   }
 })
 

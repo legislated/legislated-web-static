@@ -7,10 +7,9 @@ import { Content } from '../Content'
 // subject
 let subject
 let bill
-let relayConfig = Content.relayConfig()
 
 function loadSubject () {
-  subject = shallow(<Content bill={bill} />)
+  subject = shallow(<Content bill={bill} />).dive()
 }
 
 const element = {
@@ -18,7 +17,7 @@ const element = {
   number: () => subject.find('h4'),
   summary: () => subject.find('Element').at(0),
   date: () => subject.find('Element span').at(0),
-  actions: () => subject.find('ActionsView'),
+  actions: () => subject.find('Actions'),
   hoursLeft: () => subject.find('Element span').at(1),
   committee: () => subject.find('Element').at(2)
 }
@@ -85,8 +84,8 @@ describe('#render', () => {
   })
 })
 
-describe('#fragments', () => {
-  it('has a bill', () => {
-    expect(relayConfig.fragments.bill).toBeTruthy()
+describe('the relay container', () => {
+  it('exists', () => {
+    expect(Content.container.fragment).toBeTruthy()
   })
 })

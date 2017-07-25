@@ -1,38 +1,18 @@
 // @flow
 import React from 'react'
-import { Route, IndexRoute } from 'react-router'
-import { Container } from './Container'
+import { Switch, Route } from 'react-router-dom'
+import { RelayRoute } from './RelayRoute'
 import { NotFoundView } from './components'
-import { local } from 'shared/storage'
-import { searchRoute, billRoute, aboutRoute, faqRoute, adminRoute, adminBillsRoute } from '../scenes'
-
-let hasEnteredSearch = false
-
-export function reset () {
-  hasEnteredSearch = false
-}
-
-function didChangeRoute (route: { location: { pathname: string } }) {
-  const { pathname } = route.location
-
-  if (!hasEnteredSearch && pathname === '/') {
-    hasEnteredSearch = true
-  }
-
-  if (hasEnteredSearch && pathname !== '/') {
-    local.set('@@legislated/intro-visited', 'true')
-  }
-}
+import { AdminRoutes } from './AdminRoutes'
+import * as scenes from '../scenes'
 
 export const Routes = () => (
-  <Route component={Container} onChange={didChangeRoute}>
-    <Route path='/' {...searchRoute} />
-    <Route path='about' {...aboutRoute} />
-    <Route path='faq' {...faqRoute} />
-    <Route path='bill/:id' {...billRoute} />
-    <Route path='admin' {...adminRoute}>
-      <IndexRoute {...adminBillsRoute} />
-    </Route>
-    <Route path='*' component={NotFoundView} />
-  </Route>
+  <Switch>
+    <RelayRoute path='/' exact {...scenes.search} />
+    <Route path='/about' {...scenes.about} />
+    <Route path='/faq' {...scenes.faq} />
+    <RelayRoute path='/bill/:id' {...scenes.bill} />
+    <Route path='/admin' component={AdminRoutes} />
+    <Route component={NotFoundView} />
+  </Switch>
 )

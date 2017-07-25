@@ -16,70 +16,73 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect --debug-brk ./node_modules/.bin/jest --runInBand",
-    "lint": "snazzy",
-    "lint:fix": "snazzy --fix",
+    "lint": "standard | snazzy",
+    "lint:fix": "standard --fix | snazzy",
     "flow:restart": "flow stop && flow",
-    "validate": "yarn lint && yarn flow && yarn test"
+    "validate": "yarn lint && yarn flow && yarn test",
+    "relay": "relay-compiler --src ./src --schema schema.json",
+    "relay:watch": "yarn relay -- --watch"
   },
   "dependencies": {
-    "color": "^1.0.3",
+    "color": "^2.0.0",
     "eventemitter3": "^2.0.3",
-    "glamor": "^2.20.24",
+    "glamor": "2.20.25",
     "js-base64": "^2.1.9",
     "lodash": "^4.17.2",
     "moment": "^2.18.1",
-    "react": "^15.4.1",
-    "react-addons-css-transition-group": "^15.4.2",
+    "react": "^15.6.1",
+    "react-addons-css-transition-group": "^15.6.0",
     "react-copy-to-clipboard": "^5.0.0",
-    "react-dom": "^15.4.1",
-    "react-fontawesome": "^1.5.0",
-    "react-relay": "^0.10.0",
-    "react-router": "^2.8.0",
-    "react-router-relay": "^0.13.5",
-    "react-router-scroll": "^0.4.2",
-    "react-sticky": "^5.0.8"
+    "react-dom": "^15.6.1",
+    "react-fontawesome": "^1.6.1",
+    "react-relay": "^1.1.0",
+    "react-router-dom": "^4.1.2",
+    "react-router-scroll": "ytase/react-router-scroll#build",
+    "react-sticky": "5.0.8",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.0.0",
-    "babel-eslint": "^7.1.1",
-    "babel-jest": "^19.0.0",
-    "babel-loader": "^6.4.1",
-    "babel-plugin-react-relay": "^0.10.0",
-    "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "7.2.0",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-relay": "^1.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.16.0",
-    "babel-preset-latest": "^6.16.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-relay-plugin": "0.10.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
-    "enzyme": "^2.8.0",
-    "eslint": ">=2.0.0",
-    "eslint-plugin-flowtype": "^2.30.4",
-    "file-loader": "^0.11.1",
-    "flow-bin": "^0.42.0",
-    "html-webpack-plugin": "^2.28.0",
+    "enzyme": "^2.9.1",
+    "eslint": "^4.2.0",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "file-loader": "^0.11.2",
+    "flow-bin": "^0.50.0",
+    "html-webpack-plugin": "^2.29.0",
     "image-webpack-loader": "^3.3.1",
-    "jest": "^19.0.2",
-    "jest-enzyme": "^3.0.0",
-    "react-addons-test-utils": "^15.4.2",
-    "snazzy": "^6.0.0",
-    "standard": "^9.0.2",
-    "webpack": "^2.3.2",
-    "webpack-dev-server": "^2.4.2"
+    "jest": "^20.0.4",
+    "jest-enzyme": "^3.5.3",
+    "react-test-renderer": "^15.6.1",
+    "relay-compiler": "^1.1.0",
+    "relay-compiler-webpack-plugin": "danielholmes/relay-compiler-webpack-plugin#relay-compiler-1.1.0-compat",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.2",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1"
   },
   "graphql": {
     "file": "./schema.json"
   },
   "babel": {
     "presets": [
-      "latest",
+      [ "env", { "targets": { "browsers": [ "last 2 versions" ] } }],
       "react"
     ],
     "plugins": [
-      "react-relay",
+      [ "relay", { "compat": true, "schema": "schema.json" } ],
       "transform-flow-strip-types",
       "transform-class-properties",
       "transform-object-rest-spread"
@@ -91,7 +94,8 @@
       "./test/setup.js"
     ],
     "moduleNameMapper": {
-      "^shared/(.*)$": "<rootDir>/src/shared/$1"
+      "^shared/(.*)$": "<rootDir>/src/shared/$1",
+      "^mocks/(.*)$": "<rootDir>/test/mocks/$1"
     }
   },
   "standard": {
@@ -100,11 +104,14 @@
       "flowtype"
     ],
     "ignore": [
-      "flow-typed"
+      "flow-typed/"
     ],
     "globals": [
+      "fetch",
+      "requestAnimationFrame",
+      "Class",
       "React$Element",
-      "requestAnimationFrame"
+      "React$Component"
     ]
   }
 }

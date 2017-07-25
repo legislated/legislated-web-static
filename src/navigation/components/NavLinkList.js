@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { NavLink } from './NavLink'
 import { css } from 'glamor'
-import type { Rule } from 'glamor' // eslint-disable-line
+import type { Rule } from 'glamor'
 import { stylesheet, mobile } from 'shared/styles'
 
 export class NavLinkList extends Component {

@@ -1,13 +1,18 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
+import { createPaginationContainer, graphql } from 'react-relay'
+import type { RelayPaginationProp } from 'react-relay'
+import { withRouter } from 'react-router-dom'
+import type { ContextRouter } from 'react-router-dom'
 import type moment from 'moment'
 import { BillCell } from './BillCell'
 import { BillAnimation, billRule } from './BillAnimation'
 import { LoadMoreButton } from './LoadMoreButton'
+import { constants } from '../searchRoute'
+import { withLoadMoreArgs, unwrap } from 'shared/relay'
+import { session } from 'shared/storage'
 import { stylesheet, mobile } from 'shared/styles'
-import type { Bill, SearchConnection } from 'shared/types' // eslint-disable-line
-import { unwrap } from 'shared/types/Connection'
+import type { Viewer } from 'shared/types'
 
 function format (date: moment): string {
   return date.format('MMM Do')
@@ -15,24 +20,55 @@ function format (date: moment): string {
 
 let BillsList = class BillsList extends Component {
   props: {
-    bills: SearchConnection<Bill>,
-    startDate: moment,
-    endDate: moment,
+    viewer: Viewer,
     animated: Boolean,
-    onLoadMore: () => void,
+    relay: RelayPaginationProp
+  } & ContextRouter
+
+  state = {
+    disableAnimations: false
   }
 
   // events
   didClickLoadMore = () => {
-    this.props.onLoadMore()
+    const { relay } = this.props
+    if (!relay.hasMore() || relay.isLoading()) {
+      return
+    }
+
+    relay.loadMore(constants.count, (error: ?Error) => {
+      if (error) {
+        console.error(`error loading next page: ${error.toString()}`)
+      }
+    })
   }
 
   // lifecycle
-  render () {
-    const { bills: connection, startDate, endDate, animated, onLoadMore } = this.props
-    const { pageInfo, count } = connection
+  componentWillMount () {
+    if (this.props.history.action === 'POP') {
+      this.setState({ disableAnimations: true })
+    }
+  }
 
-    const bills = unwrap(connection)
+  componentDidMount () {
+    if (this.props.history.action === 'POP') {
+      this.setState({ disableAnimations: false })
+    }
+  }
+
+  componentWillUnmount () {
+    const { viewer } = this.props
+    if (viewer) {
+      session.set('last-search-count', `${viewer.bills.edges.length}`)
+    }
+  }
+
+  render () {
+    const { disableAnimations } = this.state
+    const { relay, viewer, animated } = this.props
+    const { bills } = viewer
+    const { count } = bills
+    const { startDate, endDate } = constants
 
     return <div {...rules.container}>
       <div {...rules.header}>
@@ -40,17 +76,61 @@ let BillsList = class BillsList extends Component {
         <div>{`${format(startDate)} to ${format(endDate)}`}</div>
         <div>{`Found ${count} result${count === 1 ? '' : 's'}.`}</div>
       </div>
-      <BillAnimation disable={!animated}>{this.renderBills(bills)}</BillAnimation>
-      <LoadMoreButton styles={rules.loadMoreButton} hasMore={pageInfo.hasNextPage} onClick={onLoadMore} />
+      <BillAnimation disable={!animated || disableAnimations}>
+        {this.renderBills(unwrap(bills))}
+      </BillAnimation>
+      <LoadMoreButton
+        styles={rules.loadMoreButton}
+        hasMore={relay.hasMore()}
+        onClick={this.didClickLoadMore}
+      />
     </div>
   }
 
-  renderBills (bills: Array<Bill>): Array<React$Element<*>> {
+  renderBills (bills): Array<React$Element<*>> {
     return bills.map((bill, i) => {
       return <BillCell key={bill.id} styles={billRule} bill={bill} />
     })
   }
 }
+
+BillsList = createPaginationContainer(withRouter(BillsList),
+  graphql`
+    fragment BillsList_viewer on Viewer {
+      bills(
+        first: $count, after: $cursor,
+        query: $query, from: $startDate, to: $endDate
+      ) @connection(key: "BillsList_bills") {
+        count
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        edges {
+          node {
+            id
+            ...BillCell_bill
+          }
+        }
+      }
+    }
+  `,
+  withLoadMoreArgs({
+    getConnectionFromProps (props) {
+      return props.viewer && props.viewer.bills
+    },
+    query: graphql`
+      query BillsListQuery(
+        $count: Int!, $cursor: String!,
+        $query: String!, $startDate: Time!, $endDate: Time!
+      ) {
+        viewer {
+          ...BillsList_viewer
+        }
+      }
+    `
+  })
+)
 
 const rules = stylesheet({
   container: {
@@ -87,25 +167,6 @@ const rules = stylesheet({
     ...mobile({
       marginTop: 20
     })
-  }
-})
-
-BillsList = Relay.createContainer(BillsList, {
-  fragments: {
-    bills: () => Relay.QL`
-      fragment on BillSearchConnection {
-        count
-        edges {
-          node {
-            id
-            ${BillCell.getFragment('bill')}
-          }
-        }
-        pageInfo {
-          hasNextPage
-        }
-      }
-    `
   }
 })
 

@@ -1,7 +1,3 @@
 // @flow
-import { AdminGate } from './AdminGate'
+export { adminAuthRoute } from './auth'
 export { adminBillsRoute } from './bills'
-
-export const adminRoute = {
-  component: AdminGate
-}

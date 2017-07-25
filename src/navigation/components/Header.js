@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { Link as RouteLink } from 'react-router'
+import { Link } from 'react-router-dom'
 import { MobileNav } from './MobileNav'
 import { NavLinkList } from './NavLinkList'
 import { stylesheet, fonts, borders, colors, alpha, mobile } from 'shared/styles'
@@ -9,10 +9,10 @@ export class Header extends Component {
   // lifecycle
   render () {
     return <div {...rules.container}>
-      <RouteLink {...rules.logoLink} to='/'>
+      <Link {...rules.logoLink} to='/'>
         <img src='/assets/logo.png' alt='Legislated' height='40' width='40' />
         <span>LEGISLATED</span>
-      </RouteLink>
+      </Link>
       <MobileNav />
       <div {...rules.nav}>
         <NavLinkList />

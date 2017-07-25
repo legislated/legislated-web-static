@@ -1,76 +1,51 @@
 // @flow
 import React, { Component } from 'react'
-import Relay from 'react-relay'
-import moment from 'moment'
+import { createRefetchContainer, graphql } from 'react-relay'
+import type { RelayRefetchProp } from 'react-relay'
+import { withRouter } from 'react-router-dom'
+import type { ContextRouter } from 'react-router-dom'
 import { throttle } from 'lodash'
+import { constants } from './searchRoute'
 import { Intro, SearchField, BillsList, LoadingIndicator } from './components'
-import { session } from 'shared/storage'
 import { stylesheet, colors, mobile, utils } from 'shared/styles'
-import type { Viewer, Location, RelayProp } from 'shared/types'
-
-const pageSize = 25
+import type { Viewer } from 'shared/types'
 
 let SearchScene = class SearchScene extends Component {
   props: {
-    relay: RelayProp,
     viewer: ?Viewer,
-    location: Location
-  }
+    relay: RelayRefetchProp
+  } & ContextRouter
 
   state = {
-    query: '',
+    query: constants.query,
     disableAnimations: false
   }
 
   // events
-  didClickLoadMore = () => {
-    const { relay } = this.props
-    relay && relay.setVariables({ first: relay.variables.first + pageSize })
-  }
-
   searchFieldDidChange = (query: string) => {
     this.setState({ query })
     this.filterBillsForQuery(query)
   }
 
-  filterBillsForQuery = throttle((query: string) => {
-    this.setVariablesUnanimated({ query })
+  // helpers
+  filterBillsForQuery: (query: string) => void = throttle((query: string) => {
+    this.setState({ disableAnimations: true })
+    this.props.relay.refetch({ query }, null, (error: ?Error) => {
+      if (error) {
+        console.error(`error updaing query: ${error.toString()}`)
+      }
+
+      // completion comes back before render
+      requestAnimationFrame(() => {
+        this.setState({ disableAnimations: false })
+      })
+    })
   }, 300)
 
-  // helpers
-  setVariablesUnanimated (variables: Object) {
-    this.setState({ disableAnimations: true })
-    this.props.relay.setVariables(variables, (readyState) => {
-      if (readyState.done) {
-        requestAnimationFrame(() => {
-          this.setState({ disableAnimations: false })
-        })
-      }
-    })
-  }
-
   // lifecycle
-  componentWillMount () {
-    const { location } = this.props
-    const count = session.get('@@legislated/last-search-count')
-
-    if (count && location && location.action === 'POP') {
-      const first = Number.parseInt(count)
-      this.setVariablesUnanimated({ first })
-    }
-
-    session.set('@@legislated/last-search-count', null)
-  }
-
-  componentWillUnmount () {
-    const { first } = this.props.relay.variables
-    session.set('@@legislated/last-search-count', `${first}`)
-  }
-
   render () {
+    const { viewer } = this.props
     const { query, disableAnimations } = this.state
-    const { viewer, relay } = this.props
-    const { startDate, endDate } = relay.variables
 
     return <div {...rules.container}>
       <div {...rules.header}>
@@ -79,22 +54,45 @@ let SearchScene = class SearchScene extends Component {
         <SearchField
           styles={rules.section}
           value={query}
-          onChange={this.searchFieldDidChange} />
+          onChange={this.searchFieldDidChange}
+        />
       </div>
       <div {...rules.content}>
         <div {...rules.indicator}>
           <LoadingIndicator isLoading={!viewer} />
         </div>
         {viewer && <BillsList
-          bills={viewer.bills}
-          startDate={startDate}
-          endDate={endDate}
+          viewer={viewer}
           animated={!disableAnimations}
-          onLoadMore={this.didClickLoadMore} />}
+        />}
       </div>
     </div>
   }
 }
+
+SearchScene = createRefetchContainer(withRouter(SearchScene),
+  graphql`
+    fragment SearchScene_viewer on Viewer {
+      bills(
+        first: $count, after: $cursor,
+        query: $query, from: $startDate, to: $endDate
+      ) {
+        edges { node { id } }
+      }
+      ...BillsList_viewer
+    }
+  `,
+  graphql`
+    query SearchSceneQuery(
+      $count: Int!, $cursor: String!,
+      $query: String!, $startDate: Time!, $endDate: Time!
+    ) {
+      viewer {
+        ...SearchScene_viewer
+      }
+    }
+  `
+)
 
 const rules = stylesheet({
   container: {
@@ -129,37 +127,19 @@ const rules = stylesheet({
     ...utils.column,
     position: 'relative'
   },
+  loadMoreButton: {
+    alignSelf: 'center',
+    marginTop: 30,
+    ...mobile({
+      marginTop: 20
+    })
+  },
   indicator: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     ...utils.column
-  }
-})
-
-SearchScene = Relay.createContainer(SearchScene, {
-  initialVariables: {
-    first: pageSize,
-    query: '',
-    startDate: moment(),
-    endDate: moment()
-  },
-  prepareVariables (previousVariables) {
-    return {
-      ...previousVariables,
-      startDate: moment().startOf('day'),
-      endDate: moment().add(6, 'days').endOf('day')
-    }
-  },
-  fragments: {
-    viewer: (variables) => Relay.QL`
-      fragment on Viewer {
-        bills(first: $first, from: $startDate, to: $endDate, query: $query) {
-          ${BillsList.getFragment('bills')}
-        }
-      }
-    `
   }
 })
 
