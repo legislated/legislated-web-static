@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { css } from 'glamor'
 import { BillAnimation, billRule } from './BillAnimation'
-import { stylesheet, colors, shadows, borders } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 
 export class LoadingIndicator extends Component {
   props: {
@@ -45,8 +45,8 @@ const bar = {
 
 const rules = stylesheet({
   container: {
-    ...shadows.low,
-    ...borders.low(),
+    ...mixins.shadows.low(),
+    ...mixins.borders.low(),
     height: 49,
     padding: 15,
     marginBottom: 15,

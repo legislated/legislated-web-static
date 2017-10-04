@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { createFragmentContainer, graphql } from 'react-relay'
 import { Button } from 'shared/components'
-import { stylesheet, mobile } from 'shared/styles'
+import { stylesheet, mixins } from 'shared/styles'
 import type { Bill } from 'shared/types'
 
 let Actions = class Actions extends Component {
@@ -62,7 +62,7 @@ const rules = stylesheet({
     '> div + div': {
       marginLeft: 10
     },
-    ...mobile({
+    ...mixins.mobile({
       flexDirection: 'column',
       '> div + div': {
         marginLeft: 0,
@@ -75,7 +75,7 @@ const rules = stylesheet({
     ':last-child': {
       marginRight: 0
     },
-    ...mobile({
+    ...mixins.mobile({
       flex: 1,
       overflow: 'hidden',
       ':last-child': {

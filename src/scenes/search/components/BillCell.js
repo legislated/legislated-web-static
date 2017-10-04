@@ -6,7 +6,7 @@ import { css } from 'glamor'
 import type { Rule } from 'glamor'
 import type { Bill } from 'shared/types'
 import { Button } from 'shared/components'
-import { stylesheet, fonts, colors, shadows, borders, mobile } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 
 let BillCell = class BillCell extends Component {
   props: {
@@ -66,8 +66,8 @@ BillCell = createFragmentContainer(BillCell, graphql`
 
 const rules = stylesheet({
   container: {
-    ...shadows.low,
-    ...borders.low(),
+    ...mixins.shadows.low(),
+    ...mixins.borders.low(),
     display: 'flex',
     padding: 15,
     marginBottom: 15,
@@ -75,16 +75,16 @@ const rules = stylesheet({
     '&:last-child': {
       marginBottom: 0
     },
-    ...mobile({
+    ...mixins.mobile({
       flexDirection: 'column'
     })
   },
   info: {
-    ...borders.low(['right']),
+    ...mixins.borders.low(['right']),
     flex: 1,
     paddingRight: 15,
-    ...mobile({
-      ...borders.low(['bottom']),
+    ...mixins.mobile({
+      ...mixins.borders.low(['bottom']),
       paddingRight: 0,
       paddingBottom: 15,
       marginBottom: 15,
@@ -101,7 +101,7 @@ const rules = stylesheet({
       display: 'inline-block'
     },
     '> h3': {
-      ...fonts.bold,
+      ...mixins.fonts.bold,
       marginRight: 10
     }
   },
@@ -109,7 +109,7 @@ const rules = stylesheet({
     display: 'flex',
     flexDirection: 'column',
     paddingLeft: 15,
-    ...mobile({
+    ...mixins.mobile({
       flexDirection: 'row',
       paddingLeft: 0
     })
@@ -120,7 +120,7 @@ const rules = stylesheet({
     ':last-child': {
       marginBottom: 0
     },
-    ...mobile({
+    ...mixins.mobile({
       flex: 1,
       width: 'auto',
       marginBottom: 0,
@@ -131,7 +131,7 @@ const rules = stylesheet({
     })
   },
   summary: {
-    ...borders.low(['top']),
+    ...mixins.borders.low(['top']),
     marginTop: 10,
     paddingTop: 10
   }

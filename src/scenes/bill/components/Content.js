@@ -5,7 +5,7 @@ import moment from 'moment'
 import { Actions } from './Actions'
 import { Element } from './Element'
 import { CopyLink } from 'shared/components'
-import { stylesheet, borders, colors, mobile } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 import type { Bill } from 'shared/types'
 
 const { floor } = Math
@@ -80,7 +80,7 @@ const rules = stylesheet({
       display: 'flex',
       flexDirection: 'column'
     },
-    ...mobile({
+    ...mixins.mobile({
       flexDirection: 'column',
       '> section:first-child': {
         marginBottom: 10
@@ -91,12 +91,12 @@ const rules = stylesheet({
     })
   },
   body: {
-    ...borders.low(['bottom']),
+    ...mixins.borders.low(['bottom']),
     display: 'flex',
     flexBasis: 0,
     paddingBottom: 15,
     marginBottom: 15,
-    ...mobile({
+    ...mixins.mobile({
       flexDirection: 'column'
     })
   },
@@ -108,7 +108,7 @@ const rules = stylesheet({
     '> *:not(:last-child)': {
       marginBottom: 10
     },
-    ...mobile({
+    ...mixins.mobile({
       marginBottom: 15,
       ':last-child': {
         marginBottom: 0

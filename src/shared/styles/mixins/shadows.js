@@ -1,5 +1,5 @@
 // @flow
-import { colors } from './colors'
+import { colors } from '../colors'
 
 type ShadowStyle = {|
   borderRadius: number,
@@ -15,6 +15,6 @@ function make (color: string, height: number): ShadowStyle {
 
 export const shadows = {
   make,
-  low: make(colors.neutralShadow, 3),
-  high: make(colors.primaryHighlight, 4)
+  low: () => make(colors.neutralShadow, 3),
+  high: () => make(colors.primaryHighlight, 4)
 }

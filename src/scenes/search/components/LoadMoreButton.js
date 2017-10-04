@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { css } from 'glamor'
 import type { Rule } from 'glamor'
-import { stylesheet, colors, shadows } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 
 export class LoadMoreButton extends Component {
   props: {
@@ -31,7 +31,7 @@ export class LoadMoreButton extends Component {
 
 const rules = stylesheet({
   button: {
-    ...shadows.make(colors.primaryShadow, 5),
+    ...mixins.shadows.make(colors.primaryShadow, 5),
     height: 40,
     minWidth: 100,
     padding: '0 5%',

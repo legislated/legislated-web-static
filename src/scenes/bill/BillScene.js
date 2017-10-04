@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { createFragmentContainer, graphql } from 'react-relay'
 import { withRouter } from 'react-router-dom'
 import { Content } from './components'
-import { stylesheet, colors, shadows, borders } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 import type { Viewer } from 'shared/types'
 
 let BillScene = class BillScene extends Component {
@@ -37,8 +37,8 @@ const rules = stylesheet({
     flexDirection: 'column'
   },
   content: {
-    ...shadows.low,
-    ...borders.low(),
+    ...mixins.shadows.low(),
+    ...mixins.borders.low(),
     padding: 15,
     backgroundColor: colors.neutral
   },

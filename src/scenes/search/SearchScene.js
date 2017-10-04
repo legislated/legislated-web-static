@@ -7,7 +7,7 @@ import type { ContextRouter } from 'react-router-dom'
 import { throttle } from 'lodash'
 import { constants } from './searchRoute'
 import { Intro, SearchField, BillsList, LoadingIndicator } from './components'
-import { stylesheet, colors, mobile, utils } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 import type { Viewer } from 'shared/types'
 
 let SearchScene = class SearchScene extends Component {
@@ -96,12 +96,12 @@ SearchScene = createRefetchContainer(withRouter(SearchScene),
 
 const rules = stylesheet({
   container: {
-    ...utils.column
+    ...mixins.column
   },
   header: {
     position: 'relative',
     marginBottom: 30,
-    ...mobile({
+    ...mixins.mobile({
       marginBottom: 15
     })
   },
@@ -113,24 +113,24 @@ const rules = stylesheet({
     width: '100vw',
     zIndex: -1,
     backgroundColor: colors.backgroundAccent,
-    ...mobile({
+    ...mixins.mobile({
       left: -15
     })
   },
   section: {
     marginBottom: 30,
-    ...mobile({
+    ...mixins.mobile({
       marginBottom: 15
     })
   },
   content: {
-    ...utils.column,
+    ...mixins.column,
     position: 'relative'
   },
   loadMoreButton: {
     alignSelf: 'center',
     marginTop: 30,
-    ...mobile({
+    ...mixins.mobile({
       marginTop: 20
     })
   },
@@ -139,7 +139,7 @@ const rules = stylesheet({
     top: 0,
     left: 0,
     right: 0,
-    ...utils.column
+    ...mixins.column
   }
 })
 

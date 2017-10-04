@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
 import { Link } from './Link'
 import type { LinkProps } from './Link'
-import { stylesheet, borders, colors, mobile } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 
 type ButtonType = 'solid' | 'outline'
 
@@ -30,14 +30,14 @@ export class Button extends Component {
 
 const rules = stylesheet({
   button: {
-    ...borders.high(),
+    ...mixins.borders.high(),
     display: 'flex',
     alignItems: 'center',
     padding: 10,
     borderRadius: 3,
     fontSize: 16,
     textDecoration: 'none',
-    ...mobile({
+    ...mixins.mobile({
       padding: 9
     })
   },

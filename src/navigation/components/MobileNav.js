@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { css } from 'glamor'
 import { MobileNavButton } from './MobileNavButton'
 import { NavLinkList } from './NavLinkList'
-import { stylesheet, colors, alpha, mobile } from 'shared/styles'
+import { stylesheet, colors, alpha, mixins } from 'shared/styles'
 
 export class MobileNav extends Component {
   state = {
@@ -41,7 +41,7 @@ const menuWidth = 240
 const rules = stylesheet({
   mobile: {
     display: 'none',
-    ...mobile({
+    ...mixins.mobile({
       display: 'block'
     })
   },

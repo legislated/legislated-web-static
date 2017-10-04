@@ -4,7 +4,7 @@ import { css } from 'glamor'
 import { events } from 'shared/events'
 import { sleep } from 'shared/async'
 import type { Notification } from 'shared/types'
-import { stylesheet, colors, borders, shadows } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 
 const animationDuration = 300
 
@@ -51,8 +51,8 @@ export class NotificationView extends Component {
 
 const rules = stylesheet({
   notification: {
-    ...borders.low(),
-    ...shadows.low,
+    ...mixins.borders.low(),
+    ...mixins.shadows.low(),
     position: 'fixed',
     bottom: 30,
     right: -245,

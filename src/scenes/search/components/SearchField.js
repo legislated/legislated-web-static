@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
-import { stylesheet, fonts, colors, shadows, borders, mobile } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 
 export class SearchField extends Component {
   props: {
@@ -58,8 +58,8 @@ const rules = stylesheet({
     }
   },
   field: {
-    ...shadows.low,
-    ...borders.low(),
+    ...mixins.shadows.low(),
+    ...mixins.borders.low(),
     display: 'flex',
     alignItems: 'center',
     maxWidth: 700,
@@ -74,20 +74,20 @@ const rules = stylesheet({
       marginRight: 15,
       transition: 'color 0.25'
     },
-    ...mobile({
+    ...mixins.mobile({
       width: 'auto'
     })
   },
   focused: {
-    ...shadows.high,
-    ...borders.high(),
+    ...mixins.shadows.high(),
+    ...mixins.borders.high(),
     transform: 'perspective(200px) translateZ(1px)',
     ' .fa': {
       color: colors.primary
     }
   },
   input: {
-    ...fonts.regular,
+    ...mixins.fonts.regular,
     flex: 1,
     fontSize: 20,
     border: 'none',

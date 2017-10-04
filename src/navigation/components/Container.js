@@ -6,7 +6,7 @@ import type { ContextRouter } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { Header } from './Header'
 import { NotificationView } from 'shared/components'
-import { stylesheet, fonts, mobile } from 'shared/styles'
+import { stylesheet, mixins } from 'shared/styles'
 import { local } from 'shared/storage'
 
 type ContainerProps = {
@@ -50,13 +50,13 @@ let Container = class Container extends Component {
 
 const rules = stylesheet({
   container: {
-    ...fonts.regular,
+    ...mixins.fonts.regular,
     position: 'relative',
     minHeight: '100vh'
   },
   content: {
     padding: 30,
-    ...mobile({
+    ...mixins.mobile({
       padding: 15,
       paddingBottom: 20
     })
