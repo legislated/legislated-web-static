@@ -22,53 +22,34 @@ jest.mock('../../searchRoute', () => {
 
 // subject
 let subject
-let viewer
-let animated
 
-function loadSubject () {
-  subject = shallow(<BillsList viewer={viewer} animated={animated} />).dive().dive()
+const defaultProps = {
+  viewer: {
+    bills: {
+      edges: []
+    }
+  },
+
+  animate: true
+}
+
+function loadSubject (props) {
+  subject = shallow(<BillsList {...defaultProps} {...props} />).dive().dive()
 }
 
 function edges (nodes) {
   return nodes.map((node) => ({ node }))
 }
 
-const element = {
-  bills: () => subject.find('BillCell'),
-  date: () => subject.find('div > div > div').at(0),
-  count: () => subject.find('div > div > div').at(1),
-  animation: () => subject.find('BillAnimation'),
-  loadButton: () => subject.find('LoadMoreButton')
-}
-
-// specs
-beforeEach(() => {
-  // TODO: build rosie.js factories
-  viewer = {
-    bills: {
-      edges: []
-    }
-  }
-
-  animated = true
-})
-
 afterEach(() => {
   subject = null
-})
-
-describe('#state', () => {
-  it('enables animations by default', () => {
-    loadSubject()
-    expect(element.animation()).toHaveProp('disable', false)
-  })
 })
 
 describe('#componentWillMount', () => {
   it('disables animations on pop', () => {
     routerProps.history.action = 'POP'
     loadSubject()
-    expect(element.animation()).toHaveProp('disable', true)
+    expect(subject).toMatchSnapshot()
   })
 })
 
@@ -77,83 +58,61 @@ describe('#componentDidMount', () => {
     routerProps.history.action = 'POP'
     loadSubject()
     subject.instance().componentDidMount()
-    expect(element.animation()).toHaveProp('disable', false)
+    expect(subject).toMatchSnapshot()
   })
 })
 
 describe('#componentWillUnmount', () => {
   it('stores the visible bill count', () => {
     const bills = [{ id: 1 }, { id: 2 }, { id: 3 }]
-    viewer.bills.edges = edges(bills)
-    loadSubject()
-
+    loadSubject({viewer: {bills: {edges: edges(bills)}}})
     subject.unmount()
-    expect(session.get('last-search-count')).toEqual(`${bills.length}`)
+    expect(subject).toMatchSnapshot()
   })
 })
 
 describe('#render', () => {
-  it('shows the start date', () => {
+  it('renders correctly', () => {
     loadSubject()
-    expect(element.date()).toHaveText('May 1st to May 7th')
+    expect(subject).toMatchSnapshot()
   })
 
   it('shows the total bill count', () => {
-    viewer.bills.count = 2
-    loadSubject()
-    expect(element.count()).toIncludeText('Found 2 results')
+    loadSubject({viewer: {bills: {edges: [], count: 2}}})
+    expect(subject).toMatchSnapshot()
   })
 
   it('shows a bill cell for every bill', () => {
     const bills = [{ id: 1 }, { id: 2 }]
-    viewer.bills.edges = edges(bills)
-    loadSubject()
-
-    const cells = element.bills()
-    expect(cells.length).toEqual(bills.length)
-    expect(cells.map((c) => c.prop('bill'))).toEqual(bills)
+    loadSubject({viewer: {bills: {edges: edges(bills)}}})
+    expect(subject).toMatchSnapshot()
   })
 
   it(`shows the load more button when there's another page`, () => {
     relayPaginationProp.hasMore.mockReturnValue(true)
     loadSubject()
-    expect(element.loadButton()).toHaveProp('hasMore', true)
+    expect(subject).toMatchSnapshot()
   })
 })
 
 describe('on clicking load more', () => {
-  beforeEach(() => {
+  it('when there is more to load', () => {
     relayPaginationProp.hasMore.mockReturnValue(true)
-  })
-
-  it('loads another page', () => {
     loadSubject()
-    element.loadButton().simulate('click')
-    expect(relayPaginationProp.loadMore).toHaveBeenCalledWith(999, anything())
+    subject.find('LoadMoreButton').simulate('click')
+    expect(subject).toMatchSnapshot()
   })
 
-  it('does nothing if there this is the last page', () => {
+  it('when there is no more to load', () => {
     relayPaginationProp.hasMore.mockReturnValue(false)
     loadSubject()
-    element.loadButton().simulate('click')
-    expect(relayPaginationProp.loadMore).not.toHaveBeenCalled()
-  })
-
-  it('does nothing when already loading', () => {
-    relayPaginationProp.isLoading.mockReturnValue(true)
-    loadSubject()
-    element.loadButton().simulate('click')
-    expect(relayPaginationProp.loadMore).not.toHaveBeenCalled()
+    subject.find('LoadMoreButton').simulate('click')
+    expect(subject).toMatchSnapshot()
   })
 })
 
 describe('the relay container', () => {
   it('exists', () => {
     expect(BillsList.container).toBeTruthy()
-  })
-
-  it('exposes the connection', () => {
-    const { getConnectionFromProps } = BillsList.container.options
-    expect(getConnectionFromProps({ viewer })).toBe(viewer.bills)
   })
 })

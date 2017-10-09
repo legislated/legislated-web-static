@@ -8,97 +8,47 @@ const { anything } = expect
 
 // subject
 let subject
-let viewer
 
-function loadSubject (options = { mount: false }) {
-  const renderer = options.mount ? mount : (component) => shallow(component).dive().dive()
-  subject = renderer(<SearchScene viewer={viewer} />)
-}
-
-const element = {
-  list: () => subject.find('BillsList'),
-  searchField: () => subject.find('SearchField'),
-  indicator: () => subject.find('LoadingIndicator')
-}
-
-// specs
-beforeEach(() => {
-  // TODO: build rosie.js factories
-  viewer = {
+const defaultProps = {
+  viewer: {
     bills: {
       edges: []
     }
   }
-})
+}
 
+function loadSubject (props) {
+  subject = shallow(<SearchScene {...defaultProps} {...props} />).dive().dive()
+}
+
+// specs
 afterEach(() => {
   subject = null
 })
 
-describe('#state', () => {
-  beforeEach(loadSubject)
-
-  it('initially has a blank query', () => {
-    expect(subject).toHaveState('query', '')
-  })
-})
-
 describe('#render', () => {
-  it('shows the search field with the current query', () => {
+  it('renders properly', () => {
+    loadSubject()
+    expect(subject).toMatchSnapshot()
+  })
+
+  it('renders properly with query', () => {
     loadSubject()
     subject.setState({ query: 'foo' })
-    expect(element.searchField()).toHaveValue('foo')
+    expect(subject).toMatchSnapshot()
   })
 
-  it('shows the bills list', () => {
-    loadSubject()
-    const list = element.list()
-    expect(list).toBePresent()
-    expect(list).toHaveProp('viewer', viewer)
-  })
-
-  it('hides the loading indicator', () => {
-    loadSubject()
-    expect(element.indicator()).toHaveProp('isLoading', false)
-  })
-
-  describe('when loading', () => {
-    it('shows the loading indicator', () => {
-      viewer = null
-      loadSubject()
-      expect(element.indicator()).toHaveProp('isLoading', true)
-    })
-
-    it('hides the bills list', () => {
-      viewer = null
-      loadSubject()
-      expect(element.list()).toBeEmpty()
-    })
+  it('renders properly when loading', () => {
+    loadSubject({ viewer: null })
+    expect(subject).toMatchSnapshot()
   })
 })
 
 describe('on search field change', () => {
   it('updates the visible query', () => {
     loadSubject()
-    element.searchField().simulate('change', 'foo')
-    expect(subject).toHaveState('query', 'foo')
-  })
-
-  it('disables animations', () => {
-    loadSubject()
-    element.searchField().simulate('change', 'foo')
-    expect(element.list()).toHaveProp('animated', false)
-  })
-
-  it('refetches the relay query', () => {
-    loadSubject()
-    element.searchField().simulate('change', 'foo')
+    subject.find('SearchField').simulate('change', 'foo')
+    expect(subject).toMatchSnapshot()
     expect(relayRefetchProp.refetch).toHaveBeenLastCalledWith({ query: 'foo' }, null, anything())
-  })
-})
-
-describe('the relay container', () => {
-  it('exists', () => {
-    expect(SearchScene.container).toBeTruthy()
   })
 })

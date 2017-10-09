@@ -1,0 +1,345 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#componentDidMount re-enables animations on pop 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-t7v3vx=""
+  >
+    <h2>
+      Upcoming Bills
+    </h2>
+    <div>
+      May 1st to May 7th
+    </div>
+    <div>
+      Found undefined results.
+    </div>
+  </div>
+  <BillAnimation
+    disable={true}
+  />
+  <LoadMoreButton
+    onClick={[Function]}
+    styles={
+      Object {
+        "data-css-1n5n5pb": "",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`#componentWillMount disables animations on pop 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-t7v3vx=""
+  >
+    <h2>
+      Upcoming Bills
+    </h2>
+    <div>
+      May 1st to May 7th
+    </div>
+    <div>
+      Found undefined results.
+    </div>
+  </div>
+  <BillAnimation
+    disable={true}
+  />
+  <LoadMoreButton
+    onClick={[Function]}
+    styles={
+      Object {
+        "data-css-1n5n5pb": "",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`#componentWillUnmount stores the visible bill count 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-t7v3vx=""
+  >
+    <h2>
+      Upcoming Bills
+    </h2>
+    <div>
+      May 1st to May 7th
+    </div>
+    <div>
+      Found undefined results.
+    </div>
+  </div>
+  <BillAnimation
+    disable={true}
+  >
+    <BillCell
+      bill={
+        Object {
+          "id": 1,
+        }
+      }
+      styles={
+        Object {
+          "data-css-1a8sov3": "",
+        }
+      }
+    />
+    <BillCell
+      bill={
+        Object {
+          "id": 2,
+        }
+      }
+      styles={
+        Object {
+          "data-css-1a8sov3": "",
+        }
+      }
+    />
+    <BillCell
+      bill={
+        Object {
+          "id": 3,
+        }
+      }
+      styles={
+        Object {
+          "data-css-1a8sov3": "",
+        }
+      }
+    />
+  </BillAnimation>
+  <LoadMoreButton
+    onClick={[Function]}
+    styles={
+      Object {
+        "data-css-1n5n5pb": "",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`#render renders correctly 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-t7v3vx=""
+  >
+    <h2>
+      Upcoming Bills
+    </h2>
+    <div>
+      May 1st to May 7th
+    </div>
+    <div>
+      Found undefined results.
+    </div>
+  </div>
+  <BillAnimation
+    disable={true}
+  />
+  <LoadMoreButton
+    onClick={[Function]}
+    styles={
+      Object {
+        "data-css-1n5n5pb": "",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`#render shows a bill cell for every bill 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-t7v3vx=""
+  >
+    <h2>
+      Upcoming Bills
+    </h2>
+    <div>
+      May 1st to May 7th
+    </div>
+    <div>
+      Found undefined results.
+    </div>
+  </div>
+  <BillAnimation
+    disable={true}
+  >
+    <BillCell
+      bill={
+        Object {
+          "id": 1,
+        }
+      }
+      styles={
+        Object {
+          "data-css-1a8sov3": "",
+        }
+      }
+    />
+    <BillCell
+      bill={
+        Object {
+          "id": 2,
+        }
+      }
+      styles={
+        Object {
+          "data-css-1a8sov3": "",
+        }
+      }
+    />
+  </BillAnimation>
+  <LoadMoreButton
+    onClick={[Function]}
+    styles={
+      Object {
+        "data-css-1n5n5pb": "",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`#render shows the load more button when there's another page 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-t7v3vx=""
+  >
+    <h2>
+      Upcoming Bills
+    </h2>
+    <div>
+      May 1st to May 7th
+    </div>
+    <div>
+      Found undefined results.
+    </div>
+  </div>
+  <BillAnimation
+    disable={true}
+  />
+  <LoadMoreButton
+    hasMore={true}
+    onClick={[Function]}
+    styles={
+      Object {
+        "data-css-1n5n5pb": "",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`#render shows the total bill count 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-t7v3vx=""
+  >
+    <h2>
+      Upcoming Bills
+    </h2>
+    <div>
+      May 1st to May 7th
+    </div>
+    <div>
+      Found 2 results.
+    </div>
+  </div>
+  <BillAnimation
+    disable={true}
+  />
+  <LoadMoreButton
+    onClick={[Function]}
+    styles={
+      Object {
+        "data-css-1n5n5pb": "",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`on clicking load more when there is more to load 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-t7v3vx=""
+  >
+    <h2>
+      Upcoming Bills
+    </h2>
+    <div>
+      May 1st to May 7th
+    </div>
+    <div>
+      Found undefined results.
+    </div>
+  </div>
+  <BillAnimation
+    disable={true}
+  />
+  <LoadMoreButton
+    hasMore={true}
+    onClick={[Function]}
+    styles={
+      Object {
+        "data-css-1n5n5pb": "",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`on clicking load more when there is no more to load 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-t7v3vx=""
+  >
+    <h2>
+      Upcoming Bills
+    </h2>
+    <div>
+      May 1st to May 7th
+    </div>
+    <div>
+      Found undefined results.
+    </div>
+  </div>
+  <BillAnimation
+    disable={true}
+  />
+  <LoadMoreButton
+    hasMore={false}
+    onClick={[Function]}
+    styles={
+      Object {
+        "data-css-1n5n5pb": "",
+      }
+    }
+  />
+</div>
+`;

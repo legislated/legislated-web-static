@@ -12,23 +12,13 @@ function loadSubject () {
   subject = shallow(<BillCell bill={bill} />).dive()
 }
 
-const element = {
-  doc: () => subject.find('span'),
-  title: () => subject.find('h3'),
-  date: () => subject.find('p').at(0),
-  summary: () => subject.find('p').at(1),
-  slipLink: () => subject.find('Button').at(0),
-  detailsLink: () => subject.find('Button').at(1)
-}
-
 // specs
 afterEach(() => {
   subject = null
 })
 
 describe('#render', () => {
-  beforeEach(() => {
-    // TODO: add rosie.js factories
+  it('renders properly', () => {
     bill = {
       documentNumber: 'HB1234',
       title: 'Foo',
@@ -40,52 +30,17 @@ describe('#render', () => {
         date: '2010-01-01T00:00:00-06:00'
       }
     }
+
+    loadSubject()
+    expect(subject).toMatchSnapshot()
   })
 
-  describe('normally', () => {
-    beforeEach(loadSubject)
-
-    it('shows the document number', () => {
-      expect(element.doc()).toHaveText(bill.documentNumber)
+  it('renders properly when data is missing', () => {
+    assign(bill, {
+      summary: ''
     })
 
-    it('shows the title', () => {
-      expect(element.title()).toHaveText(bill.title)
-    })
-
-    it('shows the hearing date', () => {
-      expect(element.date()).toHaveText('01/01/2010')
-    })
-
-    it('shows the summary', () => {
-      expect(element.summary()).toHaveText(bill.summary)
-    })
-
-    it('shows the slip link', () => {
-      expect(element.slipLink()).toHaveProp('to', bill.witnessSlipUrl)
-    })
-
-    it('shows the details page link', () => {
-      expect(element.detailsLink()).toHaveProp('to', bill.detailsUrl)
-    })
-  })
-
-  describe('when data is missing', () => {
-    beforeEach(() => {
-      assign(bill, {
-        summary: ''
-      })
-    })
-
-    it('hides the summary', () => {
-      loadSubject()
-      expect(element.summary().get(0)).toBeFalsy()
-    })
-  })
-})
-
-describe('the relay container', () => {
-  it('exists', () => {
-    expect(BillCell.container).toBeTruthy()
+    loadSubject()
+    expect(subject).toMatchSnapshot()
   })
 })

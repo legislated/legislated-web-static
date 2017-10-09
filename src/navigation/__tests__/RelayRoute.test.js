@@ -5,6 +5,7 @@ import { RelayRoute } from '../RelayRoute'
 import { events } from 'shared/events'
 import { currentEnvironment, cacheResolvers } from 'shared/relay'
 import { routerProps } from 'mocks/routerProps'
+import renderer from 'react-test-renderer'
 
 // mocks
 jest.mock('shared/relay', () => ({
@@ -44,17 +45,20 @@ afterEach(() => {
   container = null
 })
 
+function testRoute () {
+  loadSubject()
+  expect(subject).toMatchSnapshot()
+}
+
 describe('#render', () => {
   it('propogates the path', () => {
     path = '/test/path'
-    loadSubject()
-    expect(element.route()).toHaveProp('path', path)
+    testRoute()
   })
 
   it(`propogates 'exact'`, () => {
     exact = true
-    loadSubject()
-    expect(element.route()).toHaveProp('exact', exact)
+    testRoute()
   })
 })
 
