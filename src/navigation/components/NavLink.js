@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome'
 import { css } from 'glamor'
 import { Link } from 'shared/components'
 import type { LinkProps } from 'shared/components/Link'
-import { stylesheet, borders, mobile } from 'shared/styles'
+import { stylesheet, mixins } from 'shared/styles'
 
 export class NavLink extends Component {
   props: {
@@ -30,8 +30,8 @@ const rules = stylesheet({
     alignItems: 'center',
     fontSize: 20,
     textDecoration: 'none',
-    ...mobile({
-      ...borders.low(['bottom']),
+    ...mixins.mobile({
+      ...mixins.borders.low(['bottom']),
       marginBottom: 15,
       paddingBottom: 15,
       fontSize: 22
@@ -41,7 +41,7 @@ const rules = stylesheet({
     width: 20,
     marginRight: 6,
     textAlign: 'center',
-    ...mobile({
+    ...mixins.mobile({
       width: 22,
       marginRight: 8
     })

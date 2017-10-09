@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { MobileNav } from './MobileNav'
 import { NavLinkList } from './NavLinkList'
-import { stylesheet, fonts, borders, colors, alpha, mobile } from 'shared/styles'
+import { stylesheet, colors, alpha, mixins } from 'shared/styles'
 
 export class Header extends Component {
   // lifecycle
@@ -23,7 +23,7 @@ export class Header extends Component {
 
 const rules = stylesheet({
   container: {
-    ...borders.low(['bottom']),
+    ...mixins.borders.low(['bottom']),
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -31,7 +31,7 @@ const rules = stylesheet({
     paddingLeft: 30,
     paddingRight: 30,
     backgroundColor: alpha(colors.background, 0.95),
-    ...mobile({
+    ...mixins.mobile({
       height: 60,
       paddingLeft: 15,
       paddingRight: 15
@@ -49,21 +49,21 @@ const rules = stylesheet({
       verticalAlign: 'top'
     },
     '> span:last-child': {
-      ...fonts.bold,
+      ...mixins.fonts.bold,
       marginLeft: 15,
       letterSpacing: 5
     },
-    ...mobile({
+    ...mixins.mobile({
       fontSize: 28
     })
   },
   nav: {
-    ...borders.low(['left']),
+    ...mixins.borders.low(['left']),
     flex: 1,
     display: 'flex',
     marginLeft: 15,
     paddingLeft: 15,
-    ...mobile({
+    ...mixins.mobile({
       display: 'none'
     })
   }

@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Question } from './components'
 import { Link } from 'shared/components'
-import { stylesheet, colors, shadows, borders, mobile } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 
 export class FaqScene extends Component {
   render () {
@@ -170,8 +170,8 @@ const rules = stylesheet({
     flexDirection: 'column'
   },
   content: {
-    ...shadows.low,
-    ...borders.low(),
+    ...mixins.shadows.low,
+    ...mixins.borders.low(),
     padding: 15,
     backgroundColor: colors.neutral,
     ' h5': {
@@ -187,7 +187,7 @@ const rules = stylesheet({
   },
   video: {
     marginBottom: 10,
-    ...mobile({
+    ...mixins.mobile({
       position: 'relative',
       paddingBottom: '50%',
       paddingTop: 30,
@@ -196,7 +196,7 @@ const rules = stylesheet({
     })
   },
   iframe: {
-    ...mobile({
+    ...mixins.mobile({
       position: 'absolute',
       top: 0,
       left: 0,

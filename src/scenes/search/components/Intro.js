@@ -6,7 +6,7 @@ import type { Rule } from 'glamor'
 import { BillAnimation } from './BillAnimation'
 import { Link } from 'shared/components'
 import { local } from 'shared/storage'
-import { stylesheet, borders, mobile } from 'shared/styles'
+import { stylesheet, mixins } from 'shared/styles'
 
 export class Intro extends Component {
   props: {
@@ -70,14 +70,14 @@ const rules = stylesheet({
   },
   actionLinks: {
     marginLeft: 10,
-    ...mobile({
+    ...mixins.mobile({
       display: 'block',
       marginTop: 10,
       marginLeft: 0
     })
   },
   accept: {
-    ...borders.low(['left']),
+    ...mixins.borders.low(['left']),
     marginLeft: 10,
     paddingLeft: 10,
     '> *:last-child': {

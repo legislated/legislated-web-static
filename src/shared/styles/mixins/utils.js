@@ -5,14 +5,14 @@ export const utils = {
     flexDirection: 'column',
     alignItems: 'stretch'
   },
-  inset: (value: number): Object => ({
-    margin: value
-  }),
   fill: (inset: number = 0): Object => ({
     position: 'absolute',
     top: inset,
     left: inset,
     right: inset,
     bottom: inset
+  }),
+  inset: (value: number): Object => ({
+    margin: value
   })
 }

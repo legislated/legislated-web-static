@@ -1,6 +1,6 @@
 // @flow
 import { capitalize } from 'lodash'
-import { colors } from './colors'
+import { colors } from '../colors'
 
 type BorderStyle = {
   borderTop?: string,

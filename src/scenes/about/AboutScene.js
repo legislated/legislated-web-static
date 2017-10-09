@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { Link } from 'shared/components'
-import { stylesheet, colors, shadows, borders } from 'shared/styles'
+import { stylesheet, colors, mixins } from 'shared/styles'
 
 export class AboutScene extends Component {
   render () {
@@ -45,12 +45,12 @@ const rules = stylesheet({
     flexDirection: 'column'
   },
   content: {
-    ...shadows.low,
-    ...borders.low(),
+    ...mixins.shadows.low(),
+    ...mixins.borders.low(),
     padding: 15,
     backgroundColor: colors.neutral,
     '> h1': {
-      ...borders.low(['bottom']),
+      ...mixins.borders.low(['bottom']),
       marginBottom: 15,
       paddingBottom: 15
     },

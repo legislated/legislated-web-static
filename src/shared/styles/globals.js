@@ -2,9 +2,9 @@
 import 'glamor/reset'
 import { each } from 'lodash'
 import { css } from 'glamor'
-import { fonts } from './fonts'
+import { mixins } from './mixins'
 import { colors } from './colors'
-import { query } from './mobile'
+import { query } from './mixins/mobile'
 
 // extra resets
 css.insert(`
@@ -45,11 +45,11 @@ globals({
     fontSize: 20
   },
   h4: {
-    ...fonts.regular,
+    ...mixins.fonts.regular,
     fontSize: 20
   },
   h5: {
-    ...fonts.bold,
+    ...mixins.fonts.bold,
     fontSize: 16
   },
   a: {

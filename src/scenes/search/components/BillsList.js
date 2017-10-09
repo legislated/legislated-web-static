@@ -11,7 +11,7 @@ import { LoadMoreButton } from './LoadMoreButton'
 import { constants } from '../searchRoute'
 import { withLoadMoreArgs, unwrap } from 'shared/relay'
 import { session } from 'shared/storage'
-import { stylesheet, mobile } from 'shared/styles'
+import { stylesheet, mixins } from 'shared/styles'
 import type { Viewer } from 'shared/types'
 
 function format (date: moment): string {
@@ -143,7 +143,7 @@ const rules = stylesheet({
     '> h2': {
       display: 'inline-block',
       marginBottom: 5,
-      ...mobile({
+      ...mixins.mobile({
         marginBottom: 0
       })
     },
@@ -153,7 +153,7 @@ const rules = stylesheet({
         display: 'inline-block',
         marginLeft: 5
       },
-      ...mobile({
+      ...mixins.mobile({
         fontSize: 16,
         ':first-of-type': {
           display: 'none'
@@ -164,7 +164,7 @@ const rules = stylesheet({
   loadMoreButton: {
     alignSelf: 'center',
     marginTop: 30,
-    ...mobile({
+    ...mixins.mobile({
       marginTop: 20
     })
   }

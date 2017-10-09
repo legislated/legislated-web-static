@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
-import { stylesheet, borders } from 'shared/styles'
+import { stylesheet, mixins } from 'shared/styles'
 
 export class Question extends Component {
   props: {
@@ -21,7 +21,7 @@ export class Question extends Component {
 
 const rules = stylesheet({
   question: {
-    ...borders.low(['top']),
+    ...mixins.borders.low(['top']),
     marginTop: 15,
     paddingTop: 15,
     '> h3': {

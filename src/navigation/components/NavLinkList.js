@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { NavLink } from './NavLink'
 import { css } from 'glamor'
 import type { Rule } from 'glamor'
-import { stylesheet, mobile } from 'shared/styles'
+import { stylesheet, mixins } from 'shared/styles'
 
 export class NavLinkList extends Component {
   props: {
@@ -52,21 +52,21 @@ const rules = stylesheet({
     flex: 1,
     display: 'flex',
     justifyContent: 'space-between',
-    ...mobile({
+    ...mixins.mobile({
       flexDirection: 'column',
       justifyContent: 'flex-start'
     })
   },
   secondaryLinks: {
     display: 'flex',
-    ...mobile({
+    ...mixins.mobile({
       flexDirection: 'column'
     })
   },
   link: {
     marginRight: 10,
     fontSize: 20,
-    ...mobile({
+    ...mixins.mobile({
       marginRight: 0
     })
   }

@@ -3,10 +3,10 @@ import { reduce, defaults } from 'lodash'
 import { css } from 'glamor'
 import type { RuleDefinition, RuleProp } from 'glamor'
 
-type RuleDefinitionMap = { [key: string]: RuleDefinition }
-type RulePropMap = { [key: string]: RuleProp }
+type RuleDefinitionMap<K> = { [key: K]: RuleDefinition }
+type RulePropMap<K> = { [key: K]: RuleProp }
 
-export function stylesheet (definitions: RuleDefinitionMap): RulePropMap {
+export function stylesheet<K> (definitions: RuleDefinitionMap<K>): RulePropMap<K> {
   return reduce(definitions, (memo, definition, key) => {
     const def = defaults(definition, { label: key })
     memo[key] = css(def)
