@@ -6,6 +6,8 @@ export type Edge<T> = {
 }
 
 export type PageInfo = {
+  startCursor: string,
+  endCursor: string,
   hasNextPage: boolean
 }
 

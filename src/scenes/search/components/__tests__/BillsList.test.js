@@ -26,7 +26,7 @@ let viewer
 let animated
 
 function loadSubject () {
-  subject = shallow(<BillsList viewer={viewer} animated={animated} />).dive().dive()
+  subject = shallow(<BillsList showsDateRange viewer={viewer} animated={animated} />).dive().dive()
 }
 
 function edges (nodes) {
@@ -95,7 +95,7 @@ describe('#componentWillUnmount', () => {
 describe('#render', () => {
   it('shows the start date', () => {
     loadSubject()
-    expect(element.date()).toHaveText('May 1st to May 7th')
+    expect(element.date()).toIncludeText('May 1st to May 7th')
   })
 
   it('shows the total bill count', () => {

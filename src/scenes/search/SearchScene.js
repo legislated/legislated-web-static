@@ -18,13 +18,23 @@ let SearchScene = class SearchScene extends Component {
 
   state = {
     query: constants.query,
-    disableAnimations: false
+    disableAnimations: false,
+    showsDateRange: true
   }
 
   // events
   searchFieldDidChange = (query: string) => {
     this.setState({ query })
     this.filterBillsForQuery(query)
+  }
+
+  didClickClearDateRange = () => {
+    this.props.relay.refetch({
+      startDate: null,
+      endDate: null
+    }, null, () => {
+      this.setState({ showsDateRange: false })
+    })
   }
 
   // helpers
@@ -45,7 +55,7 @@ let SearchScene = class SearchScene extends Component {
   // lifecycle
   render () {
     const { viewer } = this.props
-    const { query, disableAnimations } = this.state
+    const { query, disableAnimations, showsDateRange } = this.state
 
     return <div {...rules.container}>
       <div {...rules.header}>
@@ -64,6 +74,8 @@ let SearchScene = class SearchScene extends Component {
         {viewer && <BillsList
           viewer={viewer}
           animated={!disableAnimations}
+          onDateRangeCleared={this.didClickClearDateRange}
+          showsDateRange={showsDateRange}
         />}
       </div>
     </div>
@@ -85,7 +97,7 @@ SearchScene = createRefetchContainer(withRouter(SearchScene),
   graphql`
     query SearchSceneQuery(
       $count: Int!, $cursor: String!,
-      $query: String!, $startDate: Time!, $endDate: Time!
+      $query: String!, $startDate: Time, $endDate: Time
     ) {
       viewer {
         ...SearchScene_viewer
