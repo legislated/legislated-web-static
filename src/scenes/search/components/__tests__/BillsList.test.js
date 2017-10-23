@@ -20,28 +20,31 @@ jest.mock('../../searchRoute', () => {
   return { constants }
 })
 
-// subject
 let subject
+let props
 
-const defaultProps = {
-  viewer: {
-    bills: {
-      edges: []
-    }
-  },
-
-  animate: true
+function loadSubject () {
+  subject = shallow(<BillsList {...props} />).dive().dive()
 }
 
-function loadSubject (props) {
-  subject = shallow(<BillsList {...defaultProps} {...props} />).dive().dive()
+function test () {
+  expect(subject).toMatchSnapshot()
 }
 
 function edges (nodes) {
   return nodes.map((node) => ({ node }))
 }
 
-afterEach(() => {
+beforeEach(() => {
+  props = {
+    viewer: {
+      bills: {
+        edges: []
+      }
+    },
+
+    animate: true
+  }
   subject = null
 })
 
@@ -49,7 +52,7 @@ describe('#componentWillMount', () => {
   it('disables animations on pop', () => {
     routerProps.history.action = 'POP'
     loadSubject()
-    expect(subject).toMatchSnapshot()
+    test()
   })
 })
 
@@ -58,40 +61,43 @@ describe('#componentDidMount', () => {
     routerProps.history.action = 'POP'
     loadSubject()
     subject.instance().componentDidMount()
-    expect(subject).toMatchSnapshot()
+    test()
   })
 })
 
 describe('#componentWillUnmount', () => {
   it('stores the visible bill count', () => {
     const bills = [{ id: 1 }, { id: 2 }, { id: 3 }]
-    loadSubject({viewer: {bills: {edges: edges(bills)}}})
+    props.viewer.bills.edges = edges(bills)
+    loadSubject()
     subject.unmount()
-    expect(subject).toMatchSnapshot()
+    test()
   })
 })
 
 describe('#render', () => {
   it('renders correctly', () => {
     loadSubject()
-    expect(subject).toMatchSnapshot()
+    test()
   })
 
   it('shows the total bill count', () => {
-    loadSubject({viewer: {bills: {edges: [], count: 2}}})
-    expect(subject).toMatchSnapshot()
+    props.viewer.bills.count = 2
+    loadSubject()
+    test()
   })
 
   it('shows a bill cell for every bill', () => {
     const bills = [{ id: 1 }, { id: 2 }]
-    loadSubject({viewer: {bills: {edges: edges(bills)}}})
-    expect(subject).toMatchSnapshot()
+    props.viewer.bills.edges = edges(bills)
+    loadSubject()
+    test()
   })
 
   it(`shows the load more button when there's another page`, () => {
     relayPaginationProp.hasMore.mockReturnValue(true)
     loadSubject()
-    expect(subject).toMatchSnapshot()
+    test()
   })
 })
 
@@ -100,14 +106,14 @@ describe('on clicking load more', () => {
     relayPaginationProp.hasMore.mockReturnValue(true)
     loadSubject()
     subject.find('LoadMoreButton').simulate('click')
-    expect(subject).toMatchSnapshot()
+    test()
   })
 
   it('when there is no more to load', () => {
     relayPaginationProp.hasMore.mockReturnValue(false)
     loadSubject()
     subject.find('LoadMoreButton').simulate('click')
-    expect(subject).toMatchSnapshot()
+    test()
   })
 })
 

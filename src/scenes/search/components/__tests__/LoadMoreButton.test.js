@@ -3,57 +3,44 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { LoadMoreButton } from '../LoadMoreButton'
 
-// subject
 let subject
-let hasMore
-let onClick
+let props
 
 function loadSubject () {
-  subject = shallow(<LoadMoreButton hasMore={hasMore} onClick={onClick} />)
+  subject = shallow(<LoadMoreButton {...props} />)
+}
+
+function test () {
+  expect(subject).toMatchSnapshot()
 }
 
 const element = {
   link: () => subject.find('a')
 }
 
-// specs
 beforeEach(() => {
-  hasMore = true
-  onClick = jest.fn()
-})
-
-afterEach(() => {
+  props = {
+    hasMore: true,
+    onClick: jest.fn()
+  }
   subject = null
 })
 
 describe('#render', () => {
-  describe('when there is more to load', () => {
-    beforeEach(loadSubject)
-
-    it('renders the button', () => {
-      expect(element.link()).toBePresent()
-    })
+  it('when there is more to load', () => {
+    loadSubject()
+    test()
   })
 
-  describe('when has more is false', () => {
-    beforeEach(() => {
-      hasMore = false
-      loadSubject()
-    })
-
-    it('hides the button', () => {
-      expect(subject.children()).toBeEmpty()
-    })
+  it('when has more is false', () => {
+    props.hasMore = false
+    loadSubject()
+    test()
   })
-})
 
-describe('on click', () => {
-  beforeEach(() => {
+  it('on click', () => {
     loadSubject()
     element.link().prop('onClick')()
-  })
-
-  it('notifies its parent', () => {
-    expect(onClick).toHaveBeenCalledTimes(1)
+    test()
   })
 })

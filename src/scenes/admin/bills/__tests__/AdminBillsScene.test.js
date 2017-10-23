@@ -10,34 +10,30 @@ jest.mock('shared/auth', () => ({
   auth: { signOut: jest.fn() }
 }))
 
-// subject
 let subject
-let viewer
+let props
 
 function loadSubject () {
-  subject = shallow(<AdminBillsScene viewer={viewer} />).dive().dive()
+  subject = shallow(<AdminBillsScene {...props} />).dive().dive()
 }
 
-// spec
-afterEach(() => {
+beforeEach(() => {
+  props = {
+    viewer: { isAdmin: false }
+  }
   subject = null
 })
 
 describe('#componentWillReceiveProps', () => {
   it('signs the user out if not an admin', () => {
     loadSubject()
-    viewer = { isAdmin: false }
-    subject.instance().componentWillReceiveProps({ viewer })
+    subject.instance().componentWillReceiveProps(props)
     expect(auth.signOut).toHaveBeenCalled()
   })
 
   it('redirects to the admin sign-in when not an admin', () => {
     loadSubject()
-    viewer = { isAdmin: false }
-    subject.instance().componentWillReceiveProps({ viewer })
+    subject.instance().componentWillReceiveProps(props)
     expect(routerProps.history.replace).toHaveBeenCalledWith('/admin/sign-in')
   })
-})
-
-xdescribe('the relay container', () => {
 })

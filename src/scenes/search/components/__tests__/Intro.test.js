@@ -4,55 +4,39 @@ import { shallow } from 'enzyme'
 import { Intro } from '../Intro'
 import { local } from 'shared/storage'
 
-// subject
 let subject
+let props
 
 function loadSubject () {
-  subject = shallow(<Intro />)
+  subject = shallow(<Intro {...props} />)
+}
+
+function test () {
+  expect(subject).toMatchSnapshot()
 }
 
 const element = {
-  animation: () => subject.find('BillAnimation'),
   accept: () => subject.find('Link').at(1)
 }
 
-// spec
-afterEach(() => {
+beforeEach(() => {
+  props = {}
   subject = null
 })
 
-describe('#state', () => {
-  it('defaults to unaccepted', () => {
-    loadSubject()
-    expect(subject).toHaveState('isAccepted', false)
-  })
-})
-
-describe('#componentWillMount', () => {
-  it('marks the intro as visited', () => {
-    loadSubject()
-    expect(local.get('intro-visited')).toEqual('true')
-  })
-})
-
 describe('#render', () => {
-  it(`is blank it's already cleared`, () => {
+  it('renders correctly', () => {
+    loadSubject()
+    test()
+  })
+  it('when it is cleared', () => {
     local.set('intro-cleared', 'true')
     loadSubject()
-    expect(subject.get(0)).toBeFalsy()
+    test()
   })
-})
-
-describe('when the user clicks accept', () => {
-  it('hides the intro', () => {
+  it('when the user clicks accept', () => {
     loadSubject()
     element.accept().simulate('click')
-    expect(element.animation().children()).toHaveLength(0)
-  })
-
-  it('marks the intro as visited', () => {
-    loadSubject()
-    element.accept().simulate('click')
-    expect(local.get('intro-visited')).toEqual('true')
+    test()
   })
 })

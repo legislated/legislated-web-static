@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#render renders properly 1`] = `
+exports[`#render normally 1`] = `
 <div
   data-css-1szwbq4=""
 >
@@ -92,7 +92,7 @@ exports[`#render renders properly when loading 1`] = `
 </div>
 `;
 
-exports[`#render renders properly with query 1`] = `
+exports[`#render with query 1`] = `
 <div
   data-css-1szwbq4=""
 >
@@ -131,57 +131,6 @@ exports[`#render renders properly with query 1`] = `
     </div>
     <BillsList
       animated={true}
-      viewer={
-        Object {
-          "bills": Object {
-            "edges": Array [],
-          },
-        }
-      }
-    />
-  </div>
-</div>
-`;
-
-exports[`on search field change updates the visible query 1`] = `
-<div
-  data-css-1szwbq4=""
->
-  <div
-    data-css-p2q3yg=""
-  >
-    <div
-      data-css-tyhdvi=""
-    />
-    <Intro
-      styles={
-        Object {
-          "data-css-unxum8": "",
-        }
-      }
-    />
-    <SearchField
-      onChange={[Function]}
-      styles={
-        Object {
-          "data-css-unxum8": "",
-        }
-      }
-      value="foo"
-    />
-  </div>
-  <div
-    data-css-7551rz=""
-  >
-    <div
-      data-css-194orap=""
-    >
-      <LoadingIndicator
-        isLoading={false}
-      />
-    </div>
-    <BillsList
-      animated={false}
       viewer={
         Object {
           "bills": Object {

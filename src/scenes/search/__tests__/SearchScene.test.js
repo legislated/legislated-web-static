@@ -6,41 +6,44 @@ import { relayRefetchProp } from 'mocks/relayProps'
 
 const { anything } = expect
 
-// subject
 let subject
+let props
 
-const defaultProps = {
-  viewer: {
-    bills: {
-      edges: []
+function loadSubject () {
+  subject = shallow(<SearchScene {...props} />).dive().dive()
+}
+
+function test () {
+  expect(subject).toMatchSnapshot()
+}
+
+beforeEach(() => {
+  props = {
+    viewer: {
+      bills: {
+        edges: []
+      }
     }
   }
-}
-
-function loadSubject (props) {
-  subject = shallow(<SearchScene {...defaultProps} {...props} />).dive().dive()
-}
-
-// specs
-afterEach(() => {
   subject = null
 })
 
 describe('#render', () => {
-  it('renders properly', () => {
+  it('normally', () => {
     loadSubject()
-    expect(subject).toMatchSnapshot()
+    test()
   })
 
-  it('renders properly with query', () => {
+  it('with query', () => {
     loadSubject()
     subject.setState({ query: 'foo' })
-    expect(subject).toMatchSnapshot()
+    test()
   })
 
   it('renders properly when loading', () => {
-    loadSubject({ viewer: null })
-    expect(subject).toMatchSnapshot()
+    props.viewer = null
+    loadSubject()
+    test()
   })
 })
 
@@ -48,7 +51,6 @@ describe('on search field change', () => {
   it('updates the visible query', () => {
     loadSubject()
     subject.find('SearchField').simulate('change', 'foo')
-    expect(subject).toMatchSnapshot()
     expect(relayRefetchProp.refetch).toHaveBeenLastCalledWith({ query: 'foo' }, null, anything())
   })
 })

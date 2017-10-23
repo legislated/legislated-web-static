@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#render renders correctly 1`] = `
+<div
+  data-css-14z4k0p=""
+>
+  <div />
+  <h1>
+    What's important to you?
+  </h1>
+  <div
+    data-css-1l4c2h5=""
+  >
+    <FontAwesome
+      name="search"
+    />
+    <input
+      data-css-6sarxw=""
+      name="search-field"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder="health care, HB2364"
+      type="text"
+      value="test value"
+    />
+  </div>
+</div>
+`;
+
+exports[`#render when it is focused 1`] = `
+<div
+  data-css-14z4k0p=""
+>
+  <div />
+  <h1>
+    What's important to you?
+  </h1>
+  <div
+    data-css-i3g58o=""
+  >
+    <FontAwesome
+      name="search"
+    />
+    <input
+      data-css-6sarxw=""
+      name="search-field"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder="health care, HB2364"
+      type="text"
+      value="test value"
+    />
+  </div>
+</div>
+`;

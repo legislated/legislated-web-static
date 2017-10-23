@@ -3,53 +3,41 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { SearchField } from '../SearchField'
 
-// subject
 let subject
-let onChange
+let props
 
 function loadSubject () {
-  onChange = jest.fn()
-  subject = shallow(<SearchField value={'test value'} onChange={onChange} />)
+  subject = shallow(<SearchField {...props} />)
+}
+
+function test () {
+  expect(subject).toMatchSnapshot()
 }
 
 const element = {
   field: () => subject.find('div > div').at(1),
-  input: () => subject.find(`input[name='search-field']`),
+  input: () => subject.find("input[name='search-field']"),
   icon: () => subject.find('FontAwesome')
 }
 
-// specs
-afterEach(() => {
+beforeEach(() => {
+  props = {
+    value: 'test value',
+    onChange: jest.fn()
+  }
   subject = null
 })
 
-describe('#state', () => {
-  beforeEach(loadSubject)
-
-  it('starts unfocused', () => {
-    expect(subject).toHaveState('isFocused', false)
-  })
-})
-
 describe('#render', () => {
-  beforeEach(loadSubject)
-
-  it(`sets in the input's value`, () => {
-    expect(element.input()).toHaveValue('test value')
+  it('renders correctly', () => {
+    loadSubject()
+    test()
   })
 
-  it('does not have the focused style', () => {
-    expect(element.field()).not.toMatchRule(/174vovc/)
-  })
-
-  describe(`when it's focused`, () => {
-    beforeEach(() => {
-      subject.setState({ isFocused: true })
-    })
-
-    it('adds the style to the field', () => {
-      expect(element.field()).toMatchRule(/i3g58o/)
-    })
+  it("when it is focused", () => {
+    loadSubject()
+    subject.setState({ isFocused: true })
+    test()
   })
 })
 
@@ -62,7 +50,7 @@ describe('when the value changes', () => {
   })
 
   it('notifies its parent', () => {
-    expect(onChange).toHaveBeenLastCalledWith('foo')
+    expect(props.onChange).toHaveBeenLastCalledWith('foo')
   })
 })
 

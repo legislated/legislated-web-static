@@ -4,22 +4,20 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { BillCell } from '../BillCell'
 
-// subject
 let subject
-let bill
+let props
 
 function loadSubject () {
-  subject = shallow(<BillCell bill={bill} />).dive()
+  subject = shallow(<BillCell {...props} />).dive()
 }
 
-// specs
-afterEach(() => {
-  subject = null
-})
+function test () {
+  expect(subject).toMatchSnapshot()
+}
 
-describe('#render', () => {
-  it('renders properly', () => {
-    bill = {
+beforeEach(() => {
+  props = {
+    bill: {
       documentNumber: 'HB1234',
       title: 'Foo',
       summary: 'A bill, fantastic',
@@ -30,17 +28,19 @@ describe('#render', () => {
         date: '2010-01-01T00:00:00-06:00'
       }
     }
+  }
+  subject = null
+})
 
+describe('#render', () => {
+  it('renders properly', () => {
     loadSubject()
-    expect(subject).toMatchSnapshot()
+    test()
   })
 
   it('renders properly when data is missing', () => {
-    assign(bill, {
-      summary: ''
-    })
-
+    props.bill.summary = null
     loadSubject()
-    expect(subject).toMatchSnapshot()
+    test()
   })
 })
