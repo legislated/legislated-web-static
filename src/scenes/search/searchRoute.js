@@ -18,7 +18,7 @@ export const searchRoute: RelayRouteConfig = {
   query: graphql`
     query searchRouteQuery(
       $count: Int!, $cursor: String!
-      $query: String!, $startDate: Time!, $endDate: Time!
+      $query: String!, $startDate: Time, $endDate: Time
     ) {
       viewer {
         ...SearchScene_viewer

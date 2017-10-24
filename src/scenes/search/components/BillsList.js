@@ -5,10 +5,12 @@ import type { RelayPaginationProp } from 'react-relay'
 import { withRouter } from 'react-router-dom'
 import type { ContextRouter } from 'react-router-dom'
 import type moment from 'moment'
+import FontAwesome from 'react-fontawesome'
 import { BillCell } from './BillCell'
 import { BillAnimation, billRule } from './BillAnimation'
 import { LoadMoreButton } from './LoadMoreButton'
 import { constants } from '../searchRoute'
+import { Link } from 'shared/components'
 import { withLoadMoreArgs, unwrap } from 'shared/relay'
 import { session } from 'shared/storage'
 import { stylesheet, mixins } from 'shared/styles'
@@ -22,7 +24,9 @@ let BillsList = class BillsList extends Component {
   props: {
     viewer: Viewer,
     animated: Boolean,
-    relay: RelayPaginationProp
+    relay: RelayPaginationProp,
+    showsDateRange: Boolean,
+    onDateRangeCleared: () => void
   } & ContextRouter
 
   state = {
@@ -65,7 +69,7 @@ let BillsList = class BillsList extends Component {
 
   render () {
     const { disableAnimations } = this.state
-    const { relay, viewer, animated } = this.props
+    const { relay, viewer, animated, showsDateRange, onDateRangeCleared } = this.props
     const { bills } = viewer
     const { count } = bills
     const { startDate, endDate } = constants
@@ -73,7 +77,12 @@ let BillsList = class BillsList extends Component {
     return <div {...rules.container}>
       <div {...rules.header}>
         <h2>Upcoming Bills</h2>
-        <div>{`${format(startDate)} to ${format(endDate)}`}</div>
+        {showsDateRange && <div {...rules.date}>
+          <span>{`${format(startDate)} to ${format(endDate)}`}</span>
+          <Link onClick={onDateRangeCleared}>
+            <FontAwesome name='times' />
+          </Link>
+        </div>}
         <div>{`Found ${count} result${count === 1 ? '' : 's'}.`}</div>
       </div>
       <BillAnimation disable={!animated || disableAnimations}>
@@ -103,8 +112,8 @@ BillsList = createPaginationContainer(withRouter(BillsList),
       ) @connection(key: "BillsList_bills") {
         count
         pageInfo {
-          hasNextPage
           endCursor
+          hasNextPage
         }
         edges {
           node {
@@ -122,7 +131,7 @@ BillsList = createPaginationContainer(withRouter(BillsList),
     query: graphql`
       query BillsListQuery(
         $count: Int!, $cursor: String!,
-        $query: String!, $startDate: Time!, $endDate: Time!
+        $query: String!, $startDate: Time, $endDate: Time
       ) {
         viewer {
           ...BillsList_viewer
@@ -149,16 +158,19 @@ const rules = stylesheet({
     },
     '> div': {
       fontSize: 18,
-      ':first-of-type': {
-        display: 'inline-block',
-        marginLeft: 5
-      },
       ...mixins.mobile({
-        fontSize: 16,
-        ':first-of-type': {
-          display: 'none'
-        }
+        fontSize: 16
       })
+    }
+  },
+  date: {
+    display: 'inline-block',
+    ...mixins.mobile({
+      display: 'none'
+    }),
+    '> span': {
+      marginLeft: 5,
+      marginRight: 5
     }
   },
   loadMoreButton: {
