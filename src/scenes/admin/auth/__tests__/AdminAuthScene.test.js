@@ -10,11 +10,11 @@ jest.mock('shared/auth', () => ({
   auth: { signIn: jest.fn() }
 }))
 
-// subject
 let subject
+let props
 
 function loadSubject () {
-  subject = shallow(<AdminAuthScene />).dive()
+  subject = shallow(<AdminAuthScene {...props} />).dive()
 }
 
 const element = {
@@ -23,8 +23,8 @@ const element = {
   submit: () => subject.find('Button')
 }
 
-// spec
-afterEach(() => {
+beforeEach(() => {
+  props = {}
   subject = null
 })
 

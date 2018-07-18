@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#render on click 1`] = `
+<a
+  data-css-1kk31r9=""
+  onClick={[Function]}
+>
+  Load More
+</a>
+`;
+
+exports[`#render when has more is false 1`] = `null`;
+
+exports[`#render when there is more to load 1`] = `
+<a
+  data-css-1kk31r9=""
+  onClick={[Function]}
+>
+  Load More
+</a>
+`;

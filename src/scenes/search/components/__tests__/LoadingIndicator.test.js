@@ -3,29 +3,33 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { LoadingIndicator } from '../LoadingIndicator'
 
-// subject
 let subject
-let isLoading
+let props
 
 function loadSubject () {
-  subject = shallow(<LoadingIndicator isLoading={isLoading} />)
+  subject = shallow(<LoadingIndicator {...props} />)
 }
 
-// specs
-afterEach(() => {
+function test () {
+  expect(subject).toMatchSnapshot()
+}
+
+beforeEach(() => {
+  props = {
+    isLoading: false
+  }
   subject = null
 })
 
 describe('#render', () => {
-  it('shows the indicator when loading', () => {
-    isLoading = true
+  it('when loading', () => {
+    props.isLoading = true
     loadSubject()
-    expect(subject.children()).toBePresent()
+    test()
   })
 
-  it('hides the indiciator when not loading', () => {
-    isLoading = false
+  it('when not loading', () => {
     loadSubject()
-    expect(subject.children()).toBeEmpty()
+    test()
   })
 })

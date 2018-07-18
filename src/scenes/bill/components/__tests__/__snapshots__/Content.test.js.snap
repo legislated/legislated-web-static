@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#render normally 1`] = `
+<div>
+  <div
+    data-css-1wwvkuu=""
+  >
+    <section>
+      <h1>
+        Foo
+      </h1>
+      <h4>
+        HB1234
+      </h4>
+    </section>
+    <section>
+      <CopyLink
+        value="about:blank"
+      />
+    </section>
+  </div>
+  <div
+    data-css-1bq0tws=""
+  >
+    <div
+      data-css-1qww4bd=""
+    >
+      <Element
+        label="State Synopsis"
+      >
+        A bill, fantastic
+      </Element>
+    </div>
+    <div
+      data-css-1qww4bd=""
+    >
+      <Element
+        label="Hearing Date"
+      >
+        <span>
+          Tomorrow at 3:35 AM
+        </span>
+        <span
+          data-css-1fo47jf=""
+        >
+          (11 hours left)
+        </span>
+      </Element>
+      <Element
+        label="Committee"
+      >
+        Many Pointed Bills
+      </Element>
+    </div>
+  </div>
+  <Actions
+    bill={
+      Object {
+        "committee": Object {
+          "name": "Many Pointed Bills",
+        },
+        "documentNumber": "HB1234",
+        "hearing": Object {
+          "date": "2017-10-24T03:35:46.636Z",
+        },
+        "summary": "A bill, fantastic",
+        "title": "Foo",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`#render when the date is over 23 hours away 1`] = `
+<div>
+  <div
+    data-css-1wwvkuu=""
+  >
+    <section>
+      <h1>
+        Foo
+      </h1>
+      <h4>
+        HB1234
+      </h4>
+    </section>
+    <section>
+      <CopyLink
+        value="about:blank"
+      />
+    </section>
+  </div>
+  <div
+    data-css-1bq0tws=""
+  >
+    <div
+      data-css-1qww4bd=""
+    >
+      <Element
+        label="State Synopsis"
+      >
+        A bill, fantastic
+      </Element>
+    </div>
+    <div
+      data-css-1qww4bd=""
+    >
+      <Element
+        label="Hearing Date"
+      >
+        <span>
+          Tomorrow at 3:47 PM
+        </span>
+      </Element>
+      <Element
+        label="Committee"
+      >
+        Many Pointed Bills
+      </Element>
+    </div>
+  </div>
+  <Actions
+    bill={
+      Object {
+        "committee": Object {
+          "name": "Many Pointed Bills",
+        },
+        "documentNumber": "HB1234",
+        "hearing": Object {
+          "date": "2017-10-24T15:47:46.674Z",
+        },
+        "summary": "A bill, fantastic",
+        "title": "Foo",
+      }
+    }
+  />
+</div>
+`;

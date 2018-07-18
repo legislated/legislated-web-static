@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#render when loading 1`] = `
+<BillAnimation
+  disableAppear={true}
+>
+  <div
+    data-css-1judezb=""
+  >
+    <div
+      data-css-1f89q0c=""
+    />
+    <div
+      data-css-15mi9ej=""
+    />
+  </div>
+</BillAnimation>
+`;
+
+exports[`#render when not loading 1`] = `
+<BillAnimation
+  disableAppear={true}
+/>
+`;

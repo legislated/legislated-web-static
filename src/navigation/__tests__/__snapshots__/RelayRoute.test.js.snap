@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#render propogates 'exact' 1`] = `
+<Route
+  component={[Function]}
+  exact={true}
+  path="/test/path"
+/>
+`;
+
+exports[`#render propogates the path 1`] = `
+<Route
+  component={[Function]}
+  path="/test/path"
+/>
+`;

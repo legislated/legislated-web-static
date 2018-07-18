@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#render normally 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-p2q3yg=""
+  >
+    <div
+      data-css-tyhdvi=""
+    />
+    <Intro
+      styles={
+        Object {
+          "data-css-unxum8": "",
+        }
+      }
+    />
+    <SearchField
+      onChange={[Function]}
+      styles={
+        Object {
+          "data-css-unxum8": "",
+        }
+      }
+      value=""
+    />
+  </div>
+  <div
+    data-css-7551rz=""
+  >
+    <div
+      data-css-194orap=""
+    >
+      <LoadingIndicator
+        isLoading={false}
+      />
+    </div>
+    <BillsList
+      animated={true}
+      viewer={
+        Object {
+          "bills": Object {
+            "edges": Array [],
+          },
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`#render renders properly when loading 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-p2q3yg=""
+  >
+    <div
+      data-css-tyhdvi=""
+    />
+    <Intro
+      styles={
+        Object {
+          "data-css-unxum8": "",
+        }
+      }
+    />
+    <SearchField
+      onChange={[Function]}
+      styles={
+        Object {
+          "data-css-unxum8": "",
+        }
+      }
+      value=""
+    />
+  </div>
+  <div
+    data-css-7551rz=""
+  >
+    <div
+      data-css-194orap=""
+    >
+      <LoadingIndicator
+        isLoading={true}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`#render with query 1`] = `
+<div
+  data-css-1szwbq4=""
+>
+  <div
+    data-css-p2q3yg=""
+  >
+    <div
+      data-css-tyhdvi=""
+    />
+    <Intro
+      styles={
+        Object {
+          "data-css-unxum8": "",
+        }
+      }
+    />
+    <SearchField
+      onChange={[Function]}
+      styles={
+        Object {
+          "data-css-unxum8": "",
+        }
+      }
+      value="foo"
+    />
+  </div>
+  <div
+    data-css-7551rz=""
+  >
+    <div
+      data-css-194orap=""
+    >
+      <LoadingIndicator
+        isLoading={false}
+      />
+    </div>
+    <BillsList
+      animated={true}
+      viewer={
+        Object {
+          "bills": Object {
+            "edges": Array [],
+          },
+        }
+      }
+    />
+  </div>
+</div>
+`;
